@@ -46,12 +46,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Domatio</a>
+          <a class="brand" href="/">Dom&aacute;tio</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
+              <li><%= link_to "Link1", "#"  %></li>
+              <li><%= link_to "Link2", "#"  %></li>
+              <li><%= link_to "Link3", "#"  %></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -60,27 +60,14 @@
 
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span9">
-          <%= bootstrap_flash %>
-          <%= yield %>
-        </div>
+        <%= bootstrap_flash %>
+        <%= yield %>
       </div><!--/row-->
 
       <footer>
-        <p>&copy; Company 2013</p>
+        <p>&copy; 2013 Dom&aacute;tio -- <%= link_to "About", "/about"  %> | <%= link_to "GitHub", "https://github.com/ryanlevi/domatio"  %></p>
       </footer>
 
     </div> <!-- /container -->
-
   </body>
 </html>

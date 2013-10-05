@@ -53,6 +53,14 @@
               <li><%= link_to "Link2", "#"  %></li>
               <li><%= link_to "Link3", "#"  %></li>
             </ul>
+            <div class="pull-right">
+              <% if current_user %>
+              <ul class="nav">
+                <li><%= link_to "Welcome #{current_user.email}!", "#"  %></li>
+                <li><%= link_to "Logout", "/logout" %> </li>
+              </ul>
+              <% end %>
+            </div>
           </div><!--/.nav-collapse -->
         </div>
       </div>

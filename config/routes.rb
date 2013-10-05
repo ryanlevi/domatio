@@ -1,7 +1,17 @@
 Domatio::Application.routes.draw do
+  get "password_resets/new"
+
   get "home/about"
   match '/about' => 'home#about'
 
+  get "logout" => "sessions#destroy", :as => "logout"
+  get "login" => "sessions#new", :as => "login"
+  get "signup" => "users#new", :as => "signup"
+  root :to => "home#index"
+  resources :users
+  resources :sessions
+  resources :password_resets
+  
   get "home/index"
 
   # The priority is based upon order of creation:

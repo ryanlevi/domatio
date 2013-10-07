@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      debugger
       UserMailer.welcome_email(@user).deliver
       redirect_to root_url, :notice => "Signed Up!"
     else

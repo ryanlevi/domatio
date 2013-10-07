@@ -21,12 +21,13 @@ Domatio::Application.configure do
 
 # these options are only needed if you choose smtp delivery
   config.action_mailer.smtp_settings = {
-      :address        => 'mail.hostag.ch',
-      :port           => 25,
-      :domain         => 'domatio.com',
-      :authentication => :login,
-      :user_name      => 'cs48@marcjuch.li',
-      :password       => 'domatio'
+      :address        => 'smtp.gmail.com',
+      :port           => 587,
+      :domain         => 'gmail.com',
+      :authentication => 'plain',
+      :user_name      => 'domatio.app',
+      :password       => 'costanzo',
+      :enable_starttls_auto => true
   }
 
   # Print deprecation notices to the Rails logger

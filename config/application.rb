@@ -67,5 +67,22 @@ module Domatio
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Don't care if the mailer can't send
+    config.action_mailer.raise_delivery_errors = true
+
+    # set delivery method to :smtp, :sendmail or :test
+    config.action_mailer.delivery_method = :smtp
+
+    # these options are only needed if you choose smtp delivery
+    config.action_mailer.smtp_settings = {
+        :address        => 'smtp.gmail.com',
+        :port           => 587,
+        :domain         => 'gmail.com',
+        :authentication => 'plain',
+        :user_name      => 'domatio.app',
+        :password       => 'costanzo',
+        :enable_starttls_auto => true
+    }
   end
 end

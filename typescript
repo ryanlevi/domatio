@@ -1,144 +1,0 @@
-Script started on Sun Oct  6 21:40:50 2013
-[1m[7m%[27m[1m[0m                                                                               ]2;Marc@mb0: ~/Sites/domatio]1;~/Sites/domatio[0m[27m[24m[J[01;31m➜ [01;32m [36mdomatio [01;34mgit:([31mmaster[34m) [33m✗[00m[00m[01;34m [00m[Kscript/generate mailer user_mailer
-]2;script/generate mailer user_mailer]1;script/generatezsh: no such file or directory: script/generate
-[1m[7m%[27m[1m[0m                                                                               ]2;Marc@mb0: ~/Sites/domatio]1;~/Sites/domatio[0m[27m[24m[J[01;31m➜ [01;32m [36mdomatio [01;34mgit:([31mmaster[34m) [33m✗[00m[00m[01;34m [00m[Klls
-]2;ls -G]1;lsGemfile      README.rdoc  [1m[36mconfig[39;49m[0m       [1m[36mdoc[39;49m[0m          [1m[36mpublic[39;49m[0m       [1m[36mtmp[39;49m[0m
-Gemfile.lock Rakefile     config.ru    [1m[36mlib[39;49m[0m          [1m[36mscript[39;49m[0m       typescript
-Gemfile~     [1m[36mapp[39;49m[0m          [1m[36mdb[39;49m[0m           [1m[36mlog[39;49m[0m          [1m[36mspec[39;49m[0m         [1m[36mvendor[39;49m[0m
-[1m[7m%[27m[1m[0m                                                                               ]2;Marc@mb0: ~/Sites/domatio]1;~/Sites/domatio[0m[27m[24m[J[01;31m➜ [01;32m [36mdomatio [01;34mgit:([31mmaster[34m) [33m✗[00m[00m[01;34m [00m[Klls -l
-]2;ls -G -l]1;lstotal 56
--rw-r--r--   1 Marc  staff   768  5 Okt 14:33 Gemfile
--rw-r--r--   1 Marc  staff  3511  5 Okt 14:33 Gemfile.lock
--rw-r--r--   1 Marc  staff   651  3 Okt 11:33 Gemfile~
--rw-r--r--   1 Marc  staff   221  5 Okt 14:33 README.rdoc
--rw-r--r--   1 Marc  staff   272  3 Okt 10:59 Rakefile
-drwxr-xr-x   8 Marc  staff   272  3 Okt 10:59 [1m[36mapp[39;49m[0m
-drwxr-xr-x  10 Marc  staff   340  5 Okt 14:33 [1m[36mconfig[39;49m[0m
--rw-r--r--   1 Marc  staff   157  3 Okt 10:59 config.ru
-drwxr-xr-x   6 Marc  staff   204  5 Okt 14:33 [1m[36mdb[39;49m[0m
-drwxr-xr-x   3 Marc  staff   102  3 Okt 10:59 [1m[36mdoc[39;49m[0m
-drwxr-xr-x   4 Marc  staff   136  3 Okt 10:59 [1m[36mlib[39;49m[0m
-drwxr-xr-x   4 Marc  staff   136  3 Okt 12:04 [1m[36mlog[39;49m[0m
-drwxr-xr-x   8 Marc  staff   272  5 Okt 14:33 [1m[36mpublic[39;49m[0m
-drwxr-xr-x   3 Marc  staff   102  3 Okt 10:59 [1m[36mscript[39;49m[0m
-drwxr-xr-x   9 Marc  staff   306  5 Okt 14:33 [1m[36mspec[39;49m[0m
-drwxr-xr-x   6 Marc  staff   204  3 Okt 12:04 [1m[36mtmp[39;49m[0m
--rw-r--r--   1 Marc  staff   730  6 Okt 21:41 typescript
-drwxr-xr-x   4 Marc  staff   136  3 Okt 10:59 [1m[36mvendor[39;49m[0m
-[1m[7m%[27m[1m[0m                                                                               ]2;Marc@mb0: ~/Sites/domatio]1;~/Sites/domatio[0m[27m[24m[J[01;31m➜ [01;32m [36mdomatio [01;34mgit:([31mmaster[34m) [33m✗[00m[00m[01;34m [00m[Krrails emails
-]2;rails emails]1;rails[31mYour Ruby version is 1.8.7, but your Gemfile specified 1.9.3[0m
-[1m[7m%[27m[1m[0m                                                                               ]2;Marc@mb0: ~/Sites/domatio]1;~/Sites/domatio[0m[27m[24m[J[01;31m➜ [01;32m [36mdomatio [01;34mgit:([31mmaster[34m) [33m✗[00m[00m[01;34m [00m[Kbbash
-]2;bash]1;bash[?1034hbash-3.2$ r[Kls
-Gemfile		app		lib		tmp
-Gemfile.lock	config		log		typescript
-Gemfile~	config.ru	public		vendor
-README.rdoc	db		script
-Rakefile	doc		spec
-bash-3.2$ rails emails
-[31mYour Ruby version is 1.8.7, but your Gemfile specified 1.9.3[0m
-bash-3.2$ vi p[K.[K~/.profile
-[m[?1049h[?1h=[1;41r[?12;25h[?12l[?25h[27m[m[H[2J[?25l[41;1H"~/.profile" 20L, 786C[>c[1;1H[1m ~/.profile [m[7m                                                                   [m[2;1H[33m  1 
-  2 [m[36m# MacPorts Installer addition on 2011-08-07_at_23:50:23: adding an approprii[m[4;1H[33m    [m[36mate PATH variable for use with MacPorts.[m
-[33m  3 export[m[36m PATH=/opt/local/bin:/opt/local/sbin:[m[35m$PATH[m
-[33m  4 [m[36m# Finished adapting your PATH environment variable for use with MacPorts.[m
-[33m  5 
-  6 
-  7 [m[36m##[m
-[33m  8 [m[36m# Your previous /Users/Marc/.profile file was backed up as /Users/Marc/.proo[m[11;1H[33m    [m[36mfile.macports-saved_2011-08-08_at_00:36:25[m
-[33m  9 [m[36m##[m
-[33m 10 
- 11 [m[36m# MacPorts Installer addition on 2011-08-08_at_00:36:25: adding an approprii[m[15;1H[33m    [m[36mate PATH variable for use with MacPorts.[m
-[33m 12 export[m[36m PATH=/opt/local/bin:/opt/local/sbin:[m[35m$PATH[m
-[33m 13 [m[36m# Finished adapting your PATH environment variable for use with MacPorts.[m
-[33m 14 
- 15 export[m[36m PATH=[m[35m$PATH[m[36m:/usr/local/git/bin[m
-[33m 16 export[m[36m PATH=[m[33m"/usr/local/mysql/bin:[m[35m$PATH[m[33m"
- 17 export[m[36m PATH=[m[33m"/usr/local/php5/bin:[m[35m$PATH[m[33m"
- 18 export[m[36m PATH=[m[33m"[m[35m$HOME[m[33m/.rbenv/bin:[m[35m$PATH[m[33m"
- 19 eval[m [33m"[m[1m[37m[41m$([m[35mrbenv init -[m[1m[37m[41m)[m[33m"
- 20 [m
-[34m~                                                                              [26;1H~                                                                              [27;1H~                                                                              [28;1H~                                                                              [29;1H~                                                                              [30;1H~                                                                              [31;1H~                                                                              [32;1H~                                                                              [33;1H~                                                                              [34;1H~                                                                              [35;1H~                                                                              [36;1H~                                                                              [37;1H~                                                                              [38;1H~                                                                              [39;1H~                                                                              [40;1H~                                                                              [m[41;62H19,22[9CAll]2;.profile (~) - VIM]1;.profile[23;26H[?12l[?25h[?25l[41;52H:[23;26H[41;1H[K[41;1H:[?12l[?25hq[?25l]2;Thanks for flying Vim]1;xterm[41;1H[K[41;1H[?1l>[?12l[?25h[?1049lbash-3.2$ export PATH="$HOME/.rbenv/bin:$PATH"
-bash-3.2$ 
-bash-3.2$ 
-bash-3.2$ export PATH="$HOME/.rbenv/bin:$PATH"
-bash-3.2$ 
-bash-3.2$ 
-bash-3.2$ clear
-[H[2Jbash-3.2$ clearexport PATH="$HOME/.rbenv/bin:$PATH"
-bash-3.2$ vi ~.[K/.profile
-[m[?1049h[?1h=[1;41r[?12;25h[?12l[?25h[27m[m[H[2J[?25l[41;1H"~/.profile" 20L, 786C[>c[1;1H[1m ~/.profile [m[7m                                                                   [m[2;1H[33m  1 
-  2 [m[36m# MacPorts Installer addition on 2011-08-07_at_23:50:23: adding an approprii[m[4;1H[33m    [m[36mate PATH variable for use with MacPorts.[m
-[33m  3 export[m[36m PATH=/opt/local/bin:/opt/local/sbin:[m[35m$PATH[m
-[33m  4 [m[36m# Finished adapting your PATH environment variable for use with MacPorts.[m
-[33m  5 
-  6 
-  7 [m[36m##[m
-[33m  8 [m[36m# Your previous /Users/Marc/.profile file was backed up as /Users/Marc/.proo[m[11;1H[33m    [m[36mfile.macports-saved_2011-08-08_at_00:36:25[m
-[33m  9 [m[36m##[m
-[33m 10 
- 11 [m[36m# MacPorts Installer addition on 2011-08-08_at_00:36:25: adding an approprii[m[15;1H[33m    [m[36mate PATH variable for use with MacPorts.[m
-[33m 12 export[m[36m PATH=/opt/local/bin:/opt/local/sbin:[m[35m$PATH[m
-[33m 13 [m[36m# Finished adapting your PATH environment variable for use with MacPorts.[m
-[33m 14 
- 15 export[m[36m PATH=[m[35m$PATH[m[36m:/usr/local/git/bin[m
-[33m 16 export[m[36m PATH=[m[33m"/usr/local/mysql/bin:[m[35m$PATH[m[33m"
- 17 export[m[36m PATH=[m[33m"/usr/local/php5/bin:[m[35m$PATH[m[33m"
- 18 export[m[36m PATH=[m[33m"[m[35m$HOME[m[33m/.rbenv/bin:[m[35m$PATH[m[33m"
- 19 eval[m [33m"[m[1m[37m[41m$([m[35mrbenv init -[m[1m[37m[41m)[m[33m"
- 20 [m
-[34m~                                                                              [26;1H~                                                                              [27;1H~                                                                              [28;1H~                                                                              [29;1H~                                                                              [30;1H~                                                                              [31;1H~                                                                              [32;1H~                                                                              [33;1H~                                                                              [34;1H~                                                                              [35;1H~                                                                              [36;1H~                                                                              [37;1H~                                                                              [38;1H~                                                                              [39;1H~                                                                              [40;1H~                                                                              [m[41;62H19,22[9CAll]2;.profile (~) - VIM]1;.profile[23;26H[?12l[?25h[?25l[41;52H~@#[23;26H[41;52H   [23;24H[41;66H0[23;24H[?12l[?25h[?25l[41;52H:[23;24H[41;1H[K[41;1H:[?12l[?25hq[?25l]2;Thanks for flying Vim]1;xterm[41;1H[K[41;1H[?1l>[?12l[?25h[?1049lbash-3.2$ eval "$(rbenv init -)"
-bash-3.2$ eval "$(rbenv init -)"[C[C[C[C[C[C[C[C[C[C[9Pvi ~/.profile[C[C[C[C[C[C[C[C[C[Cexport PATH="$HOME/.rbenv/bin:$PATH"[C[C[C[C[C[C[C[C[C[Cclear[Kexport PATH="$HOME/.rbenv/bin:$PATH"[C[C[C[C[C[C[C[C[C[C[23Pvi ~/.profile[C[C[C[C[C[C[C[C[C[C[1Prails emails[C[C[C[C[C[C[C[C[C[Cls[Krails emails
-Error: Command not recognized
-Usage: rails COMMAND [ARGS]
-
-The most common rails commands are:
- generate    Generate new code (short-cut alias: "g")
- console     Start the Rails console (short-cut alias: "c")
- server      Start the Rails server (short-cut alias: "s")
- dbconsole   Start a console for the database specified in config/database.yml
-             (short-cut alias: "db")
- new         Create a new Rails application. "rails new my_app" creates a
-             new application called MyApp in "./my_app"
-
-In addition to those, there are:
- application  Generate the Rails application code
- destroy      Undo code generated with "generate" (short-cut alias: "d")
- benchmarker  See how fast a piece of code runs
- profiler     Get profile information from a piece of code
- plugin       Install a plugin
- runner       Run a piece of code in the application environment (short-cut alias: "r")
-
-All commands can be run with -h (or --help) for more information.
-bash-3.2$ ruby scp[Kript/generate mail UserNa[K[KMailer[K[K[K[K[K[K[K[K[K[Kuser_mailer
-ruby: No such file or directory -- script/generate (LoadError)
-bash-3.2$ ruby script/generate mail user_mailer
-bash-3.2$ cd e[K[K[K[Kls -la
-total 96
-drwxr-xr-x  25 Marc  staff    850  6 Okt 21:40 .
-drwxr-xr-x+ 28 Marc  staff    952  4 Okt 14:37 ..
-drwxr-xr-x   3 Marc  staff    102  3 Okt 12:04 .bundle
-drwxr-xr-x  16 Marc  staff    544  6 Okt 21:42 .git
--rw-r--r--   1 Marc  staff    430  3 Okt 10:59 .gitignore
--rw-r--r--   1 Marc  staff      8  3 Okt 10:59 .rspec
--rw-r--r--   1 Marc  staff     11  3 Okt 11:57 .ruby-version
--rw-r--r--   1 Marc  staff    768  5 Okt 14:33 Gemfile
--rw-r--r--   1 Marc  staff   3511  5 Okt 14:33 Gemfile.lock
--rw-r--r--   1 Marc  staff    651  3 Okt 11:33 Gemfile~
--rw-r--r--   1 Marc  staff    221  5 Okt 14:33 README.rdoc
--rw-r--r--   1 Marc  staff    272  3 Okt 10:59 Rakefile
-drwxr-xr-x   8 Marc  staff    272  3 Okt 10:59 app
-drwxr-xr-x  10 Marc  staff    340  5 Okt 14:33 config
--rw-r--r--   1 Marc  staff    157  3 Okt 10:59 config.ru
-drwxr-xr-x   6 Marc  staff    204  5 Okt 14:33 db
-drwxr-xr-x   3 Marc  staff    102  3 Okt 10:59 doc
-drwxr-xr-x   4 Marc  staff    136  3 Okt 10:59 lib
-drwxr-xr-x   4 Marc  staff    136  3 Okt 12:04 log
-drwxr-xr-x   8 Marc  staff    272  5 Okt 14:33 public
-drwxr-xr-x   3 Marc  staff    102  3 Okt 10:59 script
-drwxr-xr-x   9 Marc  staff    306  5 Okt 14:33 spec
-drwxr-xr-x   6 Marc  staff    204  3 Okt 12:04 tmp
--rw-r--r--   1 Marc  staff  11931  6 Okt 21:45 typescript
-drwxr-xr-x   4 Marc  staff    136  3 Okt 10:59 vendor
-bash-3.2$ pwd
-/Users/Marc/Sites/domatio
-bash-3.2$ 

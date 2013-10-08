@@ -13,6 +13,6 @@ class UserMailer < ActionMailer::Base
 
   def welcome_email(user)
     @user = user
-    mail :to => user.email, :subject => "Welcome to Domatio!", :body => "Congratulations, you've successfully registered at Domatio."
+    mail :to => user.email, :subject => "Welcome to Domatio!", :body => "Congratulations, #{@user.name}, you've successfully registered at Domatio."
   end
 end

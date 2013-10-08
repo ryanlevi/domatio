@@ -56,7 +56,7 @@
             <div class="pull-right">
               <% if current_user %>
               <ul class="nav">
-                <li><%= link_to "Welcome #{current_user.email}!", "#"  %></li>
+                <li><%= link_to "Welcome #{current_user.name}!", "#"  %></li>
                 <li><%= link_to "Logout", "/logout" %> </li>
               </ul>
               <% end %>

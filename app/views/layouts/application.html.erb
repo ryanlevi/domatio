@@ -73,9 +73,48 @@
       </div><!--/row-->
 
       <footer>
-        <p>&copy; 2013 Dom&aacute;tio -- <%= link_to "About", "/about"  %> | <%= link_to "GitHub", "https://github.com/ryanlevi/domatio"  %></p>
+        <div class="foot-fixed-bottom">
+        <div class="container"><center>
+        &copy; 2013 Dom&aacute;tio -- <%= link_to "About", "/about"  %> | <%= link_to "GitHub", "https://github.com/ryanlevi/domatio"  %></center></div>
+        </div>
       </footer>
 
     </div> <!-- /container -->
+    <style>
+      body { 
+      background-size: 100% auto; };
+    </style>
+
+    <script type="text/javascript">
+    var currentTime = new Date().getHours();
+    if (7 <= currentTime && currentTime < 20) {
+        if (document.body) {
+            document.body.background = "/blue.jpg";
+        }
+    }
+    else {
+        if (document.body) {
+            document.body.background = "/purple.jpg";
+        }
+    }
+
+    </script>
+    <style>
+    .foot-fixed-bottom {
+     bottom: 0;
+     display: block;
+     left: 0;
+     margin-bottom: 0;
+     position: fixed;
+     right: 0;
+     z-index: 1030;
+    }
+    .foot-fixed-bottom .container {
+     background-color: rgba(255, 255, 255, 0.8);
+     margin-left: auto;
+     margin-right: auto;
+     padding-bottom: 2px;
+    }
+    </style>
   </body>
 </html>

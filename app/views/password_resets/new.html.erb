@@ -1,8 +1,10 @@
-<h1>PasswordResets#new</h1>
+<h1>Forgot Password?</h1>
+Type in your email below and we'll email you a link to reset your password.
+<p>
 <%= form_tag password_resets_path, :method => :post do %>
   <div class="field">
     <%= label_tag :email %>
     <%= text_field_tag :email, params[:email] %>
   </div>
-  <div class="actions"><%= submit_tag "Reset Password" %></div>
+  <div class="actions"><%= submit_tag "Reset Password", :class => 'btn btn-primary' %></div>
 <% end %>

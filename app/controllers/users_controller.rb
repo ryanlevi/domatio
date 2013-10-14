@@ -5,9 +5,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    debugger
     if @user.save
       UserMailer.welcome_email(@user).deliver
+      cookies[:auth_token] = @user.auth_token
       redirect_to root_url, :notice => "Signed Up! Welcome to Domatio #{@user.name}!"
     else
       render "new"

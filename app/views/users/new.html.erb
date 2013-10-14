@@ -1,6 +1,7 @@
 <% if current_user %>
   <h1>You are already logged in!</h1>
 <% else %>
+<div class="span6 offset8">
   <h1>Sign Up</h1>
 
   Or <a href="/sessions/new">Log in!</a><br><br>
@@ -36,3 +37,4 @@
     <div class="actions"><%= f.submit(:class => 'btn btn-primary') %></div>
   <% end %>
 <% end %>
+</div>

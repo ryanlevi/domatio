@@ -1,0 +1,21 @@
+<div class="span6 offset8">
+  <h1>Create a Discussion</h1>
+
+  <%= form_for (:discussion) do |f| %>
+      <% if @discussion.errors.any? %>
+          <div class="error_messages">
+            <h2>Form is invalid</h2>
+            <ul>
+              <% for message in @discussion.errors.full_messages %>
+                  <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+      <div class="field">
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+      </div>
+          <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Create') %></div>
+  <% end %>
+  </div>

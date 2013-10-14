@@ -27,4 +27,9 @@ Domatio::Application.routes.draw do
   post "groups/add_user_create"
   resources :groups
 
+  # The Discussion Page
+  get 'discussion/', to: 'discussion#list'
+  get "discussion/new"
+  resources :discussion
+
 end

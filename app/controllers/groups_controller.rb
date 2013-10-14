@@ -46,7 +46,7 @@ class GroupsController < ApplicationController
   def index
     @group_members = []
     User.all.each do |user|
-      if user.groupid = current_group
+      if user.groupid == current_group.groupid
         @group_members.push(user)
       end
     end

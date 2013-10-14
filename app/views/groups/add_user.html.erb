@@ -1,5 +1,5 @@
 <% if current_group %>
-  <h1>Create a Group</h1>
+  <h1>Add Roommates</h1>
 
   <%= form_for @friend, url: {action: "add_user_create"} do |f| %>  
     <% if @friend.errors.any? %>
@@ -14,11 +14,11 @@
     <% end %>
     
      <div class="field">
-      <%= f.label :email, "Roommate's email" %>  
+      <%= f.label :email, "Type in your roommate's email to add them to #{current_group.groupname.to_s}" %>  
       <%= f.text_field :email %>
     <div> 
 
-    <div class="actions"><%= f.submit(:class => 'btn btn-primary') %></div>
+    <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Add Roommate') %></div>
   <% end %>
 <% else %>
   <h1> You need to be in a group to invite friends </h1>

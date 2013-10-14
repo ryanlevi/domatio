@@ -2,6 +2,9 @@ class GroupsController < ApplicationController
 
   def new
     @group = Groups.new
+    if current_group
+      redirect_to '/groups/add_user'
+    end
   end
 
   def create

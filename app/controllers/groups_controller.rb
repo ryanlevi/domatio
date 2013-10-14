@@ -15,4 +15,27 @@ class GroupsController < ApplicationController
       render "new"  #if the group was not save-able, we re-load groups/new
     end
   end
+
+  def add_user
+    @friend=User.new
+  end
+
+  def add_user_create
+    email=params[:user][:email]
+    roommate=User.find_by_email(email)
+    if(roommate)
+        if(roommate.groupid)
+            @friend=User.new
+            render "add_user" #, :notice => "That person is already in a group!  They must leave before they can join your group."
+        else
+            roommate.groupid = current_group.groupid
+            roommate.save!
+            redirect_to root_url, :notice => "#{roommate.name} was added to your group!"
+        end
+    else
+        UserMailer.group_and_site_invite(email, current_user).deliver
+        redirect_to root_url, :notice => "An invitation was sent to #{email}!"
+    end
+  end
+
 end

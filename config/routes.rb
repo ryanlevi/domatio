@@ -22,6 +22,8 @@ Domatio::Application.routes.draw do
   get "password_resets/new"
 
   # The Group Page
+  get "groups/add_user"
+  post "groups/add_user_create"
   resources :groups
 
 end

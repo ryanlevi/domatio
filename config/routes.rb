@@ -1,5 +1,7 @@
 Domatio::Application.routes.draw do
 
+  get "groups/index"
+
   get "groups/new"
 
   # The Home Page

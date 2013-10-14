@@ -3,7 +3,7 @@ class GroupsController < ApplicationController
   def new
     @group = Groups.new
     if current_group
-      redirect_to '/groups/add_user'
+      redirect_to '/groups/index'
     end
   end
 
@@ -42,5 +42,18 @@ class GroupsController < ApplicationController
       end
     end
   end
+
+  def index
+    @group_members = []
+    User.all.each do |user|
+      if user.groupid = current_group
+        @group_members.push(user)
+      end
+    end
+    if @group_members.length <= 1
+      redirect_to '/groups/add_user'
+    end
+  end
+
 
 end

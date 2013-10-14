@@ -15,4 +15,10 @@ class UserMailer < ActionMailer::Base
     @user = user
     mail :to => user.email, :subject => "Welcome to Domatio!", :body => "Congratulations, #{@user.name}, you've successfully registered at Domatio."
   end
+
+  def group_and_site_invite(email, current_user)
+    @current_user = current_user
+    mail :to => email, :subject => "You'be been invited by #{@current_user.name} to join Domatio!", :body => "Add body and link to join domatio under the current groups groupid."
+  end
+
 end

@@ -1,5 +1,7 @@
 Domatio::Application.routes.draw do
 
+  get "groups/new"
+
   # The Home Page
   get "home/index"
   root :to => 'home#index'
@@ -18,5 +20,10 @@ Domatio::Application.routes.draw do
   # The Reset passwords page
   resources :password_resets
   get "password_resets/new"
+
+  # The Group Page
+  get "groups/add_user"
+  post "groups/add_user_create"
+  resources :groups
 
 end

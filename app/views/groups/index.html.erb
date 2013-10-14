@@ -1,0 +1,8 @@
+<h1>Group Members</h1>
+<p>The following people are in your group:</p>
+<p>
+<% @group_members.each do |user| %>
+  <%= mail_to user.email, user.name%><br>
+<% end %>
+</p>
+<p><a href="/groups/add_user">Click here to add another roommate!</a></p>

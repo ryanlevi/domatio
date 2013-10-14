@@ -52,10 +52,11 @@
               <% if !current_user %>
                   <li><%= link_to "Sign Up", "/signup"  %></li>
                   <li><%= link_to "Log In", "/login"  %></li>
+              <% else %>
+                  <li><%= link_to "Groups", "/groups/new"  %></li>
+                  <li><%= link_to "Add Users to Group", "/groups/add_user"  %></li>
+                  <li><%= link_to "Discussions", "/discussion"  %></li>
               <% end %>
-              <li><%= link_to "Groups", "/groups/new"  %></li>
-              <li><%= link_to "Add Users to Group", "/groups/add_user"  %></li>
-              <li><%= link_to "Discussions", "/discussion"  %></li>
             </ul>
             <div class="pull-right">
               <% if current_user %>

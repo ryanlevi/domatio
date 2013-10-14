@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   # setters, getters
   attr_accessible :email, :groupid, :name, :password, :password_confirmation
 
+  has_many :discussion_messages
+
   has_secure_password
 
   validates_uniqueness_of :email # makes sure email is not already taken

@@ -30,6 +30,7 @@ Domatio::Application.routes.draw do
   # The Discussion Page
   get 'discussion/', to: 'discussion#list'
   get "discussion/new"
+  post 'discussion/create', to: 'discussion#create'
   resources :discussion
 
 end

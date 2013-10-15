@@ -1,6 +1,7 @@
 class DiscussionController < ApplicationController
   def new
     @discussion = Discussion.new
+
   end
 
   def create

@@ -2,7 +2,7 @@
   <h1>Create a Discussion</h1>
 </div>
 
-<%= form_for (:discussion) do |f| %>
+<%= form_for :discussion, :url => url_for(:controller => 'discussion', :action => 'create') do |f| %>
   <% if @discussion.errors.any? %>
       <div class="error_messages">
         <h2>Form is invalid</h2>

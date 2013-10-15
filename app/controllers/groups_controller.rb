@@ -1,9 +1,13 @@
 class GroupsController < ApplicationController
 
   def new
-    @group = Groups.new
-    if current_group
-      redirect_to '/groups/index'
+    if current_user
+      @group = Groups.new
+      if current_group
+        redirect_to '/groups/index'
+      end
+    else
+      redirect_to root_url, :notice => "You need to be logged in to do this."
     end
   end
 
@@ -19,7 +23,11 @@ class GroupsController < ApplicationController
   end
 
   def add_user
-    @friend = User.new
+    if current_user
+      @friend = User.new
+    else
+      redirect_to root_url, :notice => "You need to be logged in to do this."
+    end
   end
 
   def add_user_create
@@ -44,14 +52,18 @@ class GroupsController < ApplicationController
   end
 
   def index
-    @group_members = []
-    User.all.each do |user|
-      if user.groupid == current_group.groupid
-        @group_members.push(user)
+    if current_user
+      @group_members = []
+      User.all.each do |user|
+        if user.groupid == current_group.groupid
+          @group_members.push(user)
+        end
       end
-    end
-    if @group_members.length <= 1
-      redirect_to '/groups/add_user'
+      if @group_members.length <= 1
+        redirect_to '/groups/add_user'
+      end
+    else
+      redirect_to root_url, :notice => "You need to be logged in to do this."
     end
   end
 

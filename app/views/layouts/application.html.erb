@@ -37,7 +37,7 @@
     <%= javascript_include_tag "application" %>
   </head>
   <body>
-
+  	<div id="bg"></div>
     <div class="navbar navbar-fluid-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -58,6 +58,13 @@
               <ul class="nav">
                 <li><%= link_to "Welcome #{current_user.name}!", "#"  %></li>
                 <li><%= link_to "Logout", "/logout" %> </li>
+              </ul>
+              
+              <!-- Show Login button on Nav bar if user is not already logged in and link to login page-->
+              
+              <% else %>
+              <ul class="nav">
+                <li><%= link_to "Login", "/login" %> </li>
               </ul>
               <% end %>
             </div>
@@ -80,26 +87,65 @@
       </footer>
 
     </div> <!-- /container -->
+    
+<!--    
     <style>
       body { 
       background-size: 100% auto; };
     </style>
+    -->
 
     <script type="text/javascript">
     var currentTime = new Date().getHours();
     if (7 <= currentTime && currentTime < 20) {
         if (document.body) {
-            document.body.background = "/blue.jpg";
-        }
+	       document.getElementById("bg").setAttribute("class", "bgImageDay");
+	    }
     }
     else {
         if (document.body) {
-            document.body.background = "/purple.jpg";
+            document.getElementById("bg").setAttribute("class", "bgImageNight");
         }
     }
 
-    </script>
+    </script>  
     <style>
+
+    .bgImageDay{
+    	background:url('http://i1.ytimg.com/vi/YvWArwoLplM/maxresdefault.jpg') no-repeat center  left fixed; 
+       	  position: fixed; 
+       	  top: 0; 
+       	  left: 0; 
+	
+       	  /* Preserve aspet ratio */
+       	  min-width: 100%;
+       	  min-height: 100%;
+       	  z-index:-1;
+    	-webkit-filter: blur(5px); 
+    }
+    	
+    .bgImageNight{
+       	  background: url('http://1.bp.blogspot.com/-M9J-8pGJnmg/USk0VAAVd8I/AAAAAAAAE-o/1NHVo-22dSI/s1600/house+party+on+DP.jpg') no-repeat center center fixed; 
+       	  position: fixed; 
+       	  top: 0; 
+       	  left: 0; 
+	
+       	  /* Preserve aspet ratio */
+       	  min-width: 100%;
+       	  min-height: 100%;
+       	  z-index:-1;
+    	-webkit-filter: blur(5px); 
+    	
+    	-webkit-animation: adjustHue 120s alternate infinite;  
+    }
+      
+@-webkit-keyframes adjustHue {  
+   0% { -webkit-filter: hue-rotate(30deg); }  
+   50% { -webkit-filter: hue-rotate(60deg); }  
+   100% { -webkit-filter: hue-rotate(90deg); }     
+} 
+   
+
     .foot-fixed-bottom {
      bottom: 0;
      display: block;

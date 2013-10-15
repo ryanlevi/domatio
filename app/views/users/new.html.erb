@@ -1,12 +1,51 @@
 <% if current_user %>
   <h1>You are already logged in!</h1>
 <% else %>
+
+  <%= form_for @user do |f| %>
+    <% if @user.errors.any? %>
+     	
+     	<div class="span4 offset4">	
+	    <div class="hero-unit">
+		    <h1>Whoops...</h1>
+
+		    <div class="error_messages">
+			<ul>
+				<% for message in @user.errors.full_messages %>
+					<li><%= message %></li>
+				<% end %>
+			</ul>
+			</div>
+			
+	<% end %>
+     		<div class="field">
+	     		<%= f.text_field :name, placeholder: 'Name' %>
+     		</div>
+		    <div class="field">
+			    <%= f.text_field :email, placeholder: 'Email' %>
+      		</div>
+      		<div class="field">
+	      		<%= f.password_field :password,  placeholder: 'Password' %>
+	      	</div>
+			<div class="field">
+		      <%= f.password_field :password_confirmation,  placeholder: 'Retype Password'%>
+		    </div>
+		    <div class="actions"><%= f.submit(:class => 'btn btn-block btn-info') %></div>
+		</div>
+		</div>
+		
+  <% end %>
+  
+ <br><div class="span4 offset4"><h1 align="center">Or <a href="/sessions/new">Log in?</a></h1></div>
+ 
+ 
+ <!--Original
   <h1>Sign Up</h1>
 
   Or <a href="/sessions/new">Log in!</a><br><br>
 
   <%= form_for @user do |f| %>
-    <% if @user.errors.any? %>
+    <% if @user.errors.any? %>     
       <div class="error_messages">
         <h2>Form is invalid</h2>
         <ul>
@@ -34,5 +73,8 @@
       <p>
     </div>
     <div class="actions"><%= f.submit(:class => 'btn btn-primary') %></div>
-  <% end %>
+  <% end %> -->
+  
+  
+  
 <% end %>

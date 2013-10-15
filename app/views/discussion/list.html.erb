@@ -1,6 +1,16 @@
 <div class="page-header">
-  <div style="float: right">
-    <a class="btn" href="discussion/new"><i class="icon-plus"></i>&nbsp;New</a>
-  </div>
-  <h1>All Discussions</h1>
+    <div style="float: right">
+        <a class="btn" href="discussion/new"><i class="icon-plus"></i>&nbsp;New</a>
+    </div>
+    <h1>All Discussions</h1>
 </div>
+
+<% @discussion.each do |d| %>
+
+    <div class="well well-lg">
+      <%= d.title %><br />
+      created by <%= d.user %> at <%= d.created_at %>
+      <span style="float:right;" class="badge">14</span>
+    </div>
+
+<% end %>

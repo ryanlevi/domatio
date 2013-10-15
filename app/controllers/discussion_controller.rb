@@ -18,5 +18,6 @@ class DiscussionController < ApplicationController
   end
 
   def list
+    @discussion = Discussion.all
   end
 end

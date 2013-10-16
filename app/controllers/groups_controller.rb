@@ -35,7 +35,11 @@ class GroupsController < ApplicationController
     roommate=User.find_by_email(email)
     if(roommate)
       if(roommate.groupid)
-        redirect_to "/groups/add_user" , :notice => "That person is already in a group!  They must leave before they can join your group."
+        if(roommate.groupid==current_user.groupid)
+          redirect_to "/groups/add_user" , :notice => "This person is already part of your group!"
+        else
+          redirect_to "/groups/add_user" , :notice => "That person is already in a group!  They must leave before they can join your group."
+        end  
       else
         roommate.groupid = current_group.groupid
         roommate.save!
@@ -43,7 +47,11 @@ class GroupsController < ApplicationController
       end
     else
       if email =~ /\b[A-Z0-9._%a-z\-]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,4}\z/
-        UserMailer.group_and_site_invite(email, current_user).deliver
+        new_user=User.new()
+        new_user.groupid=current_group.groupid
+        new_user.email=email
+        new_user.save(:validate => false)
+        UserMailer.group_and_site_invite(email, current_user, current_group).deliver
         redirect_to "/groups/add_user", :notice => "An invitation was sent to #{email}!"
       else
         redirect_to "/groups/add_user", :notice => "Invalid email!"

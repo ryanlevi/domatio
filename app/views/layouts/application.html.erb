@@ -89,26 +89,48 @@
       </footer>
 
     </div> <!-- /container -->
-    <style>
-      body { 
-      background-size: 100% auto; };
-    </style>
-
+<!--Background changer script-->
     <script type="text/javascript">
     var currentTime = new Date().getHours();
     if (7 <= currentTime && currentTime < 20) {
         if (document.body) {
-            document.body.background = "/morning.jpg";
+            document.getElementById("bg").setAttribute("class", "bgImageDay");
         }
     }
     else {
         if (document.body) {
-            document.body.background = "/bw.jpg";
+            document.getElementById("bg").setAttribute("class", "bgImageNight");
         }
     }
 
     </script>
+
     <style>
+    .bgImageDay{
+    	background:url('http://i1.ytimg.com/vi/YvWArwoLplM/maxresdefault.jpg') no-repeat center  left fixed; 
+       	  position: fixed; 
+       	  top: 0; 
+       	  left: 0; 
+	
+       	  /* Preserve aspet ratio */
+       	  min-width: 100%;
+       	  min-height: 100%;
+       	  z-index:-1;
+    	-webkit-filter: blur(5px); 
+    } 	
+    .bgImageNight{
+       	  background: url('http://1.bp.blogspot.com/-M9J-8pGJnmg/USk0VAAVd8I/AAAAAAAAE-o/1NHVo-22dSI/s1600/house+party+on+DP.jpg') no-repeat center center fixed; 
+       	  position: fixed; 
+       	  top: 0; 
+       	  left: 0; 
+	
+       	  /* Preserve aspet ratio */
+       	  min-width: 100%;
+       	  min-height: 100%;
+       	  z-index:-1;
+    	-webkit-filter: blur(5px);   
+    }
+
     .foot-fixed-bottom {
      bottom: 0;
      display: block;

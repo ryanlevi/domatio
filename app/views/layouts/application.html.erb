@@ -49,9 +49,11 @@
           <a class="brand" href="/">Dom&aacute;tio</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Link1", "#"  %></li>
-              <li><%= link_to "Link2", "#"  %></li>
-              <li><%= link_to "Link3", "#"  %></li>
+              <li><%= link_to "Sign Up", "/signup"  %></li>
+              <li><%= link_to "Log In", "/login"  %></li>
+              <li><%= link_to "My Group", "/groups"  %></li>
+              <li><%= link_to "Create Group", "/groups/new"  %></li>
+              <li><%= link_to "Add Users to Group", "/groups/add_user"  %></li>
             </ul>
             <div class="pull-right">
               <% if current_user %>
@@ -59,6 +61,12 @@
                 <li><%= link_to "Welcome #{current_user.name}!", "#"  %></li>
                 <li><%= link_to "Logout", "/logout" %> </li>
               </ul>
+              <% else %>
+                <form class="navbar-form pull-left" action="/sessions" method="post">
+                  <input type="text" class="span2" placeholder="Email" name="email" id="email">
+                  <input type="password" class="span2" placeholder="Password" name="password" id="email">
+                  <button type="submit" class="btn">Login</button>
+                </form>
               <% end %>
             </div>
           </div><!--/.nav-collapse -->
@@ -72,6 +80,7 @@
         <%= yield %>
       </div><!--/row-->
 
+<!-- Footer -->
       <footer>
         <div class="foot-fixed-bottom">
         <div class="container"><center>
@@ -89,12 +98,12 @@
     var currentTime = new Date().getHours();
     if (7 <= currentTime && currentTime < 20) {
         if (document.body) {
-            document.body.background = "/blue.jpg";
+            document.body.background = "/morning.jpg";
         }
     }
     else {
         if (document.body) {
-            document.body.background = "/purple.jpg";
+            document.body.background = "/bw.jpg";
         }
     }
 

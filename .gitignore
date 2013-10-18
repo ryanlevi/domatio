@@ -20,3 +20,12 @@
 
 # Backup Files
 *~
+*.DS_Store
+*.orig
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+
+# SimpleCov Files -- Don't want this on heroku. To generate on your own system, run Rspec
+/coverage

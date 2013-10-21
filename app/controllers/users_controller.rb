@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def create
     invited_user=User.find_by_email(params[:user][:email])
-    if(invited_user)
+    if invited_user
       @user=invited_user
       @user.name=params[:user][:name]
       @user.password=params[:user][:password]

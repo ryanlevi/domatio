@@ -1,9 +1,13 @@
 class GroupsController < ApplicationController
 
   def new
-    @group = Groups.new
-    if current_group
-      redirect_to '/groups/index'
+    if current_user
+      @group = Groups.new
+      if current_group
+        redirect_to '/groups/index'
+      end
+    else
+      redirect_to root_url, :notice => "You need to be logged in to do this."
     end
   end
 
@@ -19,7 +23,11 @@ class GroupsController < ApplicationController
   end
 
   def add_user
-    @friend = User.new
+    if current_user
+      @friend = User.new
+    else
+      redirect_to root_url, :notice => "You need to be logged in to do this."
+    end
   end
 
   def add_user_create
@@ -27,7 +35,11 @@ class GroupsController < ApplicationController
     roommate=User.find_by_email(email)
     if(roommate)
       if(roommate.groupid)
-        redirect_to "/groups/add_user" , :notice => "That person is already in a group!  They must leave before they can join your group."
+        if(roommate.groupid==current_user.groupid)
+          redirect_to "/groups/add_user" , :notice => "This person is already part of your group!"
+        else
+          redirect_to "/groups/add_user" , :notice => "That person is already in a group!  They must leave before they can join your group."
+        end  
       else
         roommate.groupid = current_group.groupid
         roommate.save!
@@ -35,7 +47,11 @@ class GroupsController < ApplicationController
       end
     else
       if email =~ /\b[A-Z0-9._%a-z\-]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,4}\z/
-        UserMailer.group_and_site_invite(email, current_user).deliver
+        new_user=User.new()
+        new_user.groupid=current_group.groupid
+        new_user.email=email
+        new_user.save(:validate => false)
+        UserMailer.group_and_site_invite(email, current_user, current_group).deliver
         redirect_to "/groups/add_user", :notice => "An invitation was sent to #{email}!"
       else
         redirect_to "/groups/add_user", :notice => "Invalid email!"
@@ -44,14 +60,18 @@ class GroupsController < ApplicationController
   end
 
   def index
-    @group_members = []
-    User.all.each do |user|
-      if user.groupid == current_group.groupid
-        @group_members.push(user)
+    if current_user
+      @group_members = []
+      User.all.each do |user|
+        if user.groupid == current_group.groupid
+          @group_members.push(user)
+        end
       end
-    end
-    if @group_members.length <= 1
-      redirect_to '/groups/add_user'
+      if @group_members.length <= 1
+        redirect_to '/groups/add_user'
+      end
+    else
+      redirect_to root_url, :notice => "You need to be logged in to do this."
     end
   end
 

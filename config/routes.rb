@@ -33,4 +33,7 @@ Domatio::Application.routes.draw do
   post 'discussion/create', to: 'discussion#create'
   resources :discussion
 
+  get 'discussion_message/', to: 'discussionMessage#list'
+  resources :discussion_message
+
 end

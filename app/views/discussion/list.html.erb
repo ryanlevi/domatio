@@ -9,8 +9,8 @@
 
     <div class="well well-lg">
       <%= d.title %><br />
-      created by <%= d.user %> at <%= d.created_at %>
-      <span style="float:right;" class="badge">14</span>
+      created by <%= d.user.name %> at <%= d.created_at %>
+      <span style="float:right;" class="badge"><% d.discussion_messages.count %>14</span>
     </div>
 
 <% end %>

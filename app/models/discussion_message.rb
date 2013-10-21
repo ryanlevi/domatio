@@ -3,7 +3,7 @@ class DiscussionMessage < ActiveRecord::Base
 
   # a message belongs to a [discussion] and has a [user]
   belongs_to :discussion
-  has_one :user
+  belongs_to :user
 
   validates_presence_of :title
   validates_presence_of :body

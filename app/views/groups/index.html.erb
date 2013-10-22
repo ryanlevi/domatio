@@ -2,7 +2,11 @@
 <p>The following people are in your group:</p>
 <p>
 <% @group_members.each do |user| %>
-  <%= mail_to user.email, user.name%><br>
+  <% if user.name %>
+  	<%= mail_to user.email, user.name%><br>
+  <% else %>
+  	<i><%= mail_to user.email, user.email%> (pending)</i><br>
+  <% end %>
 <% end %>
 </p>
 <p><a href="/groups/add_user">Click here to add another roommate!</a></p>

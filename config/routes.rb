@@ -1,9 +1,4 @@
 Domatio::Application.routes.draw do
-
-  get "groups/index"
-
-  get "groups/new"
-
   # The Home Page
   get "home/index"
   # root :to => 'home#index'
@@ -27,6 +22,12 @@ Domatio::Application.routes.draw do
   # The Group Page
   get "groups/add_user"
   post "groups/add_user_create"
+  get "groups/index"
+  get "groups/new"
   resources :groups
 
+  # The Bills page
+  resources :bills
+  post 'bills/create'
+  
 end

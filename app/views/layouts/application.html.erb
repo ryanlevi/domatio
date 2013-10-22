@@ -49,11 +49,13 @@
           <a class="brand" href="/">Dom&aacute;tio</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
+              <% unless current_user %>
               <li><%= link_to "Sign Up", "/signup"  %></li>
               <li><%= link_to "Log In", "/login"  %></li>
-              <li><%= link_to "My Group", "/groups"  %></li>
-              <li><%= link_to "Create Group", "/groups/new"  %></li>
-              <li><%= link_to "Add Users to Group", "/groups/add_user"  %></li>
+              <% else %>
+              <li><%= link_to "Group", "/groups"  %></li>
+              <li><%= link_to "Bills", "/bills"  %></li>
+              <% end %>
             </ul>
             <div class="pull-right">
               <% if current_user %>

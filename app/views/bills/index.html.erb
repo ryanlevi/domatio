@@ -1,0 +1,18 @@
+<h1>Bills in <%= current_group.groupname %></h1>
+<p>The following bills are in your group:</p>
+<p>
+<% if @bill_list_yours.length > 0 %>
+  <b>Bills you own:</b><br>
+  <% @bill_list_yours.each do |bill| %>
+    <%= bill.name %>: <%= number_to_currency(bill.price) %>
+    <%= link_to 'x', "/bills/#{bill.id}", :method => :delete %><br>
+  <% end %>
+<% end %>
+<% if @bill_list_mine.length > 0 %>
+  <b>Bills you don't own:</b><br>
+  <% @bill_list_mine.each do |bill| %>
+    <%= bill.name %>: <%= number_to_currency(bill.price/@user_no) %><br>
+  <% end %>
+<% end %>
+</p>
+<p><a href="/bills/new">Click here to add another bill!</a></p>

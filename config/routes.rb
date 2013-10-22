@@ -29,5 +29,16 @@ Domatio::Application.routes.draw do
   # The Bills page
   resources :bills
   post 'bills/create'
-  
+
+  # The Discussion Page
+  get 'discussion/', to: 'discussion#list'
+  get "discussion/new"
+  post 'discussion/create', to: 'discussion#create'
+  get '/discussion/:id', to: 'discussion#show', as: 'discussion'
+  resources :discussion
+
+  get 'discussion_message/', to: 'discussionMessage#list'
+  get 'discussion_message/new/:discussion_id', to: 'discussion_message#new', as: 'discussion_message'
+  resources :discussion_message
+
 end

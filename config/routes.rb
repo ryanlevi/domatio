@@ -29,4 +29,5 @@ Domatio::Application.routes.draw do
   # The Bills page
   resources :bills
   post 'bills/create'
+  
 end

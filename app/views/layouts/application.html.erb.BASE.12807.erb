@@ -36,8 +36,8 @@
 
     <%= javascript_include_tag "application" %>
   </head>
-  <body>  	
-  <div id="bg"></div><!--Background as seperate image for blur to work properly-->
+  <body>
+
     <div class="navbar navbar-fluid-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -49,13 +49,9 @@
           <a class="brand" href="/">Dom&aacute;tio</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
-              <% unless current_user %>
-              <li><%= link_to "Sign Up", "/signup"  %></li>
-              <li><%= link_to "Log In", "/login"  %></li>
-              <% else %>
-              <li><%= link_to "Group", "/groups"  %></li>
-              <li><%= link_to "Bills", "/bills"  %></li>
-              <% end %>
+              <li><%= link_to "Link1", "#"  %></li>
+              <li><%= link_to "Link2", "#"  %></li>
+              <li><%= link_to "Link3", "#"  %></li>
             </ul>
             <div class="pull-right">
               <% if current_user %>
@@ -63,12 +59,6 @@
                 <li><%= link_to "Welcome #{current_user.name}!", "#"  %></li>
                 <li><%= link_to "Logout", "/logout" %> </li>
               </ul>
-              <% else %>
-                <form class="navbar-form pull-left" action="/sessions" method="post">
-                  <input type="text" class="span2" placeholder="Email" name="email" id="email">
-                  <input type="password" class="span2" placeholder="Password" name="password" id="email">
-                  <button type="submit" class="btn">Login</button>
-                </form>
               <% end %>
             </div>
           </div><!--/.nav-collapse -->
@@ -82,55 +72,34 @@
         <%= yield %>
       </div><!--/row-->
 
-<!-- Footer -->
       <footer>
         <div class="foot-fixed-bottom">
         <div class="container"><center>
-        &copy; 2013 Dom&aacute;tio -- <%= link_to "About", "/about"  %> | <%= link_to "GitHub", "https://github.com/ryanlevi/domatio" %></center></div>
+        &copy; 2013 Dom&aacute;tio -- <%= link_to "About", "/about"  %> | <%= link_to "GitHub", "https://github.com/ryanlevi/domatio"  %></center></div>
         </div>
       </footer>
 
     </div> <!-- /container -->
-    
-<!--Background changer script-->
+    <style>
+      body { 
+      background-size: 100% auto; };
+    </style>
+
     <script type="text/javascript">
     var currentTime = new Date().getHours();
     if (7 <= currentTime && currentTime < 20) {
-    	    if (document.body) {
-            document.getElementById("bg").setAttribute("class", "bgImageDay");}
+        if (document.body) {
+            document.body.background = "/blue.jpg";
+        }
     }
     else {
-            if (document.body){
-            document.getElementById("bg").setAttribute("class", "bgImageDay");}
+        if (document.body) {
+            document.body.background = "/purple.jpg";
+        }
     }
 
     </script>
-
     <style>
-	/*Background Styling: For some reason only works for pre-logged in pages?*/
-    .bgImageDay{
-    	background: url('/dayHouse.jpg') no-repeat center  left fixed; 
-    	  background-size: 100%;
-       	  position: fixed; 
-	
-       	  /* Preserve aspect ratio */
-       	  min-width: 100%;
-       	  min-height: 100%;
-       	  z-index:-1;
-    	-webkit-filter: blur(3px); 
-    } 	
-    .bgImageNight{
-       	  background: url('/nightHouse.jpg') no-repeat center center fixed;
-       	  background-size: 100%; 
-       	  position: fixed; 
-	
-       	  /* Preserve aspect ratio */
-       	  min-width: 100%;
-       	  min-height: 100%;
-       	  z-index:-1;
-    	-webkit-filter: blur(2px);   
-    }
-
     .foot-fixed-bottom {
      bottom: 0;
      display: block;

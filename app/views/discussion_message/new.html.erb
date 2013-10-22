@@ -16,6 +16,7 @@
   <div class="field">
     <%= f.label :title %>
     <%= f.text_field :title %>
+    <%= f.hidden_field :discussion_id, :value => @discussion_id %>
   </div>
       <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Create') %></div>
 <% end %>

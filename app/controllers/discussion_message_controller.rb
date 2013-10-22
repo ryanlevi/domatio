@@ -1,7 +1,7 @@
 class DiscussionMessageController < ApplicationController
   def new
-    @discussion_message = DiscussionMessage.new
-
+    @discussion_id = params[:discussion_id]
+    @discussion_message = DiscussionMessage.new()
   end
 
   def create

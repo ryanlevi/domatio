@@ -21,4 +21,8 @@ class DiscussionController < ApplicationController
   def list
     @discussion = Discussion.all
   end
+
+  def show
+    @discussion = Discussion.find(params[:id])
+  end
 end

@@ -11,21 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131021203748) do
+ActiveRecord::Schema.define(:version => 20131015020549) do
 
   create_table "discussion_messages", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "content"
+    t.integer  "discussion_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
-    t.integer  "user_id"
-    t.integer  "discussion_id"
-    t.string   "title"
   end
 
   create_table "discussions", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "title"
     t.integer  "user_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "title"
+    t.integer  "messages_count"
   end
 
   create_table "groups", :force => true do |t|

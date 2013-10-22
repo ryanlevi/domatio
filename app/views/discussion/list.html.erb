@@ -10,7 +10,7 @@
     <div class="well well-lg">
       <a href="/discussion/<%= d.id %>"><%= d.title %></a><br />
       created by <%= d.user.name %> at <%= d.created_at %>
-      <span style="float:right;" class="badge"><% d.discussion_messages.count %>14</span>
+      <span style="float:right;" class="badge"><%= d.messages_count %></span>
     </div>
 
 <% end %>

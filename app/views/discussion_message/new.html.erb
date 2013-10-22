@@ -2,7 +2,7 @@
   <h1>Create a Reply</h1>
 </div>
 
-<%= form_for :discussion_message, :url => url_for(:controller => 'discussion_message', :action => 'create') do |f| %>
+<%= form_for :discussion_message, :url => url_for(:controller => 'discussion_message', :action => 'create', :discussion_id => @discussion_id) do |f| %>
   <% if @discussion_message.errors.any? %>
       <div class="error_messages">
         <h2>Form is invalid</h2>
@@ -14,9 +14,7 @@
       </div>
   <% end %>
   <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-    <%= f.hidden_field :discussion_id, :value => @discussion_id %>
+    <%= f.text_area :content %>
   </div>
       <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Create') %></div>
 <% end %>

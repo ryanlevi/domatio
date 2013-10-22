@@ -12,7 +12,7 @@ class Bill < ActiveRecord::Base
   end
 
   validates :price, :presence => true,
-            :numericality => {:greater_than => 0.0, :less_than => 10000},
+            :numericality => {:greater_than => 0.0, :less_than => 10000, :message => "must be between $0.00 and $10,000."},
             :format => { :with => /^\d{1,4}(\.\d{0,2})?$/ }
   validates :duedate, :presence => true,
   			    :format => { :with => /\d\d\d\d-\d\d-\d\d/ }

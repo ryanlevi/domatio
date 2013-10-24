@@ -1,8 +1,15 @@
 <% if current_group %>  <!--Checks if the current_user is in a group, if he/she is do not allow them to create a group -->
   <h1>You already have a group!</h1>
 <% else %>
-  <h1>Create a Group</h1>
 
+<!-- Container for two column layout -->
+<div class="container">
+	<div class="row-fluid">
+		<div id="left" class="span4 well">
+		<!-- Left Content -->
+			
+	<h1>Create a Group</h1>
+	
   <%= form_for @group, url: {action: "create"} do |f| %>  <!-- links the form to group and ensures the action goes to create and not index -->
     <% if @group.errors.any? %>
       <div class="error_messages">
@@ -15,11 +22,44 @@
       </div>
     <% end %>
     
-    <div class="field">
-      <%= f.label :groupname, "Group Name" %>  <!--A single field for a groupname -->
-      <%= f.text_field :groupname %>
-    <div> 
+    <div class="field"> 
+      <%= f.text_field :groupname, placeholder: 'Groupname'%>
 
-    <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Create Group') %></div>
+    <div class="actions"><%= f.submit(:class => 'btn btn-info', :value => 'Create Group') %></div>
+    </div> 
   <% end %>
+  
+  <!-- End Left Content -->
+		</div>
+		<div id="right" class="span8 well">
+		<!-- Right Content -->
+		
+		<h1> Wow Such Content </h1>
+		<p> Wow. So great. Many Things. Create Groups. Wow. </p>
+		
+		<!-- End Right Content -->
+		</div>
+	</div>
+</div>
 <% end %>
+
+
+<style>
+.container {
+	min-height: 100%;
+	overflow: hidden;
+}
+
+#right, #left {
+	margin-bottom: auto;
+	padding-bottom: auto;
+}
+
+</style>
+
+
+
+
+
+
+

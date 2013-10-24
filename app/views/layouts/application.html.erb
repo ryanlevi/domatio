@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="bg">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -35,9 +35,11 @@
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
     <%= javascript_include_tag "application" %>
+    <!--Font Awesome-->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
   </head>
   <body>
-
+    <div class="bgFilters"></div>	
     <div class="navbar navbar-fluid-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -95,26 +97,43 @@
       </footer>
 
     </div> <!-- /container -->
-    <style>
-      body { 
-      background-size: 100% auto; };
-    </style>
-
+    
+<!--Background Changer JS-->
     <script type="text/javascript">
     var currentTime = new Date().getHours();
     if (7 <= currentTime && currentTime < 20) {
-        if (document.body) {
-            document.body.background = "/morning.jpg";
-        }
+    	    if (document.body) {
+            document.getElementById("bg").setAttribute("class", "bgImageDay");}
     }
     else {
-        if (document.body) {
-            document.body.background = "/bw.jpg";
-        }
+            if (document.body) {
+            document.getElementById("bg").setAttribute("class", "bgImageNight");}
     }
-
     </script>
+
+<!--CSS Styling -->
     <style>
+	/* Background Images*/
+    .bgImageDay{
+    	background: url('/dayHouse.jpg') no-repeat center center fixed;
+      -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	  -o-background-size: cover;
+	  background-size: cover;  
+    } 
+    	
+    .bgImageNight{
+      background: url('/nightHouse.jpg') no-repeat center center fixed;
+      -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	  -o-background-size: cover;
+	  background-size: cover;  
+    }
+    
+   body {  
+	   background-color: transparent;
+   }
+
     .foot-fixed-bottom {
      bottom: 0;
      display: block;

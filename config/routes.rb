@@ -2,7 +2,7 @@ Domatio::Application.routes.draw do
   # The Home Page
   get "home/index"
   # root :to => 'home#index'
-  root :to => 'users#new'
+  root :to => 'home#index'
 
   # The About Page
   get "home/about"

@@ -21,6 +21,7 @@ Domatio::Application.routes.draw do
 
   # The Group Page
   get "groups/add_user"
+  get "groups/user_leaves"
   post "groups/add_user_create"
   get "groups/index"
   get "groups/new"

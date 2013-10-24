@@ -1,3 +1,9 @@
+<!-- Container for two column layout -->
+<div class="container">
+	<div class="row-fluid">
+		<div id="left" class="span3 well">
+		<!-- Left Content -->
+		
 <% if current_user %>
   <h1>You are already logged in!</h1>
 <% else %>
@@ -7,19 +13,44 @@
   <br>
   <%= form_tag sessions_path do %>
     <div class="field">
-      <%= label_tag :email %>
-      <%= text_field_tag :email, params[:email] %>
+      <%= text_field_tag :email, params[:email], placeholder: 'Email' %>
     </div>
     <div class="field">
-      <%= label_tag :password %>
-      <%= password_field_tag :password %>
+      <%= password_field_tag :password, placeholder: 'Password'%>
     </div>
+        <div class="actions"><%= submit_tag("Log in", :class => 'btn btn-primary') %></div>
+        <br>
     <p><%= link_to "Forgot password?", new_password_reset_path %></p>
   <div class="field">
     <%= check_box_tag :remember_me, 1, params[:remember_me] %>
     <%= label_tag :remember_me, "Remember me", :class => "checkbox inline" %>
-    <p>
   </div>
-    <div class="actions"><%= submit_tag("Log in", :class => 'btn btn-primary') %></div>
   <% end %>
 <% end %>
+
+  <!-- End Left Content -->
+		</div>
+		<div id="right" class="span8 well">
+		<!-- Right Content -->
+		
+		<h1> Wow Such Content </h1>
+		<p> Wow. So great. Many Things. Log In. Wow. </p>
+		
+		<!-- End Right Content -->
+		</div>
+	</div>
+</div>
+
+
+<style>
+.container {
+	min-height: 100%;
+	overflow: hidden;
+}
+
+#right, #left {
+	margin-bottom: auto;
+	padding-bottom: auto;
+}
+
+</style>

@@ -2,8 +2,15 @@
 <% if current_group %>  <!--Checks if the current_user is in a group, if he/she is do not allow them to create a group -->
   <h1>You already have a group!</h1>
 <% else %>
-  <h1>Create a Group</h1>
 
+<!-- Container for two column layout -->
+<div class="container-fluid">
+  <div class="row-fluid">
+  <!--Left Side Layout-->
+    <div class="span4 well pull-left">
+  <!--Left Side Content-->
+	<h1>Create a Group</h1>
+	
   <%= form_for @group, url: {action: "create"} do |f| %>  <!-- links the form to group and ensures the action goes to create and not index -->
     <% if @group.errors.any? %>
       <div class="error_messages">
@@ -16,11 +23,32 @@
       </div>
     <% end %>
     
-    <div class="field">
-      <%= f.label :groupname, "Group Name" %>  <!--A single field for a groupname -->
-      <%= f.text_field :groupname %>
-    <div> 
+    <div class="field"> 
+      <%= f.text_field :groupname, placeholder: 'Groupname'%>
 
-    <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Create Group') %></div>
+    <div class="actions"><%= f.submit(:class => 'btn btn-info', :value => 'Create Group') %></div>
+    </div> 
   <% end %>
+
+<!--End Left Side Content-->
+   </div>      
+<!--End Left Side Layout-->  
+    <div class="span8 pull-right well">
+      <!--Right Side content-->
+      <h1> Content on this side!</h1>
+      <p>WOW</p>
+    <!-- End Right Side Content -->
+    </div>
+    <!-- End Right Side Layout -->
+  </div>
+</div>
+
+
 <% end %>
+
+
+
+
+
+
+

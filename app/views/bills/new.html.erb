@@ -1,5 +1,5 @@
 <h1>Create a Bill</h1>
-
+<% @dontshowbackground = true %>
 <%= form_for @bill, url: {action: "create"} do |f| %>
   <% if @bill.errors.any? %>
     <div class="error_messages">

@@ -79,7 +79,7 @@ class GroupsController < ApplicationController
     end
   end
 
-  def user_leaves
+  def leave
     if current_user
       if current_group
         tempGroup=current_group
@@ -89,10 +89,9 @@ class GroupsController < ApplicationController
         if User.find_by_groupid(tempGroup.groupid)==nil
           tempGroup.destroy
         end
-        debugger
-        redirect_to root_url, :notice => "You have left the group #{tempGroupName}."
+        redirect_to '/groups/new', :notice => "You have left the group #{tempGroupName}."
       else
-        redirect_to root_url, :notice => "You need to be part of a group to do this."
+        redirect_to '/groups/new', :notice => "You need to be part of a group to do this."
       end
     else
       redirect_to root_url, :notice => "You need to be logged in to do this."  

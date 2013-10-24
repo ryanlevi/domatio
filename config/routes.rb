@@ -25,6 +25,7 @@ Domatio::Application.routes.draw do
   post "groups/add_user_create"
   get "groups/index"
   get "groups/new"
+  post "groups/leave"
   resources :groups
 
   # The Bills page

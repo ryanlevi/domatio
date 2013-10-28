@@ -1,7 +1,8 @@
 class Bill < ActiveRecord::Base
   attr_accessible :groupid, :name, :owner, :price, :duedate
 
-  # The following code 
+  # The following code makes validations show humanized attributes
+  # (like instead of saying "price is wrong" it says "amount due is wrong")
   HUMANIZED_ATTRIBUTES = {
   :price => "Amount Due",
   :duedate => "Due Date"

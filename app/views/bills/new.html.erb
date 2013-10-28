@@ -19,6 +19,22 @@
     <%= f.label :price, "Amount Due" %>
     <%= f.text_field :price, :id => "userinput", :pattern => "[0-9]*.[0-9][0-9]"%>
   <div> 
+    <script src="http://seiyria.github.io/bootstrap-slider/javascripts/bootstrap-slider.js"></script>
+
+  <% @users.each do |user| %>
+    <div class="field">
+      This is a slider for <%= user.name %>:<br>
+      <input id="ex<%= user.id %>" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0"/>
+      <br>
+      <span id="ex<%= user.id %>CurrentSliderValLabel"><span id="ex<%= user.id %>SliderVal">0</span></span>%
+      <script>
+$("#ex<%= user.id %>").slider();
+      $("#ex<%= user.id %>").on('slide', function(slideEvt) {
+        $("#ex<%= user.id %>SliderVal").text(slideEvt.value);
+      });
+</script>
+    </div>
+  <%end%>
   <div class="field">
     <%= f.label :duedate, "Due Date" %>
     <%= f.text_field :duedate, :id => "datepicker", :readonly=> "0" %>
@@ -30,10 +46,12 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script>
-$(function() {
-  $( "#datepicker" ).datepicker( { minDate: 0, maxDate: "+3M" });
-  $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-});
+  $(document).ready(function() {
+    $(function() {
+      $( "#datepicker" ).datepicker( { minDate: 0, maxDate: "+3M" });
+      $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+    });
+  });
 </script>
 <style>
 div.ui-datepicker{

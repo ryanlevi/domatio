@@ -35,6 +35,12 @@ class BillsController < ApplicationController
 
   def new
     @bill = Bill.new
+    @users = []
+    User.all.each do |user|
+      if user.groupid == current_group.groupid
+        @users.push user
+      end
+    end
   end
 
   def destroy

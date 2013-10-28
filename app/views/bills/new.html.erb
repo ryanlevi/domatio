@@ -24,9 +24,9 @@
   <% @users.each do |user| %>
     <div class="field">
       This is a slider for <%= user.name %>:<br>
-      <input id="ex<%= user.id %>" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0"/>
+      <input id="ex<%= user.id %>" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="<%= 100/@users.length %>"/>
       <br>
-      <span id="ex<%= user.id %>CurrentSliderValLabel"><span id="ex<%= user.id %>SliderVal">0</span></span>%
+      <span id="ex<%= user.id %>CurrentSliderValLabel"><span id="ex<%= user.id %>SliderVal"><%= 100/@users.length %></span></span>%
       <script>
 $("#ex<%= user.id %>").slider();
       $("#ex<%= user.id %>").on('slide', function(slideEvt) {
@@ -39,6 +39,11 @@ $("#ex<%= user.id %>").slider();
     <%= f.label :duedate, "Due Date" %>
     <%= f.text_field :duedate, :id => "datepicker", :readonly=> "0" %>
   <div> 
+  <div class="field">
+    <%= check_box_tag :recurring, 1, params[:recurring] %>
+    <%= label_tag :recurring, "Recurring?", :class => "checkbox inline" %>
+  </div>
+  <br>
   <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Create Bill') %></div>
 <% end %>
 

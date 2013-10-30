@@ -52,9 +52,17 @@ class BillsController < ApplicationController
 
   def create
     @bill = Bill.new(params[:bill])
+    @bill.recurring = @bill.duedate.day if params[:recurring].to_i == 1
     @bill.owner = current_user.email
     @bill.groupid = current_user.groupid
     if @bill.save
+      helper_hash = {}
+      params[:bills_help].each do |user, amount|
+        helper_hash[:bill_id] = @bill.id
+        helper_hash[:user] = user
+        helper_hash[:amount] = amount
+      end
+      @helper = BillsHelp.create(helper_hash)
       redirect_to '/bills', :notice => "You've created the bill: #{@bill.name}!"
     else
       render "new"

@@ -26,19 +26,33 @@
       <% else %>
       How much does <%= user.name %> pay?<br>
       <% end %>
-      <input id="<%= user.id %>" name="bills_help[<%= user.email %>]" type="text" pattern ="[0-9]*.[0-9][0-9]"/>
+      <input id="<%= user.id %>" name="bills_help[<%= user.email %>]" type="text" pattern ="[0-9]*.[0-9][0-9]"/><br>
     </div>
   <%end%>
+      <div id="error">
+      </div>
 <script>
   window.onload = function () {
     var first = document.getElementById('userinput');
     <% @users.each do |user| %>
     var user_<%= user.id %> = document.getElementById('<%= user.id %>');
+    user_<%= user.id %>.onchange = function () {
+      var sum = 0;
+      for (var i=1; i <= <%= @users.length %>; i++){
+        sum += parseFloat(document.getElementById(i).value);
+      };
+      if(sum != first.value){
+        document.getElementById("error").innerHTML = "<font color='red'>Error: Values must add up to $"+first.value+'</font>';
+      }
+      else{
+        document.getElementById("error").innerHTML = '';
+      };
+    };
     <% end %>
 
     first.onchange = function () {
       <% @users.each do |user| %>
-      user_<%= user.id %>.value = first.value/<%= @users.length %>;
+      user_<%= user.id %>.value = Math.abs(first.value/<%= @users.length %>);
       user_<%= user.id %>.value = parseFloat(user_<%= user.id %>.value.replace(/,/g, ""))
                     .toFixed(2)
                     .toString()
@@ -49,7 +63,9 @@
 <% @users.each do |user| %>
 <script type="text/javascript">
   document.getElementById("<%= user.id %>").onblur =function (){    
-
+    if(this.value <= 0){
+      this.value *= -1;
+    };
     //number-format the user input
     this.value = parseFloat(this.value.replace(/,/g, ""))
                     .toFixed(2)
@@ -57,7 +73,6 @@
 
     //set the numeric value to a number input
     document.getElementById("number").value = this.value.replace(/,/g, "")
-
 }
 </script>
 <% end %>
@@ -93,7 +108,7 @@ div.ui-datepicker{
 <!--The following is the code for the Amount Due box -->
 <script type="text/javascript">
   document.getElementById("userinput").onblur =function (){    
-
+    this.value = Math.abs(this.value);
     //number-format the user input
     this.value = parseFloat(this.value.replace(/,/g, ""))
                     .toFixed(2)

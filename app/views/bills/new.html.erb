@@ -27,34 +27,40 @@
       How much does <%= user.name %> pay?<br>
       <% end %>
       <input id="<%= user.id %>" name="bills_help[<%= user.email %>]" type="text" pattern ="[0-9]*.[0-9][0-9]"/>
-      <script>
-        window.onload = function () {
-          var first = document.getElementById('userinput'),
-              second = document.getElementById('<%= user.id %>');
-
-          first.onchange = function () {
-            second.value = first.value/<%=@users.length %>;
-            second.value = parseFloat(this.value.replace(/,/g, ""))
-                          .toFixed(2)
-                          .toString()
-          };
-        };
-      </script>
-      <script type="text/javascript">
-        document.getElementById("<%= user.id %>").onblur =function (){    
-
-          //number-format the user input
-          this.value = parseFloat(this.value.replace(/,/g, ""))
-                          .toFixed(2)
-                          .toString()
-
-          //set the numeric value to a number input
-          document.getElementById("number").value = this.value.replace(/,/g, "")
-
-      }
-      </script>
     </div>
   <%end%>
+<script>
+  window.onload = function () {
+    var first = document.getElementById('userinput');
+    <% @users.each do |user| %>
+    var user_<%= user.id %> = document.getElementById('<%= user.id %>');
+    <% end %>
+
+    first.onchange = function () {
+      <% @users.each do |user| %>
+      user_<%= user.id %>.value = first.value/<%= @users.length %>;
+      user_<%= user.id %>.value = parseFloat(user_<%= user.id %>.value.replace(/,/g, ""))
+                    .toFixed(2)
+                    .toString()
+      <% end %>
+    };
+  };
+</script>
+<% @users.each do |user| %>
+<script type="text/javascript">
+  document.getElementById("<%= user.id %>").onblur =function (){    
+
+    //number-format the user input
+    this.value = parseFloat(this.value.replace(/,/g, ""))
+                    .toFixed(2)
+                    .toString()
+
+    //set the numeric value to a number input
+    document.getElementById("number").value = this.value.replace(/,/g, "")
+
+}
+</script>
+<% end %>
   <div class="field">
     <%= f.label :duedate, "Due Date" %>
     <%= f.text_field :duedate, :id => "datepicker", :readonly=> "0" %>

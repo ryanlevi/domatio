@@ -51,6 +51,7 @@ class BillsController < ApplicationController
 
   def new
     @bill = Bill.new
+    @bills_help = BillsHelp.new
     @users = []
     User.all.each do |user|
       if user.groupid == current_group.groupid and user.name # this will take out pending users
@@ -90,6 +91,12 @@ class BillsController < ApplicationController
       end
       redirect_to '/bills', :notice => "You've created the bill: #{@bill.name}!"
     else
+      @users = []
+      User.all.each do |user|
+        if user.groupid == current_group.groupid and user.name # this will take out pending users
+          @users.push user
+        end
+      end
       render "new"
     end
   end

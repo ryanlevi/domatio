@@ -2,13 +2,15 @@ class BillsController < ApplicationController
   def index
     # This statement makes sure the user is logged in and part of a group
     if current_user and current_group
-      @bill_list_yours = []
-      @bill_list_mine = []
+      @your_bill_list = [] # for a list of bills current user owns
+      @your_bill_list_of_hashes = {} # for a hash that stores bills, users and amounts they each do
+      @their_bill_list = [] #for a list of bills current user doesn't own
+      @their_bill_list_of_hashes = {} # for a hash that stores bills, users and amounts they each do
       @bill_costs = {}
       # Calculating the total number of users in the group
       @user_no = 0
       User.all.each do |user|
-        if user.groupid == current_group.groupid # and user.name # this will take out pending users
+        if user.groupid == current_group.groupid and user.name # this will take out pending users
           @user_no += 1
         end
       end
@@ -16,16 +18,30 @@ class BillsController < ApplicationController
         if bill.groupid == current_group.groupid
           if bill.owner == current_user.email
             # If you own the bill, the bill is added to the following array
-            @bill_list_yours.push(bill)
+            @your_bill_list.push(bill)
           else
             # If you don't own the bill, but someone else in your group does, it's added to this array
-            @bill_list_mine.push(bill)
+            @their_bill_list.push(bill)
           end
           # This creates a hash that stores all the bills in your group with their amounts
           @bill_costs[bill.name] = bill.price
         end
       end
-      if @bill_list_yours.length + @bill_list_mine.length <= 0
+      @their_bill_list.each do |bill|
+        instance_variable_set "@bill_#{bill.id}", Hash.new
+        BillsHelp.where("bill_id = '#{bill.id}'").each do |bill_help|
+          instance_variable_get("@bill_#{bill.id}")[bill_help.user] = bill_help.amount
+          @their_bill_list_of_hashes[bill.id] = instance_variable_get("@bill_#{bill.id}")
+        end
+      end
+      @your_bill_list.each do |bill|
+        instance_variable_set "@bill_#{bill.id}", Hash.new
+        BillsHelp.where("bill_id = '#{bill.id}'").each do |bill_help|
+          instance_variable_get("@bill_#{bill.id}")[bill_help.user] = bill_help.amount
+          @your_bill_list_of_hashes[bill.id] = instance_variable_get("@bill_#{bill.id}")
+        end
+      end
+      if @your_bill_list.length + @their_bill_list.length <= 0
         redirect_to '/bills/new', :notice => "You don't have any bills yet!"
       end
     else
@@ -37,7 +53,7 @@ class BillsController < ApplicationController
     @bill = Bill.new
     @users = []
     User.all.each do |user|
-      if user.groupid == current_group.groupid # and user.name # this will take out pending users
+      if user.groupid == current_group.groupid and user.name # this will take out pending users
         @users.push user
       end
     end

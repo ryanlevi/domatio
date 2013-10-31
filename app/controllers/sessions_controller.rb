@@ -18,6 +18,15 @@ class SessionsController < ApplicationController
         # If they don't check remember me, just give a shorter length cookie
         cookies[:auth_token] = user.auth_token
       end
+      if(user.groupid)
+        User.where("groupid='#{user.groupid}'").each do |oldUser|
+          unless oldUser.name
+            if oldUser.created_at>(Time.now-(7*24*60*60))
+              oldUser.destroy
+            end
+          end
+        end
+      end
       # Either way, after they login, redirect home and show them the login message
       redirect_to root_url, :notice => "Logged in!"
     else

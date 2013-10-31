@@ -1,7 +1,7 @@
 <h1>Create a Bill</h1>
 <% @dontshowbackground = true %>
 <%= form_for @bill, url: {action: "create"} do |f| %>
-  <% if @bill.errors.any? %>
+  <% if @bill.errors.any? or @bills_help.errors.any? %>
     <div class="error_messages">
       <h2>Form is invalid</h2>
       <ul>
@@ -19,10 +19,72 @@
     <%= f.label :price, "Amount Due" %>
     <%= f.text_field :price, :id => "userinput", :pattern => "[0-9]*.[0-9][0-9]"%>
   <div> 
+  <% @users.each do |user| %>
+    <div class="field">
+      <% if user == current_user %>
+      How much do you pay?<br>
+      <% else %>
+      How much does <%= user.name %> pay?<br>
+      <% end %>
+      <input id="<%= user.id %>" name="bills_help[<%= user.email %>]" type="text" pattern ="[0-9]*.[0-9][0-9]"/><br>
+    </div>
+  <%end%>
+      <div id="error">
+      </div>
+<script>
+  window.onload = function () {
+    var first = document.getElementById('userinput');
+    <% @users.each do |user| %>
+    var user_<%= user.id %> = document.getElementById('<%= user.id %>');
+    user_<%= user.id %>.onchange = function () {
+      var sum = 0;
+      for (var i=1; i <= <%= @users.length %>; i++){
+        sum += parseFloat(document.getElementById(i).value);
+      };
+      if(sum != first.value){
+        document.getElementById("error").innerHTML = "<font color='red'>Error: Values must add up to $"+first.value+'</font>';
+      }
+      else{
+        document.getElementById("error").innerHTML = '';
+      };
+    };
+    <% end %>
+
+    first.onchange = function () {
+      <% @users.each do |user| %>
+      user_<%= user.id %>.value = Math.abs(first.value/<%= @users.length %>);
+      user_<%= user.id %>.value = parseFloat(user_<%= user.id %>.value.replace(/,/g, ""))
+                    .toFixed(2)
+                    .toString()
+      <% end %>
+    };
+  };
+</script>
+<% @users.each do |user| %>
+<script type="text/javascript">
+  document.getElementById("<%= user.id %>").onblur =function (){    
+    if(this.value <= 0){
+      this.value *= -1;
+    };
+    //number-format the user input
+    this.value = parseFloat(this.value.replace(/,/g, ""))
+                    .toFixed(2)
+                    .toString()
+
+    //set the numeric value to a number input
+    document.getElementById("number").value = this.value.replace(/,/g, "")
+}
+</script>
+<% end %>
   <div class="field">
     <%= f.label :duedate, "Due Date" %>
     <%= f.text_field :duedate, :id => "datepicker", :readonly=> "0" %>
   <div> 
+  <div class="field">
+    <%= check_box_tag :recurring, 1, params[:recurring], :name=>"recurring"%>
+    <%= label_tag :recurring, "Recurring?", :class => "checkbox inline" %>
+  </div>
+  <br>
   <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Create Bill') %></div>
 <% end %>
 
@@ -30,10 +92,12 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script>
-$(function() {
-  $( "#datepicker" ).datepicker( { minDate: 0, maxDate: "+3M" });
-  $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-});
+  $(document).ready(function() {
+    $(function() {
+      $( "#datepicker" ).datepicker( { minDate: 0, maxDate: "+1M" });
+      $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+    });
+  });
 </script>
 <style>
 div.ui-datepicker{
@@ -44,7 +108,7 @@ div.ui-datepicker{
 <!--The following is the code for the Amount Due box -->
 <script type="text/javascript">
   document.getElementById("userinput").onblur =function (){    
-
+    this.value = Math.abs(this.value);
     //number-format the user input
     this.value = parseFloat(this.value.replace(/,/g, ""))
                     .toFixed(2)

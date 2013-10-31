@@ -63,7 +63,23 @@
 
               <% end %>
             </ul>
-            <div class="pull-right">
+            <div class="visible-desktop">
+              <div class="pull-right">
+                <% if current_user %>
+                <ul class="nav">
+                  <li><%= link_to "Welcome #{current_user.name}!", "#"  %></li>
+                  <li><%= link_to "Logout", "/logout" %> </li>
+                </ul>
+                <% else %>
+                  <form class="navbar-form pull-left" action="/sessions" method="post">
+                    <input type="text" class="span2" placeholder="Email" name="email" id="email">
+                    <input type="password" class="span2" placeholder="Password" name="password" id="email">
+                    <button type="submit" class="btn">Login</button>
+                  </form>
+                <% end %>
+              </div>
+            </div>
+            <div class="hidden-desktop">
               <% if current_user %>
               <ul class="nav">
                 <li><%= link_to "Welcome #{current_user.name}!", "#"  %></li>
@@ -120,7 +136,7 @@
       -webkit-background-size: cover;
 	  -moz-background-size: cover;
 	  -o-background-size: cover;
-	  background-size: cover; 
+	  background-size: cover;  
     } 
     	
     .bgImageNight{

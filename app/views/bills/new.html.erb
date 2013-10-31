@@ -1,7 +1,7 @@
 <h1>Create a Bill</h1>
 <% @dontshowbackground = true %>
 <%= form_for @bill, url: {action: "create"} do |f| %>
-  <% if @bill.errors.any? or @bills_help.errors.any? %>
+  <% if @bill.errors.any? %>
     <div class="error_messages">
       <h2>Form is invalid</h2>
       <ul>

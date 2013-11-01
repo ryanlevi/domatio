@@ -19,10 +19,16 @@ class DiscussionController < ApplicationController
   end
 
   def list
+#    @discussion = Discussion.joins(:user => :groupid)
+#    .where(:groupid => {:id => current_user.groupid}).all
+
+
+    #Discussion.joins(:user).where('user.groupid' => current_user.groupid).all
     @discussion = Discussion.all
   end
 
   def show
     @discussion = Discussion.find(params[:id])
+    @discussion_message = DiscussionMessage.new()
   end
 end

@@ -1,7 +1,10 @@
 class DiscussionController < ApplicationController
   def new
-    @discussion = Discussion.new
-
+    if current_user
+      @discussion = Discussion.new
+    else
+      redirect_to root_url, :notice => "You need to be logged in to do this."
+    end
   end
 
   def create
@@ -19,10 +22,23 @@ class DiscussionController < ApplicationController
   end
 
   def list
-    @discussion = Discussion.all
+    if current_user
+      @discussion = Discussion.joins(:user).where(:users => {:groupid => current_user.groupid})
+    else
+      redirect_to root_url, :notice => "You need to be logged in to do this."
+    end
   end
 
   def show
-    @discussion = Discussion.find(params[:id])
+    if current_user
+      @discussion = Discussion.find(params[:id])
+      if @discussion.user.groupid == current_user.groupid
+        @discussion_message = DiscussionMessage.new()
+      else
+        redirect_to root_url, :notice => "You need to be logged in to do this."
+      end
+    else
+      redirect_to root_url, :notice => "You need to be logged in to do this."
+    end
   end
 end

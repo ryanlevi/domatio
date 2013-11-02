@@ -40,6 +40,7 @@ Domatio::Application.routes.draw do
 
   get 'discussion_message/', to: 'discussionMessage#list'
   get 'discussion_message/new/:discussion_id', to: 'discussion_message#new', as: 'discussion_message'
+  post 'discussion_message/create_inline', to: 'discussion_message#create_inline'
   resources :discussion_message
 
 end

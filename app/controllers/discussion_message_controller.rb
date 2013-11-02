@@ -3,7 +3,11 @@ class DiscussionMessageController < ApplicationController
     if current_user
       @discussion_id = params[:discussion_id]
       @discussion = Discussion.find(@discussion_id)
-      @discussion_message = DiscussionMessage.new()
+      if @discussion.user.groupid == current_user.groupid
+        @discussion_message = DiscussionMessage.new()
+      else
+        redirect_to root_url, :notice => "You need to be logged in to do this."
+      end
     else
       redirect_to root_url, :notice => "You need to be logged in to do this."
     end
@@ -51,12 +55,14 @@ class DiscussionMessageController < ApplicationController
     end
   end
 
-  def list
-    if current_user
-      @discussion_message = DiscussionMessage.all
-    else
-      redirect_to root_url, :notice => "You need to be logged in to do this."
-    end
-  end
+# commented for security reasons
+# don't need this yet --> dont know how to protect yet
+#  def list
+#    if current_user
+#      @discussion_message = DiscussionMessage.all
+#    else
+#      redirect_to root_url, :notice => "You need to be logged in to do this."
+#    end
+#  end
 
 end

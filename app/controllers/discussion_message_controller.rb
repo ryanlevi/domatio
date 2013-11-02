@@ -1,8 +1,12 @@
 class DiscussionMessageController < ApplicationController
   def new
-    @discussion_id = params[:discussion_id]
-    @discussion = Discussion.find(@discussion_id)
-    @discussion_message = DiscussionMessage.new()
+    if current_user
+      @discussion_id = params[:discussion_id]
+      @discussion = Discussion.find(@discussion_id)
+      @discussion_message = DiscussionMessage.new()
+    else
+      redirect_to root_url, :notice => "You need to be logged in to do this."
+    end
   end
 
   def create
@@ -48,6 +52,11 @@ class DiscussionMessageController < ApplicationController
   end
 
   def list
-    @discussion_message = DiscussionMessage.all
+    if current_user
+      @discussion_message = DiscussionMessage.all
+    else
+      redirect_to root_url, :notice => "You need to be logged in to do this."
+    end
   end
+
 end

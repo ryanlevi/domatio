@@ -23,7 +23,7 @@ class DiscussionController < ApplicationController
 
   def list
     if current_user
-      @discussion = Discussion.all
+      @discussion = Discussion.joins(:user).where(:users => {:groupid => current_user.groupid})
     else
       redirect_to root_url, :notice => "You need to be logged in to do this."
     end
@@ -32,7 +32,11 @@ class DiscussionController < ApplicationController
   def show
     if current_user
       @discussion = Discussion.find(params[:id])
-      @discussion_message = DiscussionMessage.new()
+      if @discussion.user.groupid == current_user.groupid
+        @discussion_message = DiscussionMessage.new()
+      else
+        redirect_to root_url, :notice => "You need to be logged in to do this."
+      end
     else
       redirect_to root_url, :notice => "You need to be logged in to do this."
     end

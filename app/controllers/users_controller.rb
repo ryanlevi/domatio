@@ -31,7 +31,22 @@ class UsersController < ApplicationController
       render "new"
     end
   end
-
+  
+  
+  def edit
+  	@user = User.find(params[:user])
+  end
+  
+  def update
+  	@user = User.find(params[:user])
+  	# Successful edit and update
+  	if @user.update_attributes(user_params)
+  	# Unsuccessful update, rerender edit 
+  	else
+  		render 'edit'
+  	end
+  end
+  
   def index
   end
 end

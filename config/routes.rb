@@ -41,5 +41,9 @@ Domatio::Application.routes.draw do
   get 'discussion_message/', to: 'discussionMessage#list'
   get 'discussion_message/new/:discussion_id', to: 'discussion_message#new', as: 'discussion_message'
   resources :discussion_message
-
+  
+  # The Settings Page
+  get "edit" => "users#edit", :as => "edit"
+  post "update" => "users#update", :as => "update"
+  resources:users
 end

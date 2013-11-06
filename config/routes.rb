@@ -1,4 +1,5 @@
 Domatio::Application.routes.draw do
+
   # The Home Page
   get "home/index"
   # root :to => 'home#index'
@@ -7,6 +8,14 @@ Domatio::Application.routes.draw do
   # The About Page
   get "home/about"
   match '/about' => 'home#about'
+
+  # Error pages
+  get "errors/e404"
+  get "errors/e422"
+  get "errors/e500"
+  match '404' => 'errors#e404'
+  match '422' => 'errors#e422'
+  match '500' => 'errors#e500'
 
   # The Login/Logout/SignUp Pages
   get "logout" => "sessions#destroy", :as => "logout"

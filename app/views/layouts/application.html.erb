@@ -51,16 +51,13 @@
           <a class="brand" href="/">Dom&aacute;tio</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
-
               <% unless current_user %>
                   <li><%= link_to "Sign Up", "/signup"  %></li>
                   <li><%= link_to "Log In", "/login"  %></li>
               <% else %>
                   <li><%= link_to "Group", "/groups"  %></li>
                   <li><%= link_to "Bills", "/bills"  %></li>
-
                   <li><%= link_to "Discussions", "/discussion"  %></li>
-
               <% end %>
             </ul>
             <div class="visible-desktop">

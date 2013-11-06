@@ -4,7 +4,7 @@ Domatio is a web site for roommates. It was created using Ruby on Rails.
 
 == How To View The Site
 === Remotely
-Domatio is currently deployed on Heroku. To view it visit http://domatio.herokuapp.com/  It may take a while to load (as Heroku idles the server sometimes and it takes up to a minute to run the server again).
+Domatio is currently deployed on Heroku. To view it visit http://domatio.herokuapp.com  It may take a while to load as Heroku idles the server sometimes and it takes up to a minute to run the server again.
 
 === Locally
 If you would like to run Domatio on your own system, perform the following:

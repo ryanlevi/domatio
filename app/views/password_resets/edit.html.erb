@@ -1,6 +1,6 @@
 <% content_for :title do "Update Password" end %>
 <div class="span4 offset4"> 
-  <div class="hero-unit">
+  <div class="hero-unit" style="padding:30px">
     <%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
       <% if @user.errors.any? %>
         <div class="error_messages">

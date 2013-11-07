@@ -21,7 +21,7 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
   </head>
   <body>
-    <div class="bgFilters"></div>	
+    <div class="bgFilters"></div> 
     <div class="navbar navbar-fluid-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -97,7 +97,7 @@
     <script type="text/javascript">
     var currentTime = new Date().getHours();
     if (7 <= currentTime && currentTime < 20) {
-    	    if (document.body) {
+          if (document.body) {
             document.getElementById("bg").setAttribute("class", "bgImageDay");}
     }
     else {
@@ -108,26 +108,26 @@
 
 <!--CSS Styling -->
     <style>
-	/* Background Images*/
+  /* Background Images*/
   <% unless @dontshowbackground %>
     .bgImageDay{
-    	background: url('/dayHouse.jpg') no-repeat center center fixed;
+      background: url('/dayHouse.jpg') no-repeat center center fixed;
       -webkit-background-size: cover;
-	  -moz-background-size: cover;
-	  -o-background-size: cover;
-	  background-size: cover;  
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; 
     } 
-    	
+      
     .bgImageNight{
       background: url('/nightHouse.jpg') no-repeat center center fixed;
       -webkit-background-size: cover;
-	  -moz-background-size: cover;
-	  -o-background-size: cover;
-	  background-size: cover;  
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;  
     }
   <% end %>
    body {  
-	   background-color: transparent;
+     background-color: transparent;
    }
 
     .foot-fixed-bottom {

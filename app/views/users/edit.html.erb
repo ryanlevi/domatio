@@ -1,24 +1,33 @@
-<% provide (:title, "Edit user") %>
 <h1> Edit your account</h1>
 
 <div class="row">
 	<div class="span6 offset3">
-		<%= form_for(@user) do |f| %>
-			<%= render 'shared/error_messages' %>
-			
+		<%= form_for @user do |f|%> <!-- Form goes to update the user in controller-->
+			<!--add error checks for email, passwords etc. -->
+		<% if @user.errors.any? %>
+		      <div class="error_messages">
+		        <h2>Form is invalid</h2>
+		        <ul>
+		          <% for message in @user.errors.full_messages %>
+		            <li><%= message %></li>
+		          <% end %>
+		        </ul>
+		      </div>
+		    <% end %>
+
 			<%= f.label :name %>
 			<%= f.text_field :name %>
 			
 			<%= f.label :email %>
 			<%= f.text_field :email %>
-			
+<!--			
 			<%= f.label :password %>
 			<%= f.password_field :password %>
 			
 			<%= f.label :password_confirmation, "Confirm Password" %>
 			<%= f.password_field :password_confirmation %>
-			
-			<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+			-->
+			<%= f.submit "update", class: "btn btn-large btn-primary" %>
 		<% end %>
 		
 	</div>

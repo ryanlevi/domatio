@@ -34,19 +34,32 @@ class UsersController < ApplicationController
   
   
   def edit
-  	@user = User.find(params[:user])
+  	if current_user 
+  		@user=current_user
+  	else 
+  		redirect_to '#'
+  	end
   end
   
   def update
-  	@user = User.find(params[:user])
-  	# Successful edit and update
-  	if @user.update_attributes(user_params)
-  	# Unsuccessful update, rerender edit 
+  	@user = current_user
+  	# update only fields that are changed and check if valid
+  	#if @user= User.update_attributes(params[:user])
+  	#@user.name=params[:user][:name]
+  	#@user.email=params[:user][:email]
+  	
+  	if @user.update_attributes(params[:user])
+  	
+  	#if @user.save
+  		flash[:notice]='Your account has been successfully updated!'
+  		redirect_to '#'
   	else
+  		flash[:error]=@user.errors.full_messages
   		render 'edit'
   	end
   end
   
   def index
   end
+  
 end

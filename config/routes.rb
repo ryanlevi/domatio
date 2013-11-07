@@ -12,6 +12,10 @@ Domatio::Application.routes.draw do
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
   get "signup" => "users#new", :as => "signup"
+  
+  # The Settings Page
+  get "users/edit"
+  post "users/update"
   resources :users
   resources :sessions
 
@@ -41,9 +45,5 @@ Domatio::Application.routes.draw do
   get 'discussion_message/', to: 'discussionMessage#list'
   get 'discussion_message/new/:discussion_id', to: 'discussion_message#new', as: 'discussion_message'
   resources :discussion_message
-  
-  # The Settings Page
-  get "edit" => "users#edit", :as => "edit"
-  post "update" => "users#update", :as => "update"
-  resources:users
+
 end

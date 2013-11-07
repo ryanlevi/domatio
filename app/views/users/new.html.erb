@@ -1,7 +1,7 @@
 <% if current_user %>
   <h1>You are already logged in!</h1>
 <% else %>
-
+<% content_for :title do "Sign Up" end %>
 <div class="span4 offset4"> 
   <div class="hero-unit">
     <%= form_for @user do |f| %>

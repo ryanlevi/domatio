@@ -1,3 +1,4 @@
+<% content_for :title do "Create a Bill" end %>
 <h1>Create a Bill</h1>
 <% @dontshowbackground = true %>
 <%= form_for @bill, url: {action: "create"} do |f| %>

@@ -1,4 +1,5 @@
 <% @dontshowbackground = true %>
+<% content_for :title do "Bills in #{current_group.groupname}" end %>
 
 <h1>Bills in <%= current_group.groupname %></h1>
 <p>The following bills are in your group:</p>

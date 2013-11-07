@@ -1,60 +1,60 @@
 <!-- Container for two column layout -->
 <div class="container">
-	<div class="row-fluid">
-		<div id="left" class="span3 well">
-		<!-- Left Content -->
-	
+  <div class="row-fluid">
+    <div id="left" class="span3 well">
+    <!-- Left Content -->
+<% content_for :title do "Add Roommate to #{current_group.groupname}" end %>
 <% if current_group %>
   <h1>Add Roommates</h1>
 
   <%= form_for @friend, url: {action: "add_user_create"} do |f| %>  
-    <% if @friend.errors.any? %>
-      <div class="error_messages">
-        <h2>Form is invalid</h2>
-        <ul>
-          <% for message in @group.errors.full_messages %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-    
-     <div class="field">
-      <%= f.label :email, "Type in your roommate's email to add them to #{current_group.groupname.to_s}" %>  
-      <%= f.text_field :email %>
-    </div> 
+  <% if @friend.errors.any? %>
+    <div class="error_messages">
+    <h2>Form is invalid</h2>
+    <ul>
+      <% for message in @group.errors.full_messages %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+    </div>
+  <% end %>
+  
+   <div class="field">
+    <%= f.label :email, "Type in your roommate's email to add them to #{current_group.groupname.to_s}" %>  
+    <%= f.text_field :email %>
+  </div> 
 
-    <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Add Roommate') %></div>
+  <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Add Roommate') %></div>
   <% end %>
 
 
   <!-- End Left Content -->
-		</div>
-		<div id="right" class="span8 well">
-		<!-- Right Content -->
-		
-		<% else %>
-		<h1> You need to be in a group to invite friends </h1>
-		<% end %>
-		
-		List Pending/Current Users Here?
-		
-		
-		<!-- End Right Content -->
-		</div>
-	</div>
+    </div>
+    <div id="right" class="span8 well">
+    <!-- Right Content -->
+    
+    <% else %>
+    <h1> You need to be in a group to invite friends </h1>
+    <% end %>
+    
+    List Pending/Current Users Here?
+    
+    
+    <!-- End Right Content -->
+    </div>
+  </div>
 </div>
 
 
 <style>
 .container {
-	min-height: 100%;
-	overflow: hidden;
+  min-height: 100%;
+  overflow: hidden;
 }
 
 #right, #left {
-	margin-bottom: auto;
-	padding-bottom: auto;
+  margin-bottom: auto;
+  padding-bottom: auto;
 }
 
 </style>

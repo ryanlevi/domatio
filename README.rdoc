@@ -8,6 +8,7 @@ Domatio is currently deployed on Heroku. To view it visit http://domatio.herokua
 
 === Locally
 If you would like to run Domatio on your own system, perform the following:
+
 *NOTE:* This will NOT work on a Windows machine. Please use a Unix system.
 1. Install Git, Ruby 1.9.3-448 and Rails 3.2.8 (As of November 5, 2013 CSIL at UCSB is running the correct versions)
 

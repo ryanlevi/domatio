@@ -1,0 +1,19 @@
+<h1>Chore#new</h1>
+<%= form_for @chore, url: {action: "create"} do |f| %>  
+    <% if @chore.errors.any? %>
+      <div class="error_messages">
+        <h2>Form is invalid</h2>
+        <ul>
+          <% for message in @chore.errors.full_messages %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+    <div class="field"> 
+      <%= f.text_field :name, placeholder: 'Chore Name'%>
+
+    <div class="actions"><%= f.submit(:class => 'btn btn-info', :value => 'Create Chore') %></div>
+    </div> 
+<% end %>

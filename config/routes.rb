@@ -1,5 +1,9 @@
 Domatio::Application.routes.draw do
 
+  get "chore/index"
+
+  get "chore/new"
+
   # The Home Page
   get "home/index"
   # root :to => 'home#index'

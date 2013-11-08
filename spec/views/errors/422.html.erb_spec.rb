@@ -1,5 +1,4 @@
 require 'spec_helper'
 
-describe "errors/422.html.erb" do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe "errors/e422.html.erb" do
 end

@@ -2,23 +2,23 @@ require 'spec_helper'
 
 describe ErrorsController do
 
-  describe "GET '404'" do
+  describe "GET 'e404'" do
     it "returns http success" do
-      get '404'
+      get 'e404'
       response.should be_success
     end
   end
 
-  describe "GET '422'" do
+  describe "GET 'e422'" do
     it "returns http success" do
-      get '422'
+      get 'e422'
       response.should be_success
     end
   end
 
-  describe "GET '500'" do
+  describe "GET 'e500'" do
     it "returns http success" do
-      get '500'
+      get 'e500'
       response.should be_success
     end
   end

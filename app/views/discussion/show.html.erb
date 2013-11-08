@@ -29,7 +29,9 @@
         </div>
     <% end %>
     <div class="field">
-      <%= f.text_area :content, :cols => 0, :rows => 0 %>
+      <%= f.text_area :content, :cols => 0, :rows => 0, :width => 1200, :class => 'span12', :placeholder => "Enter Your Message Here" %>
     </div>
-    <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Create') %></div>
+    <div class="actions">
+      <%= f.submit(:class => 'btn btn-primary', :value => Discussion.find(params[:id]).messages_count ? 'Reply' : 'Create' ) %>
+    </div>
 <% end %>

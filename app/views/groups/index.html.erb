@@ -3,7 +3,6 @@
 <div class="well">
 <h1>Members in <%= current_group.groupname %></h1>
 <p><a href="/groups/add_user">Click here to add another roommate!</a></p>
-<font color='red'><%= link_to 'Leave this group', "/groups/leave", :method => :post %></font>
     <table class="table">
       <thead>
         <tr>
@@ -29,7 +28,9 @@
           </td>
         </tr>
 <% end %>
-
+<td></td><td>
+<a href="/groups/<%=current_group.id%>/edit" ><i class="icon-cog"></i></a>
+</td>
       </tbody>
     </table>
 </div>

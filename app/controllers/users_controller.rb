@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    invited_user=User.find_by_email(params[:user][:email])
+    invited_user=User.find_by_email(params[:user][:email].to_s.downcase)
     if invited_user && invited_user.name == nil
       @user=invited_user
       @user.name=params[:user][:name]

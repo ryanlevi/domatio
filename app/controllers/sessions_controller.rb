@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
 
   def create
     # The following line finds the user in our db by using their email
-    user = User.find_by_email(params[:email])
+    user = User.find_by_email(params[:email].to_s.downcase)
     # If the password is correct...
     if user && user.authenticate(params[:password])
       if params[:remember_me]

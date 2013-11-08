@@ -98,4 +98,23 @@ class GroupsController < ApplicationController
     end
   end
 
+  def edit
+    if current_group
+      @group = Groups.find(params[:id])
+    else
+      redirect_to '/groups/new', :notice => "You need to be part of a group to do this."
+    end
+  end
+
+  def update
+    @group = Groups.find(params[:id])
+    oldname = @group.groupname
+    @group.groupname = params[:groups][:groupname]
+    if @group.save
+      redirect_to '/groups', :notice => "Group name changed from #{oldname} to #{@group.groupname}!"
+    else
+      render "edit"
+    end
+  end
+
 end

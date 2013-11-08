@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   # setters, getters
   attr_accessible :email, :groupid, :name, :password, :password_confirmation, :created_at
-
+  has_many :bills, dependent: :destroy
+  
   # user can create [discussion] and [discussionMessages]
   has_many :discussion_messages
   has_many :discussion

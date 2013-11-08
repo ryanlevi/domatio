@@ -50,13 +50,17 @@ class BillsController < ApplicationController
   end
 
   def new
-    @bill = Bill.new
-    @bills_help = BillsHelp.new
-    @users = []
-    User.all.each do |user|
-      if user.groupid == current_group.groupid and user.name # this will take out pending users
-        @users.push user
+    if current_user and current_group
+      @bill = Bill.new
+      @bills_help = BillsHelp.new
+      @users = []
+      User.all.each do |user|
+        if user.groupid == current_group.groupid and user.name # this will take out pending users
+          @users.push user
+        end
       end
+    else
+      redirect_to root_url, :notice => "You need to be logged in and part of a group to access bills."
     end
   end
 

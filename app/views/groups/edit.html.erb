@@ -1,0 +1,34 @@
+<% content_for :title do "Group Settings" end %>
+<% if current_group %>
+<div class="container">
+  <div class="row-fluid">
+    <div id="left" class="span4 well">
+    <!-- Left Content -->
+      
+  <h1>Group Settings</h1>
+  
+  <%= form_for @group, url: {action: "update"} do |f| %>  <!-- links the form to group and ensures the action goes to create and not index -->
+    <% if @group.errors.any? %>
+      <div class="error_messages">
+        <h2>Form is invalid</h2>
+        <ul>
+          <% for message in @group.errors.full_messages %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+    <div class="field"> 
+      <%= f.label :groupname, "Group Name:" %>
+      <%= f.text_field :groupname, placeholder: 'Groupname'%>
+
+    <div class="actions"><%= f.submit(:class => 'btn btn-info', :value => 'Save Group Settings') %></div>
+    </div> 
+  <% end %>
+  
+  <!-- End Left Content -->
+    </div>
+  </div>
+</div>
+<% end %>

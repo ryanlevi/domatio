@@ -26,7 +26,7 @@
   <% if @their_bill_list.length > 0 %>
     <h4><b>Bills you don't own:</b></h4>
     <% @their_bill_list_of_hashes.each do |bill_id, info| %>
-      <%= Bill.find(bill_id).name %>: <%= number_to_currency(info[current_user.email]) %><br>
+      <%= Bill.find(bill_id).name %>: <%= number_to_currency(info[current_user.email]) %> (of <%= number_to_currency(Bill.find(bill_id).price) %>)<br>
     <% end %>
   <% end %>
   </div>

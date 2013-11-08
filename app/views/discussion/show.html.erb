@@ -1,10 +1,10 @@
 <% content_for :title do @discussion.title.to_s end %>
-
+<div class="hero-unit" style="padding:30px">
 <div class="page-header">
     <div style="float: right">
         <a class="btn" href="/discussion_message/new/<%= @discussion.id %>"><i class="icon-plus"></i>&nbsp;New</a>
     </div>
-    <h1><%= @discussion.title %> - <%= @discussion.messages_count %> Replies</h1>
+    <h1 style="font-size:36px;"><%= @discussion.title %> - <%= @discussion.messages_count %> Replies</h1>
 </div>
 
 <% @discussion.discussion_messages.each do |d| %>
@@ -35,3 +35,4 @@
       <%= f.submit(:class => 'btn btn-primary', :value => Discussion.find(params[:id]).messages_count ? 'Reply' : 'Create' ) %>
     </div>
 <% end %>
+</div>

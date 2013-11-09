@@ -5,6 +5,11 @@ Domatio::Application.routes.draw do
   # root :to => 'home#index'
   root :to => 'home#index'
 
+  # The Contact Us Page
+  get 'home/contact'
+  post 'home/contact_post'
+  match '/contact' => 'home#contact'
+
   # The About Page
   get "home/about"
   match '/about' => 'home#about'

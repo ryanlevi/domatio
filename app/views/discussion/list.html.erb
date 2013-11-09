@@ -1,10 +1,10 @@
-<% content_for :title do "All Discussions in <%=current_group.groupname%>" end %>
+<% content_for :title do "All Discussions in #{current_group.groupname}" end %>
 <div class="hero-unit" style="padding:30px">
 <div class="page-header">
   <div style="float: right">
     <a class="btn" href="discussion/new"><i class="icon-plus"></i>&nbsp;New</a>
   </div>
-  <h1 style="font-size:36px">All Discussions in <%=current_group.groupname%></h1>
+  <h1 style="font-size:36px">All Discussions in <%= current_group.groupname %></h1>
 </div>
 
 <% @discussion.each do |d| %>

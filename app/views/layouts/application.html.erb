@@ -47,7 +47,19 @@
                 <% if current_user %>
                 <ul class="nav">
                   <li><%= link_to "Welcome #{current_user.name}!", "#"  %></li>
-                  <li><%= link_to "Logout", "/logout" %> </li>
+                  <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i></a>
+                        <ul class="dropdown-menu pull-right">
+                          <li class="disabled"><%= link_to "Account Settings", "/users/#{current_user.id}/edit" %></li>
+                          <li><%= link_to "Group Settings", "/groups/#{current_group.id}/edit" %></li>
+                          <li class="divider"></li>
+                          <li class="disabled"><%= link_to "Help", "/help" %></li>
+                          <li><%= link_to "About", "/about" %></li>
+                          <li class="disabled"><%= link_to "Contact Us", "/contact" %></li>
+                          <li class="divider"></li>
+                          <li><%= link_to "Logout", "/logout" %></li>
+                        </ul>
+                  </li>
                 </ul>
                 <% else %>
                   <form class="navbar-form pull-left" action="/sessions" method="post">
@@ -144,5 +156,6 @@
      padding-bottom: 2px;
     }
     </style>
+    <script>$('.dropdown-toggle').dropdown()</script>
   </body>
 </html>

@@ -15,7 +15,11 @@
     $("<%= '#x_'+bill_id.to_s %>").tooltip();
   </script>
       <% info.each do |email, amount| %>
+        <% if User.find_by_email(email) == current_user %>
+        You owe <%= number_to_currency(amount) %>
+        <% else %>
         <%= User.find_by_email(email).name %> owes <%= number_to_currency(amount) %>
+        <% end %>
         <br>
       <% end %>
     <% end %>

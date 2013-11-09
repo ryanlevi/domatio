@@ -21,4 +21,8 @@ class UserMailer < ActionMailer::Base
     @current_group = current_group
     mail :to => email, :subject => "You'be been invited by #{@current_user.name} to join Domatio!"
   end
+
+  def contact(email, subject, message)
+    mail :to => 'domatio.app@gmail.com', :subject => subject, :body => "From:\n #{email}\n\n Body:\n  #{message}"
+  end
 end

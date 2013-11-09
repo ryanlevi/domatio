@@ -83,7 +83,7 @@
   <div class="field">
     <%= f.label :duedate, "Due Date" %>
     <%= f.text_field :duedate, :id => "datepicker", :readonly=> "0" %>
-  <div> 
+  </div> 
   <div class="field">
     <%= check_box_tag :recurring, 1, params[:recurring], :name=>"recurring"%>
     <%= label_tag :recurring, "Recurring?", :class => "checkbox inline" %>
@@ -91,8 +91,6 @@
   <br>
   <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Create Bill') %></div>
 <% end %>
-    </div>
-  </div>
 </div>
 </div>
 <!-- The following is the datepicker code -->

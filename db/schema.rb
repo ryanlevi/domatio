@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131030164828) do
+ActiveRecord::Schema.define(:version => 20131112031235) do
 
   create_table "bills", :force => true do |t|
     t.string   "name"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20131030164828) do
     t.datetime "updated_at",                               :null => false
     t.datetime "duedate"
     t.integer  "recurring"
+    t.integer  "pending"
   end
 
   create_table "bills_help", :force => true do |t|
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20131030164828) do
     t.decimal  "amount"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "pending"
   end
 
   create_table "discussion_messages", :force => true do |t|

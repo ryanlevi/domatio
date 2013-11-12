@@ -42,8 +42,11 @@ Domatio::Application.routes.draw do
   resources :groups
 
   # The Bills page
-  resources :bills
   post 'bills/create'
+  get 'bills/past_bills'
+  put '/bills/stash/:id', to: 'bills#stash', as: 'stash'
+  put '/bills/unstash/:id', to: 'bills#unstash', as: 'unstash'
+  resources :bills
 
   # The Discussion Page
   get 'discussion/', to: 'discussion#list'

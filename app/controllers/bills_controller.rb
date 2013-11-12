@@ -3,6 +3,7 @@ class BillsController < ApplicationController
     # This statement makes sure the user is logged in and part of a group
     if current_user 
       if current_group
+        # This block updates the bills (for recurrence and for stashing old bills)
         Bill.where("groupid = '#{current_group.groupid}'").each do |bill|
           # marks overdue bills as paid; throws in stash
           if bill.duedate < Date.today
@@ -21,7 +22,7 @@ class BillsController < ApplicationController
             end
 
             # DATE OF MONTH
-            if bill.duedate.day == 30 or bill.duedate.day == 31
+            if bill.recurring == 30 or bill.recurring == 31
               case next_month
               when 2 # february
                 next_day = 28
@@ -29,13 +30,13 @@ class BillsController < ApplicationController
               when 4, 6, 9, 11 # april, june, sept, nov
                 next_day = 30
               else
-                next_day = bill.duedate.day
+                next_day = bill.recurring
               end
-            elsif bill.duedate.day == 29 and bill.duedate.month == 2
+            elsif bill.recurring == 29 and next_month == 2
               next_day = 28
               next_day = 29 if Date.leap? bill.duedate.year
             else
-              next_day = bill.duedate.day
+              next_day = bill.recurring
             end
             # Creates a NEW bill with the same fields; Changes duedate to 1 month later
             @new_bill = Bill.new({ :name => bill.name,

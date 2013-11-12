@@ -22,10 +22,12 @@ Domatio::Application.routes.draw do
   match '422' => 'errors#e422'
   match '500' => 'errors#e500'
 
-  # The Login/Logout/SignUp Pages
+  # The Login/Logout/SignUp Pages and Settings Page
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
   get "signup" => "users#new", :as => "signup"
+  get "users/edit"
+  post "users/update"
   resources :users
   resources :sessions
 
@@ -57,4 +59,7 @@ Domatio::Application.routes.draw do
   post 'discussion_message/create_inline', to: 'discussion_message#create_inline'
   resources :discussion_message
 
+
+
+  
 end

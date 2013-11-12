@@ -50,7 +50,7 @@
                   <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i></a>
                         <ul class="dropdown-menu pull-right">
-                          <li class="disabled"><%= link_to "Account Settings", "/users/#{current_user.id}/edit" %></li>
+                          <li><%= link_to "Account Settings", "/users/edit" %></li>
                           <li><%= link_to "Group Settings", "/groups/#{current_group.id}/edit" if current_group %></li>
                           <li class="divider"></li>
                           <li class="disabled"><%= link_to "Help", "/help" %></li>

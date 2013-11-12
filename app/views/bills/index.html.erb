@@ -10,28 +10,30 @@
     <h4><b>Bills you own:</b></h4>
     <% @your_bill_list_of_hashes.each do |bill_id, info| %>
       <b><%= Bill.find(bill_id).name %>:
-      <%= link_to 'x', "/bills/#{bill_id}", :method => :delete, 'data-toggle'=>"tooltip", 'data-placement'=>"right", 'data-original-title'=>"Delete this bill", :id =>"x_#{bill_id}" %></b><br>
+      <%= link_to 'x', "/bills/stash/#{bill_id}", :method => :put, 'data-toggle'=>"tooltip", 'data-placement'=>"right", 'data-original-title'=>"Stash this bill", :id =>"x_#{bill_id}" %></b><br>
   <script type="text/javascript">
     $("<%= '#x_'+bill_id.to_s %>").tooltip();
   </script>
       <% info.each do |email, amount| %>
         <% if User.find_by_email(email) == current_user %>
-        You owe <%= number_to_currency(amount) %>
+        You owe <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %>
         <% else %>
-        <%= User.find_by_email(email).name %> owes <%= number_to_currency(amount) %>
+        <%= User.find_by_email(email).name %> owes <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %>
         <% end %>
         <br>
       <% end %>
     <% end %>
   <% end %>
-  </p><p><a href="/bills/new">Click here to add another bill!</a></p>
+  </p>
   </div>
-    <div class="span6">
-  <% if @their_bill_list.length > 0 %>
-    <h4><b>Bills you don't own:</b></h4>
-    <% @their_bill_list_of_hashes.each do |bill_id, info| %>
-      <%= Bill.find(bill_id).name %>: <%= number_to_currency(info[current_user.email]) %> (of <%= number_to_currency(Bill.find(bill_id).price) %>)<br>
+  <div class="span6">
+    <% if @their_bill_list.length > 0 %>
+      <h4><b>Bills you don't own:</b></h4>
+      <% @their_bill_list_of_hashes.each do |bill_id, info| %>
+        <%= Bill.find(bill_id).name %>: <%= number_to_currency(info[current_user.email]) %> (of <%= number_to_currency(Bill.find(bill_id).price) %>) due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %><br>
+      <% end %>
     <% end %>
-  <% end %>
   </div>
+  <p class="span12" style="margin-left:0px" align="center"><a href="/bills/new">Add another bill</a><br>
+  <a href="/bills/past_bills">View past bills</a></p>
 </div>

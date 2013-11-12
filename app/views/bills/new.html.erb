@@ -1,7 +1,8 @@
 <% content_for :title do "Create a Bill" end %>
 <div class="hero-unit" style="padding:20px">
 <h1 style="font-size: 36px;">Create a Bill</h1>
-<br>
+<a href="/bills/past_bills">View past bills</a>
+<br><br>
 <%= form_for @bill, url: {action: "create"} do |f| %>
   <% if @bill.errors.any? %>
     <div class="error_messages">

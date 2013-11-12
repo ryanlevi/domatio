@@ -1,5 +1,5 @@
 class Bill < ActiveRecord::Base
-  attr_accessible :groupid, :name, :owner, :price, :duedate, :recurring
+  attr_accessible :groupid, :name, :owner, :price, :duedate, :recurring, :pending
   has_many :bills_help, dependent: :destroy
 
   # The following code makes validations show humanized attributes

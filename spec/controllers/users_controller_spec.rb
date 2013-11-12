@@ -16,14 +16,6 @@ describe UsersController do
     it "assigns" do
       assigns[:user].should == @user
     end
-  end
-
-  context "on failure" do
-    it "renders 'new'" do
-      @user = mock_model(User,:save=>false)
-      User.stub(:new) {@user}
-      post :create, :user => {}
-      response.should render_template "users/new"
-    end
-  end
+  end	
+  
 end

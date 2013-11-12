@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :discussion
 
   has_secure_password
-
+  
   validates_uniqueness_of :email # makes sure email is not already taken
   validates_presence_of :email # makes sure user typed in an email
   validates :email, :email => true

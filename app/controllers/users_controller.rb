@@ -31,7 +31,35 @@ class UsersController < ApplicationController
       render "new"
     end
   end
+  
+  def edit 
+    if current_user
+      @user = current_user
+    end
+  end
+  
+  def update
+    @user = current_user
+    #Update attributes with values from form 
+    @user.name=params[:user][:name]
+    @user.email=params[:user][:email]
+    if params[:user][:password] != nil
+      @user.password=params[:user][:password]
+      @user.password_confirmation=params[:user][:password_confirmation]
+    end
 
+    
+    #If the updates to user are valid, then save the user 
+    if @user.save
+        flash[:notice]='Your account has been successfully updated!'
+      redirect_to '#'
+    else
+      # flash[:error]=@user.errors.full_messages
+      render 'edit'
+    end
+  end
+  
   def index
   end
+  
 end

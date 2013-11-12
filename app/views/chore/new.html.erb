@@ -1,4 +1,6 @@
-<h1>Chore#new</h1>
+<% content_for :title do "New Chore - Domatio" end %>
+
+<h1>Create a New Chore</h1>
 <%= form_for @chore, url: {action: "create"} do |f| %>  
     <% if @chore.errors.any? %>
       <div class="error_messages">
@@ -12,8 +14,20 @@
     <% end %>
     
     <div class="field"> 
-      <%= f.text_field :name, placeholder: 'Chore Name'%>
-
-    <div class="actions"><%= f.submit(:class => 'btn btn-info', :value => 'Create Chore') %></div>
-    </div> 
+      <%= f.text_field :name, :placeholder => 'Chore Name'%>
+    </div>
+    <div class="field"> 
+      <%= f.select :recurrence, options_for_select([["Weekly",1],["Monthly",2],["Bimonthly",3],["Only Once",4]]) %>
+    </div>
+      <% @users.each do |user| %>
+        <div class="field"> 
+         <%= check_box_tag :chores_help, user.id, params[:chores_help], :name=>"chores_help[#{user.name}]"%>
+         <%= label_tag :chores_help, "Assign to #{user.name}?", :class => "checkbox inline" %>
+        </div>
+      <% end %>
+    
+    <div class="actions"> 
+      <%= f.submit(:class => 'btn btn-info', :value => 'Create Chore') %>
+    </div>
+    
 <% end %>

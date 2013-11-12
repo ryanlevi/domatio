@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   # user can create [discussion] and [discussionMessages]
   has_many :discussion_messages
   has_many :discussion
+  
+  has_many :chore
+  has_many :chores_help
 
   has_secure_password
 

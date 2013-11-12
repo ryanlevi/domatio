@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131030164828) do
+ActiveRecord::Schema.define(:version => 20131108222617) do
 
   create_table "bills", :force => true do |t|
     t.string   "name"
@@ -24,11 +24,7 @@ ActiveRecord::Schema.define(:version => 20131030164828) do
     t.integer  "recurring"
   end
 
-  create_table "bills_help", :force => true do |t|
-    t.integer "bill_id"
-  end
-
-  create_table "bills_helpers", :force => true do |t|
+  create_table "bills_helps", :force => true do |t|
     t.integer  "bill_id"
     t.string   "user"
     t.decimal  "amount"
@@ -36,10 +32,18 @@ ActiveRecord::Schema.define(:version => 20131030164828) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "bills_helps", :force => true do |t|
-    t.integer  "bill_id"
-    t.string   "user"
-    t.decimal  "amount"
+  create_table "chores", :force => true do |t|
+    t.string   "name"
+    t.string   "groupid"
+    t.datetime "time"
+    t.integer  "recurrence"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "chores_helps", :force => true do |t|
+    t.integer  "chore_id"
+    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

@@ -1,8 +1,6 @@
 Domatio::Application.routes.draw do
 
-  get "chore/index"
-
-  get "chore/new"
+  
 
   # The Home Page
   get "home/index"
@@ -43,6 +41,13 @@ Domatio::Application.routes.draw do
   # The Bills page
   resources :bills
   post 'bills/create'
+
+  #The Chore Pages
+
+  #get "chore/index"
+  #get "chore/new"
+  #post "chore/create"
+  resources :chore
 
   # The Discussion Page
   get 'discussion/', to: 'discussion#list'

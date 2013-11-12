@@ -22,10 +22,11 @@ Domatio::Application.routes.draw do
   match '422' => 'errors#e422'
   match '500' => 'errors#e500'
 
-  # The Login/Logout/SignUp Pages and Settings Page
+  # The Login/Logout/SignUp Pages
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
   get "signup" => "users#new", :as => "signup"
+  # The Settings Page
   get "users/edit"
   post "users/update"
   resources :users

@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   
   def edit 
   	if current_user
-  		@user = current_user 
+  		@user = current_user
   	end
   end
   
@@ -61,4 +61,5 @@ class UsersController < ApplicationController
   
   def index
   end
+  
 end

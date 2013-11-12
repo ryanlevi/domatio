@@ -19,9 +19,9 @@
     <%= javascript_include_tag "application" %>
     <!--Font Awesome-->
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+	
   </head>
-  <body>
-    <div class="bgFilters"></div> 
+  <body>	
     <div class="navbar navbar-fluid-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -61,6 +61,7 @@
                         </ul>
                   </li>
                 </ul>
+             </div>
                 <% else %>
                   <form class="navbar-form pull-left" action="/sessions" method="post">
                     <input type="text" class="span2" placeholder="Email" name="email" id="email">
@@ -68,7 +69,6 @@
                     <button type="submit" class="btn">Login</button>
                   </form>
                 <% end %>
-              </div>
             </div>
             <div class="hidden-desktop">
               <% if current_user %>
@@ -97,7 +97,6 @@
               <% end %>
             </div>
           </div><!--/.nav-collapse -->
-        </div>
       </div>
     </div>
 
@@ -116,7 +115,7 @@
       </footer>
 
     </div> <!-- /container -->
-    
+   
 <!--Background Changer JS-->
     <script type="text/javascript">
     var currentTime = new Date().getHours();
@@ -128,11 +127,15 @@
             if (document.body) {
             document.getElementById("bg").setAttribute("class", "bgImageNight");}
     }
+ 
     </script>
-
+    
 <!--CSS Styling -->
     <style>
-  /* Background Images*/
+    
+	/* Background Images*/
+  <% unless @dontshowbackground %>
+  
     .bgImageDay{
       background: url('/dayHouse.jpg') no-repeat center center fixed;
       -webkit-background-size: cover;

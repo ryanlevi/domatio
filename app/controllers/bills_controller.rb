@@ -4,12 +4,57 @@ class BillsController < ApplicationController
     if current_user 
       if current_group
         Bill.where("groupid = '#{current_group.groupid}'").each do |bill|
-          # finds all recurring bills that are marked as paid
+          # marks overdue bills as paid; throws in stash
           if bill.duedate <= Date.today
             bill.pending = 0
             bill.save
           end
-          if bill.recurring
+          # finds all recurring bills that are marked as paid
+          if bill.recurring and bill.pending == 0 and bill.duedate <= Date.today
+            # MONTH AND YEAR
+            if bill.duedate.month == 12
+              next_month = 1
+              next_year = bill.duedate.year + 1
+            else
+              next_month = bill.duedate.month + 1
+              next_year = bill.duedate.year
+            end
+
+            # DATE OF MONTH
+            if bill.duedate.day == 30 or bill.duedate.day == 31
+              case bill.duedate.month
+              when 2 # february
+                next_day = 28
+                next_day = 29 if Date.leap? bill.duedate.year
+              when 4, 6, 9, 11 # april, june, sept, nov
+                next_day = 30
+              else
+                next_day = bill.duedate.day
+              end
+            elsif bill.duedate.day == 29 and bill.duedate.month == 2
+              next_day = 28
+              next_day = 29 if Date.leap? bill.duedate.year
+            else
+              next_day = bill.duedate.day
+            end
+            # Creates a NEW bill with the same fields; Changes duedate to 1 month later
+            @new_bill = Bill.new({ :name => bill.name,
+                                  :groupid => bill.groupid,
+                                  :owner => bill.owner,
+                                  :price => bill.price,
+                                  :recurring => bill.recurring,
+                                  :pending => 1,
+                                  :duedate => Date.new(next_year, next_month, next_day) })
+            @new_bill.save
+            BillsHelp.where("bill_id = '#{bill.id}'").each do |bill_help|
+              @new_bill_help = BillsHelp.new({ :amount => bill_help.amount,
+                                              :bill_id => @new_bill.id,
+                                              :user => bill_help.user,
+                                              :pending => 1 })
+              @new_bill_help.save
+            end
+            bill.recurring = nil #removes the recurring value from the OLD bill, to prevent duplicates
+            bill.save
           end
         end
         @your_bill_list = [] # for a list of bills current user owns
@@ -139,6 +184,8 @@ class BillsController < ApplicationController
   def create
     # add a row to the Bills table with the supplied Bill Name, Amount Due and Due Date
     @bill = Bill.new(params[:bill])
+    # marks bill as pending, or "not paid"
+    @bill.pending = 1
     # if the user checked recurring, store the value of the date of the month in the db
     # if not, leave it as nil in the db
     @bill.recurring = @bill.duedate.day if params[:recurring].to_i == 1
@@ -153,6 +200,7 @@ class BillsController < ApplicationController
         helper_hash[:bill_id] = @bill.id
         helper_hash[:user] = user
         helper_hash[:amount] = amount
+        helper_hash[:pending] = 1
         @helper = BillsHelp.create(helper_hash)
       end
       redirect_to '/bills', :notice => "You've created the bill: #{@bill.name}!"

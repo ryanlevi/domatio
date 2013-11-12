@@ -10,8 +10,10 @@
     <h4><b>Bills you own:</b></h4>
     <% @your_past_bill_list_of_hashes.each do |bill_id, info| %>
       <b><%= Bill.find(bill_id).name %>:
-      <%= link_to 'x', "/bills/#{bill_id}", :method => :delete, 'data-toggle'=>"tooltip", 'data-placement'=>"right", 'data-original-title'=>"Delete this bill", :id =>"x_#{bill_id}" %>
-      <%= link_to 'undo', "/bills/unstash/#{bill_id}", :method => :put, 'data-toggle'=>"tooltip", 'data-placement'=>"right", 'data-original-title'=>"Delete this bill", :id =>"x_#{bill_id}" %>
+      <%= link_to 'x', "/bills/#{bill_id}", :method => :delete, 'data-toggle'=>"tooltip", 'data-placement'=>"right", 'data-original-title'=>"Permanently Remove From History", :id =>"x_#{bill_id}" %>
+      <% if Bill.find(bill_id).duedate.to_date >= Date.today %>
+      <br><%= link_to 'Mark Unpaid', "/bills/unstash/#{bill_id}", :method => :put %>
+      <% end %>
     </b><br>
   <script type="text/javascript">
     $("<%= '#x_'+bill_id.to_s %>").tooltip();
@@ -26,7 +28,7 @@
       <% end %>
     <% end %>
   <% end %>
-  </p><p><a href="/bills/new">Click here to add another bill!</a></p>
+  </p>
   </div>
     <div class="span6">
   <% if @their_past_bills.length > 0 %>
@@ -36,4 +38,6 @@
     <% end %>
   <% end %>
   </div>
+    <p class="span12" style="margin-left:0px" align="center"><a href="/bills/new">Add another bill</a><br>
+  <a href="/bills">View current bills</a></p>
 </div>

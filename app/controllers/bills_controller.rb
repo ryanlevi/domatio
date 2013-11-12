@@ -5,12 +5,12 @@ class BillsController < ApplicationController
       if current_group
         Bill.where("groupid = '#{current_group.groupid}'").each do |bill|
           # marks overdue bills as paid; throws in stash
-          if bill.duedate <= Date.today
+          if bill.duedate < Date.today
             bill.pending = 0
             bill.save
           end
           # finds all recurring bills that are marked as paid
-          if bill.recurring and bill.pending == 0 and bill.duedate <= Date.today
+          if bill.recurring and bill.pending == 0 and bill.duedate < Date.today
             # MONTH AND YEAR
             if bill.duedate.month == 12
               next_month = 1
@@ -22,7 +22,7 @@ class BillsController < ApplicationController
 
             # DATE OF MONTH
             if bill.duedate.day == 30 or bill.duedate.day == 31
-              case bill.duedate.month
+              case next_month
               when 2 # february
                 next_day = 28
                 next_day = 29 if Date.leap? bill.duedate.year

@@ -11,16 +11,31 @@
     <% @your_bill_list_of_hashes.each do |bill_id, info| %>
       <b><%= Bill.find(bill_id).name %>:
       <%= link_to 'x', "/bills/stash/#{bill_id}", :method => :put, 'data-toggle'=>"tooltip", 'data-placement'=>"right", 'data-original-title'=>"Stash this bill", :id =>"x_#{bill_id}" %></b><br>
-  <script type="text/javascript">
-    $("<%= '#x_'+bill_id.to_s %>").tooltip();
-  </script>
+      <script type="text/javascript">
+        $("<%= '#x_'+bill_id.to_s %>").tooltip();
+      </script>
       <% info.each do |email, amount| %>
-        <% if User.find_by_email(email) == current_user %>
-        You owe <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %>
+        <% if @your_paid_bill_list[bill_id].include? email %>
+          <% if User.find_by_email(email) == current_user %>
+            <strike>
+            You owe <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %></strike>
+            <%= link_to 'Mark as unpaid', "/bills/mark_as_unpaid/#{bill_id}/#{User.find_by_email(email).id}", :method => :put %>
+          <% else %>
+            <strike>
+            <%= User.find_by_email(email).name %> owes <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %></strike>
+            <%= link_to 'Mark as unpaid', "/bills/mark_as_unpaid/#{bill_id}/#{User.find_by_email(email).id}", :method => :put %>
+          <% end %>
+          <br>
         <% else %>
-        <%= User.find_by_email(email).name %> owes <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %>
+          <% if User.find_by_email(email) == current_user %>
+          You owe <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %>
+          <%= link_to 'Mark as paid', "/bills/mark_as_paid/#{bill_id}/#{User.find_by_email(email).id}", :method => :put %>
+          <% else %>
+          <%= User.find_by_email(email).name %> owes <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %>
+          <%= link_to 'Mark as paid', "/bills/mark_as_paid/#{bill_id}/#{User.find_by_email(email).id}", :method => :put %>
+          <% end %>
+          <br>
         <% end %>
-        <br>
       <% end %>
     <% end %>
   <% end %>

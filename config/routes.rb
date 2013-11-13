@@ -49,6 +49,8 @@ Domatio::Application.routes.draw do
   get 'bills/past_bills'
   put '/bills/stash/:id', to: 'bills#stash', as: 'stash'
   put '/bills/unstash/:id', to: 'bills#unstash', as: 'unstash'
+  put '/bills/mark_as_paid/:id/:user', to: 'bills#mark_as_paid', as: 'mark_as_paid'
+  put '/bills/mark_as_unpaid/:id/:user', to: 'bills#mark_as_unpaid', as: 'mark_as_unpaid'
   resources :bills
 
   # The Discussion Page

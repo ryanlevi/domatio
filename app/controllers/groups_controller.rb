@@ -25,6 +25,19 @@ class GroupsController < ApplicationController
   def add_user
     if current_user
       @friend = User.new
+      if current_group
+        @group_members = []
+        User.all.each do |user|
+          if user.groupid == current_group.groupid
+            @group_members.push(user)
+          end
+        end
+        if @group_members.length <= 1
+          redirect_to '/groups/add_user'
+        end
+      else
+        redirect_to '/groups/new', :notice => "You need a group to do that!"
+      end
     else
       redirect_to root_url, :notice => "You need to be logged in to do this."
     end

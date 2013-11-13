@@ -172,6 +172,25 @@ class BillsController < ApplicationController
     end
   end
 
+  def mark_as_paid
+    @bill = Bill.find(params[:id])
+    @user = User.find_by_email(param[:user])
+    stash_bill = true # creating a bool that is changed to FALSE only if someone hasn't paid yet
+    BillsHelp.where("bill_id = '#{params[:id]}'").each do |bill_in_bh_table|
+      if bill_in_bh_table.user == @user.email
+        bill_in_bh_table.pending = 0
+        bill_in_bh_table.save
+      end
+      if bill_in_bh_table.pending == 1
+        stash_bill = false # someone hasn't paid yet; don't stash the bill
+      end
+    end
+    if stash_bill
+      @bill.pending = 0
+      @bill.save
+    end
+  end
+
   def destroy
     @bill = Bill.find(params[:id])
     name = @bill.name

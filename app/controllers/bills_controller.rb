@@ -60,6 +60,7 @@ class BillsController < ApplicationController
         end
         @your_bill_list = [] # for a list of bills current user owns
         @your_bill_list_of_hashes = {} # for a hash that stores bills, users and amounts they each do
+        @your_paid_bill_list = [] # array that contains users who have paid you, compare this to the hash above for strikethrough on index
         @their_bill_list = [] #for a list of bills current user doesn't own
         @their_bill_list_of_hashes = {} # for a hash that stores bills, users and amounts they each do
         Bill.where("groupid = '#{current_group.groupid}'").each do |bill|
@@ -73,18 +74,14 @@ class BillsController < ApplicationController
             end
           end
         end
-        @their_bill_list.each do |bill|
-          instance_variable_set "@bill_#{bill.id}", Hash.new
-          BillsHelp.where("bill_id = '#{bill.id}'").each do |bill_help|
-            instance_variable_get("@bill_#{bill.id}")[bill_help.user] = bill_help.amount
-            @their_bill_list_of_hashes[bill.id] = instance_variable_get("@bill_#{bill.id}")
-          end
-        end
         @your_bill_list.each do |bill|
           instance_variable_set "@bill_#{bill.id}", Hash.new
           BillsHelp.where("bill_id = '#{bill.id}'").each do |bill_help|
-            instance_variable_get("@bill_#{bill.id}")[bill_help.user] = bill_help.amount
-            @your_bill_list_of_hashes[bill.id] = instance_variable_get("@bill_#{bill.id}")
+              instance_variable_get("@bill_#{bill.id}")[bill_help.user] = bill_help.amount
+              @your_bill_list_of_hashes[bill.id] = instance_variable_get("@bill_#{bill.id}")
+            if bill_help.pending == 0
+              @your_paid_bill_list.push bill_help.user
+            end
           end
         end
         if @your_bill_list.length + @their_bill_list.length <= 0
@@ -174,7 +171,7 @@ class BillsController < ApplicationController
 
   def mark_as_paid
     @bill = Bill.find(params[:id])
-    @user = User.find_by_email(param[:user])
+    @user = User.find(params[:user])
     stash_bill = true # creating a bool that is changed to FALSE only if someone hasn't paid yet
     BillsHelp.where("bill_id = '#{params[:id]}'").each do |bill_in_bh_table|
       if bill_in_bh_table.user == @user.email
@@ -189,6 +186,27 @@ class BillsController < ApplicationController
       @bill.pending = 0
       @bill.save
     end
+    redirect_to '/bills', :notice => "#{@user.name} marked as paid #{@bill.name}"
+  end
+
+  def mark_as_unpaid
+    @bill = Bill.find(params[:id])
+    @user = User.find(params[:user])
+    stash_bill = true # creating a bool that is changed to FALSE only if someone hasn't paid yet
+    BillsHelp.where("bill_id = '#{params[:id]}'").each do |bill_in_bh_table|
+      if bill_in_bh_table.user == @user.email
+        bill_in_bh_table.pending = 1
+        bill_in_bh_table.save
+      end
+      if bill_in_bh_table.pending == 1
+        stash_bill = false # someone hasn't paid yet; don't stash the bill
+      end
+    end
+    if stash_bill
+      @bill.pending = 0
+      @bill.save
+    end
+    redirect_to '/bills', :notice => "#{@user.name} marked as unpaid #{@bill.name}"
   end
 
   def destroy

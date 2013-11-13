@@ -60,7 +60,7 @@ class BillsController < ApplicationController
         end
         @your_bill_list = [] # for a list of bills current user owns
         @your_bill_list_of_hashes = {} # for a hash that stores bills, users and amounts they each do
-        @your_paid_bill_list = [] # array that contains users who have paid you, compare this to the hash above for strikethrough on index
+        @your_paid_bill_list = {} # a hash that contains arrays of users who have paid you per bill
         @their_bill_list = [] #for a list of bills current user doesn't own
         @their_bill_list_of_hashes = {} # for a hash that stores bills, users and amounts they each do
         Bill.where("groupid = '#{current_group.groupid}'").each do |bill|
@@ -75,12 +75,13 @@ class BillsController < ApplicationController
           end
         end
         @your_bill_list.each do |bill|
+          @your_paid_bill_list[bill.id] = []
           instance_variable_set "@bill_#{bill.id}", Hash.new
           BillsHelp.where("bill_id = '#{bill.id}'").each do |bill_help|
               instance_variable_get("@bill_#{bill.id}")[bill_help.user] = bill_help.amount
               @your_bill_list_of_hashes[bill.id] = instance_variable_get("@bill_#{bill.id}")
             if bill_help.pending == 0
-              @your_paid_bill_list.push bill_help.user
+              @your_paid_bill_list[bill.id].push bill_help.user
             end
           end
         end

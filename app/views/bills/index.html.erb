@@ -15,7 +15,7 @@
         $("<%= '#x_'+bill_id.to_s %>").tooltip();
       </script>
       <% info.each do |email, amount| %>
-        <% if @your_paid_bill_list.include? email %>
+        <% if @your_paid_bill_list[bill_id].include? email %>
           <% if User.find_by_email(email) == current_user %>
             <strike>
             You owe <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %></strike>

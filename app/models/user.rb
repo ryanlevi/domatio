@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # setters, getters
   attr_accessible :email, :groupid, :name, :password, :password_confirmation, :created_at
-
+  
   # user can create [discussion] and [discussionMessages]
   has_many :discussion_messages
   has_many :discussion
@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :chores_help
 
   has_secure_password
-
+  
   validates_uniqueness_of :email # makes sure email is not already taken
   validates_presence_of :email # makes sure user typed in an email
   validates :email, :email => true

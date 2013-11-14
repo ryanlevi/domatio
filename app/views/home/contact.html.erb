@@ -1,0 +1,23 @@
+<% content_for :title do "Contact Us" end %> 
+<div class="hero-unit" style="font-size: 120%; padding:20px">
+  <h1 style="font-size: 36px">Contact Us</h1>
+  <p>
+    <form action="/home/contact_post" method="post">
+    <div class="field">
+      <input id="email" name="email" placeholder="Your Email" type="text" value="<%= current_user.email if current_user %>" />
+    </div>
+    <div class="field">
+      <input id="subject" name="subject" placeholder="Subject" type="text" value="" />
+    </div>
+    <div class="field">
+      <textarea id="message" name="message" placeholder="Message" ></textarea>
+    </div>
+        <div class="actions"><input class="btn btn-primary" name="commit" type="submit" value="Send" /></div>
+    </form>
+    <script type="text/javascript">
+    var colors = ["Complaint", "Bug", "Feature Suggestion", "Help", "Site breaking"];
+
+      $('#subject').typeahead({source: colors});
+    </script>
+  </p>
+</div>

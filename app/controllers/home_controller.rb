@@ -8,4 +8,12 @@ class HomeController < ApplicationController
 
   def about
   end
+
+  def contact
+  end
+
+  def contact_post
+    UserMailer.contact(params[:email], params[:subject], params[:message]).deliver
+    redirect_to root_url, :notice => "Thanks for your feedback!"
+  end
 end

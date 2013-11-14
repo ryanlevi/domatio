@@ -1,7 +1,8 @@
 <% content_for :title do "Create a Bill" end %>
 <div class="hero-unit" style="padding:20px">
 <h1 style="font-size: 36px;">Create a Bill</h1>
-<br>
+<a href="/bills/past_bills">View past bills</a>
+<br><br>
 <%= form_for @bill, url: {action: "create"} do |f| %>
   <% if @bill.errors.any? %>
     <div class="error_messages">
@@ -83,7 +84,7 @@
   <div class="field">
     <%= f.label :duedate, "Due Date" %>
     <%= f.text_field :duedate, :id => "datepicker", :readonly=> "0" %>
-  <div> 
+  </div> 
   <div class="field">
     <%= check_box_tag :recurring, 1, params[:recurring], :name=>"recurring"%>
     <%= label_tag :recurring, "Recurring?", :class => "checkbox inline" %>
@@ -91,7 +92,8 @@
   <br>
   <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Create Bill') %></div>
 <% end %>
-
+</div>
+</div>
 <!-- The following is the datepicker code -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>

@@ -5,7 +5,7 @@
     <!-- Left Content -->
 <% content_for :title do "Add Roommate to #{current_group.groupname}" end %>
 <% if current_group %>
-  <h1>Add Roommates</h1>
+  <h1 style="font-size: 28px;">Add Roommates</h1>
 
   <%= form_for @friend, url: {action: "add_user_create"} do |f| %>  
   <% if @friend.errors.any? %>
@@ -33,12 +33,37 @@
     <div id="right" class="span8 well">
     <!-- Right Content -->
     
-    <% else %>
-    <h1> You need to be in a group to invite friends </h1>
-    <% end %>
+<% else %>
+  <h1>You need to be in a group to invite friends </h1>
+<% end %>
     
-    List Pending/Current Users Here?
-    
+    <table class="table">
+      <thead>
+        <tr><p>
+          <th style="font-size: 28px;">Current Users in <%= current_group.groupname %></th>
+          <th style="width: 36px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+      
+       <!-- List Members --> 
+      <% @group_members.each do |user| %>
+        <tr>
+        <td>
+  <% if user.name %>
+    <%= user.name%>
+  <% else %>
+    <i><%= user.email%> (pending)</i>
+  <% end %></td>
+            <td>
+              <% if user %>
+              <a href="mailto:<%=user.email.to_s%>"><i class="icon-envelope"></i></a>
+              <% end %>
+          </td>
+        </tr>
+<% end %>
+      </tbody>
+    </table>    
     
     <!-- End Right Content -->
     </div>

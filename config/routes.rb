@@ -7,6 +7,11 @@ Domatio::Application.routes.draw do
   # root :to => 'home#index'
   root :to => 'home#index'
 
+  # The Contact Us Page
+  get 'home/contact'
+  post 'home/contact_post'
+  match '/contact' => 'home#contact'
+
   # The About Page
   get "home/about"
   match '/about' => 'home#about'
@@ -23,6 +28,9 @@ Domatio::Application.routes.draw do
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
   get "signup" => "users#new", :as => "signup"
+  # The Settings Page
+  get "users/edit"
+  post "users/update"
   resources :users
   resources :sessions
 
@@ -39,8 +47,13 @@ Domatio::Application.routes.draw do
   resources :groups
 
   # The Bills page
-  resources :bills
   post 'bills/create'
+  get 'bills/past_bills'
+  put '/bills/stash/:id', to: 'bills#stash', as: 'stash'
+  put '/bills/unstash/:id', to: 'bills#unstash', as: 'unstash'
+  put '/bills/mark_as_paid/:id/:user', to: 'bills#mark_as_paid', as: 'mark_as_paid'
+  put '/bills/mark_as_unpaid/:id/:user', to: 'bills#mark_as_unpaid', as: 'mark_as_unpaid'
+  resources :bills
 
   #The Chore Pages
 
@@ -61,4 +74,7 @@ Domatio::Application.routes.draw do
   post 'discussion_message/create_inline', to: 'discussion_message#create_inline'
   resources :discussion_message
 
+
+
+  
 end

@@ -41,4 +41,15 @@ class DiscussionController < ApplicationController
       redirect_to root_url, :notice => "You need to be logged in to do this."
     end
   end
+
+  def destroy
+    @discussion = Discussion.find(params[:id])
+    name = @discussion.name
+    @discussion.destroy
+    # The following line finds all the rows in BillsHelp that have the same Bill ID as the one being deleted
+    # and then destroys each of them
+    DiscussionMessage.where("discussion = '#{params[:id]}'").destroy_all
+    redirect_to '/discussion', :notice => "Discussion succesfully deleted."
+  end
+
 end

@@ -31,7 +31,7 @@ class GroupsController < ApplicationController
   end
 
   def add_user_create
-    email=params[:user][:email]
+    email=params[:user][:email].downcase
     roommate=User.find_by_email(email)
     if(roommate)
       if(roommate.groupid)

@@ -1,31 +1,33 @@
-<% @dontshowbackground = true %>
-
-<h1>Bills in <%= current_group.groupname %></h1>
-<p>The following bills are in your group:</p>
-<p>
-<div class="row-fluid">
-  <div class="span4">
-<% if @your_bill_list.length > 0 %>
-  <h4><b>Bills you own:</b></h4>
-  <% @your_bill_list_of_hashes.each do |bill_id, info| %>
-    <b><%= Bill.find(bill_id).name %>:
-    <%= link_to 'x', "/bills/#{bill_id}", :method => :delete, 'data-toggle'=>"tooltip", 'data-placement'=>"right", 'data-original-title'=>"Delete this bill", :id =>"x_#{bill_id}" %></b><br>
-<script type="text/javascript">
-  $("<%= '#x_'+bill_id.to_s %>").tooltip();
-</script>
-    <% info.each do |email, amount| %>
-      <%= User.find_by_email(email).name %> owes <%= number_to_currency(amount) %>
-      <br>
+<% content_for :title do "Bills in #{current_group.groupname}" end %> 
+<div class="hero-unit" style="font-size: 120%; padding:20px">
+  <center>
+  <h1 style="font-size: 36px">Bills in <%= current_group.groupname %></h1>
+  <p>The following bills are in your group:</p>
+  <p></center>
+  <div class="row-fluid">
+    <div class="span6">
+  <% if @your_bill_list.length > 0 %>
+    <h4><b>Bills you own:</b></h4>
+    <% @your_bill_list_of_hashes.each do |bill_id, info| %>
+      <b><%= Bill.find(bill_id).name %>:
+      <%= link_to 'x', "/bills/#{bill_id}", :method => :delete, 'data-toggle'=>"tooltip", 'data-placement'=>"right", 'data-original-title'=>"Delete this bill", :id =>"x_#{bill_id}" %></b><br>
+  <script type="text/javascript">
+    $("<%= '#x_'+bill_id.to_s %>").tooltip();
+  </script>
+      <% info.each do |email, amount| %>
+        <%= User.find_by_email(email).name %> owes <%= number_to_currency(amount) %>
+        <br>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
-</p><p><a href="/bills/new">Click here to add another bill!</a></p>
-</div>
-  <div class="span4">
-<% if @their_bill_list.length > 0 %>
-  <h4><b>Bills you don't own:</b></h4>
-  <% @their_bill_list_of_hashes.each do |bill_id, info| %>
-    <%= Bill.find(bill_id).name %>: <%= number_to_currency(info[current_user.email]) %><br>
+  </p><p><a href="/bills/new">Click here to add another bill!</a></p>
+  </div>
+    <div class="span6">
+  <% if @their_bill_list.length > 0 %>
+    <h4><b>Bills you don't own:</b></h4>
+    <% @their_bill_list_of_hashes.each do |bill_id, info| %>
+      <%= Bill.find(bill_id).name %>: <%= number_to_currency(info[current_user.email]) %> (of <%= number_to_currency(Bill.find(bill_id).price) %>)<br>
+    <% end %>
   <% end %>
-<% end %>
+  </div>
 </div>

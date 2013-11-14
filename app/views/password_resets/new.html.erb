@@ -1,10 +1,15 @@
-<h1>Forgot Password?</h1>
-Type in your email below and we'll email you a link to reset your password.
-<p>
-<%= form_tag password_resets_path, :method => :post do %>
-  <div class="field">
-    <%= label_tag :email %>
-    <%= text_field_tag :email, params[:email] %>
+<% content_for :title do "Forgot Password?" end %>
+<div class="span4 offset4"> 
+  <div class="hero-unit" style="padding:30px">
+    <h1 style="font-size: 36px">Forgot Password?</h1><p style="font-size: 18px"><br>
+    Type in your email below and we'll email you a link to reset your password.<br>
+    </p>
+    <%= form_tag password_resets_path, :method => :post do %>
+      <div class="field">
+        <%= label_tag :email %>
+        <%= text_field_tag :email, params[:email] %>
+      </div>
+      <div class="actions"><%= submit_tag "Reset Password", :class => 'btn btn-primary' %></div>
+    <% end %>
   </div>
-  <div class="actions"><%= submit_tag "Reset Password", :class => 'btn btn-primary' %></div>
-<% end %>
+</div>

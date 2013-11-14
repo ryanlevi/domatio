@@ -28,7 +28,7 @@ class DiscussionMessageController < ApplicationController
 
       @discussion.save!
       @discussion_message.save!
-      redirect_to root_url, :notice => "Reply created in Discussion: #{@discussion_message.discussion.title}!"
+      redirect_to "/discussion/#{@discussion.id}", :notice => "Reply created in Discussion: #{@discussion_message.discussion.title}!"
     else
       # If there are validation errors, it reloads the form with the errors.
       render "new"
@@ -48,7 +48,7 @@ class DiscussionMessageController < ApplicationController
       @discussion_message.discussion = @discussion
       @discussion.save!
       @discussion_message.save!
-      redirect_to root_url, :notice => "Reply created in Discussion: #{@discussion_message.discussion.title}!"
+      redirect_to "/discussion/#{@discussion.id}", :notice => "Reply created in Discussion: #{@discussion_message.discussion.title}!"
     else
       # If there are validation errors, it reloads the form with the errors.
       render :template => "discussion/show",  :params => { :discussion => @discussion }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>We're sorry, but something went wrong (500)</title>
+  <% content_for :title do "We're sorry, but something went wrong (500)" end %>
   <style type="text/css">
     body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
     div.dialog {
@@ -18,8 +18,12 @@
 </head>
 
 <body>
-  <div class="dialog">
-    <h1>We're sorry, but something went wrong.</h1>
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="dialog">
+        <h1>We're sorry, but something went wrong.</h1>
+      </div>
+    </div>
   </div>
 </body>
 </html>

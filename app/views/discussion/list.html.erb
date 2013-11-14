@@ -1,16 +1,18 @@
+<% content_for :title do "All Discussions" end %>
+<div class="hero-unit" style="padding:30px">
 <div class="page-header">
-    <div style="float: right">
-        <a class="btn" href="discussion/new"><i class="icon-plus"></i>&nbsp;New</a>
-    </div>
-    <h1>All Discussions</h1>
+  <div style="float: right">
+    <a class="btn" href="discussion/new"><i class="icon-plus"></i>&nbsp;New</a>
+  </div>
+  <h1 style="font-size:36px">All Discussions</h1>
 </div>
 
 <% @discussion.each do |d| %>
 
-    <div class="well well-lg">
-      <a href="/discussion/<%= d.id %>"><%= d.title %></a><br />
-      created by <%= d.user.name %> at <%= d.created_at %>
-      <span style="float:right;" class="badge"><%= d.messages_count %></span>
-    </div>
+  <div class="well well-lg">
+    <a href="/discussion/<%= d.id %>"><%= d.title %></a><br />
+    created by <%= d.user.name %> at <%= d.created_at %>
+    <span style="float:right;" class="badge"><%= d.messages_count %></span>
+  </div>
 
 <% end %>

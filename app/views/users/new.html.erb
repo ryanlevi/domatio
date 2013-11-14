@@ -1,7 +1,7 @@
 <% if current_user %>
   <h1>You are already logged in!</h1>
 <% else %>
-
+<% content_for :title do "Sign Up" end %>
 <div class="span4 offset4"> 
   <div class="hero-unit">
     <%= form_for @user do |f| %>
@@ -16,6 +16,7 @@
           </div>
           <% else %>
         <h1 align="center">Sign Up!</h1>
+        <center>Or <a href="/login">Log in!</a></center>
         <% end %>
         <br>
           <%= f.text_field :email, placeholder: 'Email', class: 'input-block-level'%> 

@@ -1,15 +1,15 @@
 <!-- Container for two column layout -->
 <div class="container">
-	<div class="row-fluid">
-		<div id="left" class="span3 well">
-		<!-- Left Content -->
-		
+  <div class="row-fluid">
+    <div id="left" class="span3 well">
+    <!-- Left Content -->
+<% content_for :title do "Log In" end %>
 <% if current_user %>
   <h1>You are already logged in!</h1>
 <% else %>
   <h1>Log in</h1>
 
-  Or <a href="/users/new">Sign up!</a><br>
+  Or <a href="/signup">Sign up!</a><br>
   <br>
   <%= form_tag sessions_path do %>
     <div class="field">
@@ -29,28 +29,28 @@
 <% end %>
 
   <!-- End Left Content -->
-		</div>
-		<div id="right" class="span8 well">
-		<!-- Right Content -->
-		
-		<h1> Wow Such Content </h1>
-		<p> Wow. So great. Many Things. Log In. Wow. </p>
-		
-		<!-- End Right Content -->
-		</div>
-	</div>
+    </div>
+<!--     <div id="right" class="span8 well">
+ -->    <!-- Right Content -->
+    
+<!--     <h1> Wow Such Content </h1>
+    <p> Wow. So great. Many Things. Log In. Wow. </p> -->
+    
+    <!-- End Right Content -->
+<!--     </div>
+ -->  </div>
 </div>
 
 
 <style>
 .container {
-	min-height: 100%;
-	overflow: hidden;
+  min-height: 100%;
+  overflow: hidden;
 }
 
 #right, #left {
-	margin-bottom: auto;
-	padding-bottom: auto;
+  margin-bottom: auto;
+  padding-bottom: auto;
 }
 
 </style>

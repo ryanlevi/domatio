@@ -1,5 +1,7 @@
-<h1>Create a Bill</h1>
-<% @dontshowbackground = true %>
+<% content_for :title do "Create a Bill" end %>
+<div class="hero-unit" style="padding:20px">
+<h1 style="font-size: 36px;">Create a Bill</h1>
+<br>
 <%= form_for @bill, url: {action: "create"} do |f| %>
   <% if @bill.errors.any? %>
     <div class="error_messages">
@@ -21,11 +23,13 @@
   <div> 
   <% @users.each do |user| %>
     <div class="field">
+      <label>
       <% if user == current_user %>
       How much do you pay?<br>
       <% else %>
       How much does <%= user.name %> pay?<br>
       <% end %>
+    </label>
       <input id="<%= user.id %>" name="bills_help[<%= user.email %>]" type="text" pattern ="[0-9]*.[0-9][0-9]"/><br>
     </div>
   <%end%>
@@ -42,7 +46,7 @@
         sum += parseFloat(document.getElementById(i).value);
       };
       if(sum != first.value){
-        document.getElementById("error").innerHTML = "<font color='red'>Error: Values must add up to $"+first.value+'</font>';
+        document.getElementById("error").innerHTML = "<b><font color='red'>Error: Values must add up to $"+first.value+'</font></b>';
       }
       else{
         document.getElementById("error").innerHTML = '';

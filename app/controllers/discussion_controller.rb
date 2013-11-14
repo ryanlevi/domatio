@@ -14,7 +14,7 @@ class DiscussionController < ApplicationController
     if @discussion.save
       @discussion.user = current_user
       @discussion.save!
-      redirect_to root_url, :notice => "Discussion #{@discussion.title} created!"
+      redirect_to "/discussion/#{@discussion.id}", :notice => "Discussion #{@discussion.title} created!"
     else
       # If there are validation errors, it reloads the form with the errors.
       render "new"

@@ -1,20 +1,23 @@
-<div class="page-header">
-  <h1>Create a Reply</h1>
-</div>
-
-<%= form_for :discussion_message, :url => url_for(:controller => 'discussion_message', :action => 'create', :discussion_id => @discussion_id) do |f| %>
-  <% if @discussion_message.errors.any? %>
-      <div class="error_messages">
-        <h2>Form is invalid</h2>
-        <ul>
-          <% for message in @discussion_message.errors.full_messages %>
-              <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-  <% end %>
-  <div class="field">
-    <%= f.text_area :content %>
+<% content_for :title do "Create a Reply" end %>
+<div class="hero-unit" style="padding:30px">
+  <div class="page-header">
+    <h1 style="font-size:36px">Create a Reply</h1>
   </div>
-      <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Create') %></div>
-<% end %>
+
+  <%= form_for :discussion_message, :url => url_for(:controller => 'discussion_message', :action => 'create', :discussion_id => @discussion_id) do |f| %>
+    <% if @discussion_message.errors.any? %>
+        <div class="error_messages">
+          <h2>Form is invalid</h2>
+          <ul>
+            <% for message in @discussion_message.errors.full_messages %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <div class="field">
+      <%= f.text_area :content, :cols => 0, :rows => 0, :width => 1200, :class => 'span12', :placeholder => "Enter Your Message Here" %>
+    </div>
+        <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => Discussion.find(params[:discussion_id]).messages_count ? 'Reply' : 'Create' ) %></div>
+  <% end %>
+</div>

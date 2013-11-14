@@ -55,12 +55,14 @@ Domatio::Application.routes.draw do
 
   # The Discussion Page
   get 'discussion/', to: 'discussion#list'
+  get '/discussion/destroy/:id', to: 'discussion#destroy', as: 'discussion'
   get "discussion/new"
   post 'discussion/create', to: 'discussion#create'
   get '/discussion/:id', to: 'discussion#show', as: 'discussion'
   resources :discussion
 
   get 'discussion_message/', to: 'discussionMessage#list'
+  get '/discussion_message/destroy/:id', to: 'discussion_message#destroy', as: 'discussion_message'
   get 'discussion_message/new/:discussion_id', to: 'discussion_message#new', as: 'discussion_message'
   post 'discussion_message/create_inline', to: 'discussion_message#create_inline'
   resources :discussion_message

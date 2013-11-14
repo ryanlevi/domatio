@@ -55,6 +55,19 @@ class DiscussionMessageController < ApplicationController
     end
   end
 
+  def destroy
+    @discussion_message = DiscussionMessage.find(params[:id])
+    @discussion_id = params[:discussion_id]
+    @discussion = Discussion.find(@discussion_id)
+    name = @discussion_message.name
+    @discussion_message.destroy
+    # The following line finds all the rows in BillsHelp that have the same Bill ID as the one being deleted
+    # and then destroys each of them
+
+    redirect_to "/discussion/#{@discussion.id}", :notice => "Reply deleted successfully."
+
+  end
+
 # commented for security reasons
 # don't need this yet --> dont know how to protect yet
 #  def list

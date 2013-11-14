@@ -57,14 +57,18 @@ class DiscussionMessageController < ApplicationController
 
   def destroy
     @discussion_message = DiscussionMessage.find(params[:id])
-    @discussion_id = params[:discussion_id]
-    @discussion = Discussion.find(@discussion_id)
-    name = @discussion_message.name
-    @discussion_message.destroy
-    # The following line finds all the rows in BillsHelp that have the same Bill ID as the one being deleted
-    # and then destroys each of them
+    @discussion = @discussion_message.discussion
+    @discussion.messages_count = @discussion.messages_count - 1
+    @discussion.save
 
-    redirect_to "/discussion/#{@discussion.id}", :notice => "Reply deleted successfully."
+
+    if current_user.id == @discussion_message.user.id
+      @discussion_message.destroy
+
+      redirect_to "/discussion/#{@discussion.id}", :notice => "Reply deleted successfully."
+    else
+      raise "user is not creator and must not delete message"
+    end
 
   end
 

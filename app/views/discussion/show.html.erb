@@ -5,6 +5,9 @@
         <a class="btn" href="/discussion_message/new/<%= @discussion.id %>"><i class="icon-plus"></i>&nbsp;New</a>
     </div>
     <h1 style="font-size:36px;"><%= @discussion.title %> - <%= @discussion.messages_count %> Replies</h1>
+    <% if current_user.id == @discussion.user.id %>
+        <small><a href="/discussion/destroy/<%= @discussion.id %>">(Delete)</a></small>
+    <% end %>
 </div>
 
 <% @discussion.discussion_messages.each do |d| %>
@@ -12,6 +15,10 @@
     <div class="well well-lg">
       <%= d.content %><br />
       created by <%= d.user.name %> at <%= d.created_at %>
+
+      <% if current_user.id == d.user.id %>
+          <small><a href="/discussion_message/destroy/<%= d.id %>">(Delete)</a></small>
+      <% end %>
 
     </div>
 

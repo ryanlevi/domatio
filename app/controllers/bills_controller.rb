@@ -73,6 +73,7 @@ class BillsController < ApplicationController
   def create
     # add a row to the Bills table with the supplied Bill Name, Amount Due and Due Date
     @bill = Bill.new(params[:bill])
+    debugger
     # if the user checked recurring, store the value of the date of the month in the db
     # if not, leave it as nil in the db
     @bill.recurring = @bill.duedate.day if params[:recurring].to_i == 1

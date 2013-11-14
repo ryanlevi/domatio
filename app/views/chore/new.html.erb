@@ -25,9 +25,40 @@
          <%= label_tag :chores_help, "Assign to #{user.name}?", :class => "checkbox inline" %>
         </div>
       <% end %>
+
+
     
     <div class="actions"> 
       <%= f.submit(:class => 'btn btn-info', :value => 'Create Chore') %>
     </div>
     
+    
 <% end %>
+  <div class="field">
+    <%= f.label :duedate, "Due Date" %>
+    <%= f.text_field :duedate, :id => "datepicker", :readonly=> "0" %>
+  <div> 
+  <div class="field">
+    <%= check_box_tag :recurring, 1, params[:recurring], :name=>"recurring"%>
+    <%= label_tag :recurring, "Recurring?", :class => "checkbox inline" %>
+  </div>
+  <br>
+  <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Create Bill') %></div>
+<% end %>
+
+<!-- The following is the datepicker code -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+  $(document).ready(function() {
+    $(function() {
+      $( "#datepicker" ).datepicker( { minDate: 0, maxDate: "+1M" });
+      $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+    });
+  });
+</script>
+<style>
+div.ui-datepicker{
+ font-size:12.5px;
+}
+</style>

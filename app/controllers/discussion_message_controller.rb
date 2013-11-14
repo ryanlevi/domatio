@@ -61,10 +61,8 @@ class DiscussionMessageController < ApplicationController
     @discussion.messages_count = @discussion.messages_count - 1
     @discussion.save
 
-
     if current_user.id == @discussion_message.user.id
       @discussion_message.destroy
-
       redirect_to "/discussion/#{@discussion.id}", :notice => "Reply deleted successfully."
     else
       raise "user is not creator and must not delete message"

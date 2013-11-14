@@ -44,7 +44,6 @@ class DiscussionController < ApplicationController
 
   def destroy
     @discussion = Discussion.find(params[:id])
-
     if current_user.id == @discussion.user_id
       @discussion.destroy
       DiscussionMessage.where("discussion_id = '#{params[:id]}'").destroy_all
@@ -52,10 +51,5 @@ class DiscussionController < ApplicationController
     else
       raise "user is not creator and must not delete discussion"
     end
-
-    # The following line finds all the rows in BillsHelp that have the same Bill ID as the one being deleted
-    # and then destroys each of them
-
   end
-
 end

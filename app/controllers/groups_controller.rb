@@ -32,9 +32,6 @@ class GroupsController < ApplicationController
             @group_members.push(user)
           end
         end
-        if @group_members.length <= 1
-          redirect_to '/groups/add_user'
-        end
       else
         redirect_to '/groups/new', :notice => "You need a group to do that!"
       end

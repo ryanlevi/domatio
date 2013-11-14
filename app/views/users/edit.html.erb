@@ -14,7 +14,7 @@
           </ul>
           </div>
           <% else %>
-        <h1 align="center">Edit Information</h1>
+        <h1 align="center">Account Settings</h1>
         <% end %>
         <br>
         <div class="field"> 
@@ -33,7 +33,7 @@
           <%= f.label :password_confirmation %>
           <%= f.password_field :password_confirmation, placeholder: 'Retype New Password', class: 'input-block-level'%>
         </div>
-        <div class="actions"><%= f.submit(:class => 'btn btn-info btn-block', :value => 'Save Changes') %></div>
+        <div class="actions"><%= f.submit(:class => 'btn btn-primary btn-block', :value => 'Save Changes') %></div>
     <% end %>
   </div>
 </div>

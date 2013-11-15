@@ -74,6 +74,13 @@ class BillsController < ApplicationController
             end
           end
         end
+        @their_bill_list.each do |bill|
+          instance_variable_set "@bill_#{bill.id}", Hash.new
+          BillsHelp.where("bill_id = '#{bill.id}'").each do |bill_help|
+            instance_variable_get("@bill_#{bill.id}")[bill_help.user] = bill_help.amount
+            @their_bill_list_of_hashes[bill.id] = instance_variable_get("@bill_#{bill.id}")
+          end
+        end
         @your_bill_list.each do |bill|
           @your_paid_bill_list[bill.id] = []
           instance_variable_set "@bill_#{bill.id}", Hash.new

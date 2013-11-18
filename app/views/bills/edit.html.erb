@@ -24,7 +24,72 @@
   <div class="field">
     <%= f.label :price, "Amount Due" %>
     <%= f.text_field :price, :id => "userinput", :pattern => "[0-9]*.[0-9][0-9]"%>
-  <div> 
+  </div> 
+  <% @users.each do |user| %>
+    <div class="field">
+      <label>
+      <% if user == current_user %>
+      How much do you pay?<br>
+      <% else %>
+      How much does <%= user.name %> pay?<br>
+      <% end %>
+    </label>
+      <% @bills_help.each do |bh| %>
+        <% if bh.user.to_i == user.id.to_i %>
+          <input id="<%= user.id.to_i %>" name="bills_help[<%= user.id %>]" type="text" pattern ="[0-9]*.[0-9][0-9]" value=<%= bh.amount %> /><br>
+        <% end %>
+      <%end%>
+    </div>
+  <%end%>
+      <div id="error">
+      </div>
+<script type="text/javascript">
+  window.onload = function () {
+    var first = document.getElementById('userinput');
+    <% @users.each do |user| %>
+    var user_<%= user.id.to_i %> = document.getElementById('<%= user.id.to_i %>');
+    user_<%= user.id.to_i %>.onchange = function () {
+      var sum = 0;
+      <% for i in 0...@users.length %>
+        sum += parseFloat(document.getElementById('<%= @users[i].id.to_i %>').value);
+      <% end %>
+
+      if(sum != first.value){
+        document.getElementById("error").innerHTML = "<b><font color='red'>Error: Values must add up to $"+first.value+'</font></b>';
+      }
+      else{
+        document.getElementById("error").innerHTML = '';
+      };
+    };
+    <% end %>
+
+    first.onchange = function () {
+      <% @users.each do |user| %>
+      user_<%= user.id %>.value = Math.abs(first.value/<%= @users.length %>);
+      user_<%= user.id %>.value = parseFloat(user_<%= user.id %>.value.replace(/,/g, "")).toFixed(2).toString();
+      <% end %>
+    };
+  };
+</script>
+<% @users.each do |user| %>
+<script type="text/javascript">
+  document.getElementById("<%= user.id %>").value = parseFloat(document.getElementById("<%= user.id %>").value.replace(/,/g, ""))
+                    .toFixed(2)
+                    .toString()
+  document.getElementById("<%= user.id %>").onblur =function (){    
+    if(this.value <= 0){
+      this.value *= -1;
+    };
+    //number-format the user input
+    this.value = parseFloat(this.value.replace(/,/g, ""))
+                    .toFixed(2)
+                    .toString()
+
+    //set the numeric value to a number input
+    document.getElementById("number").value = this.value.replace(/,/g, "")
+}
+</script>
+<% end %>
   <div class="field">
     <%= f.label :duedate, "Due Date" %>
     <%= f.text_field :duedate, :id => "datepicker", :readonly=> "0", :value => @bill.duedate.to_date.to_s %>
@@ -35,7 +100,7 @@
     <%= label_tag :recurring, "Recurring?", :class => "checkbox inline" %>
   </div>
   <br>
-  <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Create Bill') %></div>
+  <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Edit Bill') %></div>
 <% end %>
 </div>
 </div>

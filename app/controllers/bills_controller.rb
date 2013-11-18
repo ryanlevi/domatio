@@ -275,14 +275,17 @@ class BillsController < ApplicationController
     if @bill.save # if no validation errors
       # the following looks at the fields in the form that pertain to individual user amounts due
       # it takes in the values you submitted and adds them row by row to the BillsHelp table
-      # helper_hash = {}
-      # params[:bills_help].each do |user, amount|
-      #   helper_hash[:bill_id] = @bill.id
-      #   helper_hash[:user] = user.to_i
-      #   helper_hash[:amount] = amount
-      #   helper_hash[:pending] = 1
-      #   @helper = BillsHelp.create(helper_hash)
-      # end
+      helper_hash = {}
+      params[:bills_help].each do |user, amount|
+        @helper = BillsHelp.where("bill_id = '#{params[:id]}'")
+        @helper.each do |bh|
+          if bh.user == user
+            bh[:amount] = amount.to_i
+            bh.save
+          end
+        end
+        # helper_hash[:pending] = 1
+      end
       redirect_to '/bills', :notice => "You've created the bill: #{@bill.name}!"
     else
       @users = []

@@ -1,0 +1,79 @@
+<% content_for :title do "Edit #{@bill.id}" end %>
+<div class="container">
+  <div class="row-fluid">
+    <div class="span4 offset4 well">
+    <!-- Left Content -->
+      
+  <h1>Bill Settings</h1>
+  <br>
+<%= form_for @bill, url: {action: "update"} do |f| %>
+  <% if @bill.errors.any? %>
+    <div class="error_messages">
+      <h2>Form is invalid</h2>
+      <ul>
+        <% for message in @bill.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :name, "Bill Name" %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :price, "Amount Due" %>
+    <%= f.text_field :price, :id => "userinput", :pattern => "[0-9]*.[0-9][0-9]"%>
+  <div> 
+  <div class="field">
+    <%= f.label :duedate, "Due Date" %>
+    <%= f.text_field :duedate, :id => "datepicker", :readonly=> "0", :value => @bill.duedate.to_date.to_s %>
+  </div> 
+  <div class="field">
+    <% rec = true if @bill.recurring %>
+    <%= check_box_tag :recurring, 1, params[:recurring], :name=>"recurring", :checked => rec %>
+    <%= label_tag :recurring, "Recurring?", :class => "checkbox inline" %>
+  </div>
+  <br>
+  <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Create Bill') %></div>
+<% end %>
+</div>
+</div>
+<!-- The following is the datepicker code -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+  $(document).ready(function() {
+    $(function() {
+      $( "#datepicker" ).datepicker( { minDate: <%= Date.today - @bill.created_at.in_time_zone("Pacific Time (US & Canada)").to_date %>, maxDate: "+1M" });
+      $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+      $( "#datepicker" ).val("<%=@bill.duedate.to_date.to_s%>");
+    });
+  });
+</script>
+<style>
+div.ui-datepicker{
+ font-size:12.5px;
+}
+</style>
+
+    </div>
+  </div>
+</div>
+<!--The following is the code for the Amount Due box -->
+<script type="text/javascript">
+  document.getElementById("userinput").value = parseFloat(document.getElementById("userinput").value.replace(/,/g, ""))
+                    .toFixed(2)
+                    .toString()
+  document.getElementById("userinput").onblur =function (){    
+    this.value = Math.abs(this.value);
+    //number-format the user input
+    this.value = parseFloat(this.value.replace(/,/g, ""))
+                    .toFixed(2)
+                    .toString()
+
+    //set the numeric value to a number input
+    document.getElementById("number").value = this.value.replace(/,/g, "")
+
+}
+</script>

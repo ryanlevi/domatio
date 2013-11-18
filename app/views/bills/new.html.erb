@@ -31,7 +31,7 @@
       How much does <%= user.name %> pay?<br>
       <% end %>
     </label>
-      <input id="<%= user.id %>" name="bills_help[<%= user.id %>]" type="text" pattern ="[0-9]*.[0-9][0-9]"/><br>
+      <input id="<%= user.id.to_i %>" name="bills_help[<%= user.id %>]" type="text" pattern ="[0-9]*.[0-9][0-9]"/><br>
     </div>
   <%end%>
       <div id="error">
@@ -40,12 +40,13 @@
   window.onload = function () {
     var first = document.getElementById('userinput');
     <% @users.each do |user| %>
-    var user_<%= user.id %> = document.getElementById('<%= user.id %>');
-    user_<%= user.id %>.onchange = function () {
+    var user_<%= user.id.to_i %> = document.getElementById('<%= user.id.to_i %>');
+    user_<%= user.id.to_i %>.onchange = function () {
       var sum = 0;
-      for (var i=1; i <= <%= @users.length %>; i++){
-        sum += parseFloat(document.getElementById(i).value);
-      };
+      <% for i in 0...@users.length %>
+        sum += parseFloat(document.getElementById('<%= @users[i].id.to_i %>').value);
+      <% end %>
+
       if(sum != first.value){
         document.getElementById("error").innerHTML = "<b><font color='red'>Error: Values must add up to $"+first.value+'</font></b>';
       }
@@ -58,9 +59,7 @@
     first.onchange = function () {
       <% @users.each do |user| %>
       user_<%= user.id %>.value = Math.abs(first.value/<%= @users.length %>);
-      user_<%= user.id %>.value = parseFloat(user_<%= user.id %>.value.replace(/,/g, ""))
-                    .toFixed(2)
-                    .toString()
+      user_<%= user.id %>.value = parseFloat(user_<%= user.id %>.value.replace(/,/g, "")).toFixed(2).toString();
       <% end %>
     };
   };

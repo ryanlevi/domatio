@@ -35,6 +35,7 @@
         </div>
         <div class="actions"><%= f.submit(:class => 'btn btn-primary btn-block', :value => 'Save Changes') %></div>
     <% end %>
+    <%= link_to 'Delete Account', "/users/destroy", :method => :delete, :class => 'btn btn-danger btn-small' %>
   </div>
 </div>
 </div>

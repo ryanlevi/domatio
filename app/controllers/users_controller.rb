@@ -59,6 +59,12 @@ class UsersController < ApplicationController
     end
   end
   
+  def destroy
+  	@user = current_user
+  	cookies.delete(:auth_token)
+  	@user.destroy
+  	redirect_to root_url, :notice => "Account has been deleted."
+  end
   def index
   end
   

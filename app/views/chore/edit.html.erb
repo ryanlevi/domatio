@@ -1,12 +1,12 @@
-<% content_for :title do "New Chore - Domatio" end %>
+<% content_for :title do "Edit Chore - Domatio" end %>
 <div class="hero-unit" style="font-size: 120%; padding:20px">
   <center>
   <h1 style="font-size: 36px">Create a New Chore</h1>
-  <p>Fill out the form to create a new Chore.</p>
+  <p>Edit the form to update this Chore.</p>
   <p></center>
   <div class="row-fluid">
     <div class="span6">
-      <%= form_for @chore, url: {action: "create"} do |f| %>  
+      <%= form_for @chore, url: {action: "update"} do |f| %>  
           <% if @chore.errors.any? %>
             <div class="error_messages">
               <h2>Form is invalid</h2>
@@ -19,7 +19,7 @@
           <% end %>
     
           <div class="field"> 
-            <%= f.text_field :name, :placeholder => 'Chore Name'%>
+            <%= f.text_field :name, :placeholder => :name%>
           </div>
           <div class="field"> 
             <%= f.select :recurrence, options_for_select([["Weekly",1],["Monthly",2],["Bimonthly",3],["Only Once",4]]) %>
@@ -32,7 +32,7 @@
             <% end %>
 
         <div class="field">
-          <%= f.label :time, "Chore Time" %>
+          <%= f.label :time, "Chore Time", :placeholder => :time %>
           <%= f.text_field :time, :id => "datepicker", :readonly=> "0" %>
         <div> 
         <br>

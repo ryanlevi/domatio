@@ -1,4 +1,6 @@
 class ChoreController < ApplicationController
+  @current_chore=nil
+
   def index
     if current_user
       if current_group
@@ -120,7 +122,47 @@ class ChoreController < ApplicationController
       end
   		render "new"
   	end
+  end
 
+  def prepareEdit
+    @current_chore=Chore.find(params[:id])
+    redirect_to '/chore/edit'
+  end
+
+  def edit
+    if @current_chore != nil
+      @chore=@current_chore
+    end
+  end
+
+  def update
+    ChoresHelp.where("chore_id = '#{@chore.id}'").each do |choresHelper|
+      choresHelper.destroy
+    end
+    @chore.destroy
+    @updatedChore=Chore.new(params[:chore])
+    @updatedChore.groupid=current_group.groupid
+    #@updatedChore.time=Time.now  # THIS IS TEMPORARY FOR TESTING  THIS STILL NEEDS TO BE WORKED ON!!!!!!!!@#!@#!#
+    if @updatedChore.save
+      if (params[:chores_help] != nil)
+        helper_hash = {}
+        params[:chores_help].each do |user, userid|
+          helper_hash[:chore_id] = @updatedChore.id
+          helper_hash[:user_id] = userid.to_i
+          @helper = ChoresHelp.create(helper_hash)
+          @helper.save
+        end
+      end
+      redirect_to '/chore/', :notice => "You've updated the chore: #{@updatedChore.name}"
+    else
+      @users=[]
+      User.where("groupid='#{current_user.groupid}'").each do |user|
+        if user.name
+          @users.push user
+        end
+      end
+      render "new"
+    end
   end
 
 

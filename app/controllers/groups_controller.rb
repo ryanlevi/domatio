@@ -81,6 +81,12 @@ class GroupsController < ApplicationController
         if @group_members.length <= 1
           redirect_to '/groups/add_user'
         end
+        @upcoming_bills = []
+        @upcoming_chores = []
+        @bills = Bill.where(:groupid => current_group.groupid) # creates an array that holds all bills
+        @chores = Chore.where(:groupid => current_group.groupid) # creates an array that holds all chores
+        @bills.each {|bill| @upcoming_bills.push bill if bill.duedate.to_date <= Date.today }
+        @chores.each {|chore| @upcoming_chores.push chore if chore.duedate.to_date <= Date.today }
       else
         redirect_to '/groups/new', :notice => "You need a group to do that!"
       end

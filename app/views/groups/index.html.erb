@@ -34,25 +34,44 @@
           </table>
       </div>
       <div id="right" class="span9 well">
-      <h1>Welcome to <%= current_group.groupname %>!</h1>
-      <% if @upcoming_bills.length > 0 %>
-        The Following Bills are coming up:<br>
-        <ul>
-        <% @upcoming_bills.each do  |bill| %>
-          <li><%= bill.name %></li><br>
-        <% end %></ul>
-      <% else %>
-        No bills coming up!<br>
-      <% end %>
-      <% if @upcoming_chores.length > 0 %>
-        <br>The Following Chores are coming up:<br>
-        <ul>
-        <% @upcoming_chores.each do  |chore| %>
-          <li><%= chore.name %></li><br>
-        <% end %></ul>
-      <% else %>
-        No chores coming up!<br>
-      <% end %>
+        <h1>Welcome to <%= current_group.groupname %>!</h1>
+        <div class="span3">
+          <% if @upcoming_bills.length > 0 %>
+            The Following Bills are coming up:<br>
+            <ul>
+            <% @upcoming_bills.each do  |bill| %>
+              <li><%= bill.name %></li>
+            <% end %></ul>
+          <% else %>
+            No bills coming up!<br>
+          <% end %>
+        </div>
+        <div class="span3">
+          <% if @upcoming_chores.length > 0 %>
+            The Following Chores are coming up:<br>
+            <ul>
+            <% @upcoming_chores.each do  |chore| %>
+              <li><%= chore.name %></li>
+            <% end %></ul>
+          <% else %>
+            No chores coming up!<br>
+          <% end %>
+        </div>
+        <div class="span3">
+          <% if @recent_discussions.length > 0 %>
+            Recent discussion posts:<br>
+            <ul>
+            <% @recent_discussions.each do  |discussion| %>
+              <li><%= User.find_by_id(discussion.user_id).name %> created <%= discussion.title %></li>
+            <% end %>
+            <% @recent_discussions2.each do  |discussion| %>
+              <li><%= User.find_by_id(discussion.user_id).name %> posted on <%= Discussion.find_by_id(discussion.discussion_id).title %></li>
+            <% end %>
+            </ul>
+          <% else %>
+            No recent discussions!<br>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

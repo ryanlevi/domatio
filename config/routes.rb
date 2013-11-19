@@ -57,7 +57,7 @@ Domatio::Application.routes.draw do
 
   #The Chore Pages
 
-  #get "chore/index"
+  get "chore/index"
   #get "chore/new"
   #post "chore/create"
   resources :chore

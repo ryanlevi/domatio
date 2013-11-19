@@ -243,6 +243,20 @@ class BillsController < ApplicationController
       if Bill.find(params[:id]).owner.to_i == current_user.id
         @bill = Bill.find(params[:id])
         @bills_help = BillsHelp.where("bill_id = '#{params[:id]}'")
+        users_in_bill_help = []
+        @bills_help.each do |bill|
+          users_in_bill_help.push bill.user
+        end
+        User.where(:groupid => current_group.groupid).each do |user|
+          unless users_in_bill_help.include? user.id.to_s
+            @new_bill_help = BillsHelp.new
+            @new_bill_help.bill_id = params[:id]
+            @new_bill_help.user = user
+            @new_bill_help.amount = 0
+            @new_bill_help.save
+          end
+        end
+        @bills_help = BillsHelp.where("bill_id = '#{params[:id]}'")
         @users = []
         User.all.each do |user|
           if user.groupid == current_group.groupid and user.name # this will take out pending users
@@ -275,12 +289,11 @@ class BillsController < ApplicationController
     if @bill.save # if no validation errors
       # the following looks at the fields in the form that pertain to individual user amounts due
       # it takes in the values you submitted and adds them row by row to the BillsHelp table
-      helper_hash = {}
       params[:bills_help].each do |user, amount|
         @helper = BillsHelp.where("bill_id = '#{params[:id]}'")
         @helper.each do |bh|
           if bh.user == user
-            bh[:amount] = amount.to_i
+            bh[:amount] = amount.to_d
             bh.save
           end
         end

@@ -1,0 +1,27 @@
+<% content_for :title do "Chores - Domatio" end %>
+<div class="hero-unit" style="font-size: 120%; padding:20px">
+  <center>
+  <h1 style="font-size: 36px">Chores for <%= current_group.groupname %></h1>
+  <p>The following chores are in your group:</p>
+  <p></center>
+  <div class="row-fluid">
+    <div class="span6">
+      <% if @chores.length > 0 %>
+        <% for x in 0..@chores.length-1 %>
+          <p>Chore: <%= @chores[x].name %> Time of Chore: <%= @chores[x].time %> </p>
+          <% if @choresHelpers[x].length > 0 %>
+            <% @choresHelpers[x].each do |choreHelper| %>
+              <p>   <%= User.find_by_id(choreHelper.user_id).name %> </p>
+            <%end%>
+          <% else %>
+            <p>   No one is assigned to this chore.</p>
+          <% end %>
+          <br>
+        <% end %>
+      <% else %>
+       <p> No Chores exist.  Why don't you <a href="/chore/new">add one</a>?</p>
+      <% end %>
+    </div>
+    <p class="span12" style="margin-left:0px" align="center"><a href="/chore/new">Add another chore</a><br>
+  </div>
+</div>

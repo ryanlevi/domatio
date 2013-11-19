@@ -1,0 +1,68 @@
+<% content_for :title do "New Chore - Domatio" end %>
+<% content_for :title do "Chores - Domatio" end %>
+<div class="hero-unit" style="font-size: 120%; padding:20px">
+  <center>
+  <h1 style="font-size: 36px">Create a New Chore</h1>
+  <p>Fill out the form to create a new Chore.</p>
+  <p></center>
+  <div class="row-fluid">
+    <div class="span6">
+      <%= form_for @chore, url: {action: "create"} do |f| %>  
+          <% if @chore.errors.any? %>
+            <div class="error_messages">
+              <h2>Form is invalid</h2>
+              <ul>
+                <% for message in @chore.errors.full_messages %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+    
+          <div class="field"> 
+            <%= f.text_field :name, :placeholder => 'Chore Name'%>
+          </div>
+          <div class="field"> 
+            <%= f.select :recurrence, options_for_select([["Weekly",1],["Monthly",2],["Bimonthly",3],["Only Once",4]]) %>
+          </div>
+            <% @users.each do |user| %>
+              <div class="field"> 
+               <%= check_box_tag :chores_help, user.id, params[:chores_help], :name=>"chores_help[#{user.name}]"%>
+               <%= label_tag :chores_help, "Assign to #{user.name}?", :class => "checkbox inline" %>
+              </div>
+            <% end %>
+
+        <div class="field">
+          <%= f.label :time, "Chore Time" %>
+          <%= f.text_field :time, :id => "datepicker", :readonly=> "0" %>
+        <div> 
+        <br>
+
+    
+          <div class="actions"> 
+            <%= f.submit(:class => 'btn btn-info', :value => 'Create Chore') %>
+          </div>
+    
+    
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
+<!-- The following is the datepicker code -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script>
+  $(document).ready(function() {
+    $(function() {
+      $( "#datepicker" ).datepicker( { minDate: 0, maxDate: "+1M" });
+      $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+    });
+  });
+</script>
+<style>
+div.ui-datepicker{
+ font-size:12.5px;
+}
+</style>

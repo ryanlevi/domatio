@@ -9,7 +9,7 @@
   <% if @your_bill_list.length > 0 %>
     <h4><b>Bills you own:</b></h4>
     <% @your_bill_list_of_hashes.each do |bill_id, info| %>
-      <b><%= Bill.find(bill_id).name %>:
+      <b><%= Bill.find(bill_id).name %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %>: (<%= link_to 'Edit', "/bills/#{bill_id}/edit" %>)
       <%= link_to 'x', "/bills/stash/#{bill_id}", :method => :put, 'data-toggle'=>"tooltip", 'data-placement'=>"right", 'data-original-title'=>"Stash this bill", :id =>"x_#{bill_id}" %></b><br>
       <script type="text/javascript">
         $("<%= '#x_'+bill_id.to_s %>").tooltip();
@@ -18,20 +18,20 @@
         <% if @your_paid_bill_list[bill_id].include? id %>
           <% if User.find(id) == current_user %>
             <strike>
-            You owe <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %></strike>
+            You owe <%= number_to_currency(amount) %></strike>
             <%= link_to 'Mark as unpaid', "/bills/mark_as_unpaid/#{bill_id}/#{id}", :method => :put %>
           <% else %>
             <strike>
-            <%= User.find(id).name %> owes <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %></strike>
+            <%= User.find(id).name %> owes <%= number_to_currency(amount) %></strike>
             <%= link_to 'Mark as unpaid', "/bills/mark_as_unpaid/#{bill_id}/#{id}", :method => :put %>
           <% end %>
           <br>
         <% else %>
           <% if User.find(id) == current_user %>
-          You owe <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %>
+          You owe <%= number_to_currency(amount) %>
           <%= link_to 'Mark as paid', "/bills/mark_as_paid/#{bill_id}/#{id}", :method => :put %>
           <% else %>
-          <%= User.find(id).name %> owes <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %>
+          <%= User.find(id).name %> owes <%= number_to_currency(amount) %>
           <%= link_to 'Mark as paid', "/bills/mark_as_paid/#{bill_id}/#{id}", :method => :put %>
           <% end %>
           <br>

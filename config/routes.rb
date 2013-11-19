@@ -1,5 +1,7 @@
 Domatio::Application.routes.draw do
 
+  
+
   # The Home Page
   get "home/index"
   # root :to => 'home#index'
@@ -26,6 +28,7 @@ Domatio::Application.routes.draw do
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
   get "signup" => "users#new", :as => "signup"
+  
   # The Settings Page
   get "users/edit"
   post "users/update"
@@ -53,6 +56,13 @@ Domatio::Application.routes.draw do
   put '/bills/mark_as_paid/:id/:user', to: 'bills#mark_as_paid', as: 'mark_as_paid'
   put '/bills/mark_as_unpaid/:id/:user', to: 'bills#mark_as_unpaid', as: 'mark_as_unpaid'
   resources :bills
+
+  #The Chore Pages
+
+  get "chore/index"
+  #get "chore/new"
+  #post "chore/create"
+  resources :chore
 
   # The Discussion Page
   get 'discussion/', to: 'discussion#list'

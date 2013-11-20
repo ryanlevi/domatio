@@ -58,9 +58,9 @@ Domatio::Application.routes.draw do
   #The Chore Pages
 
   #get "chore/index", to: 'chore#index', as 'chore'
-  put '/chore/prepareEdit/:id', to: 'chore#prepareEdit'
-  get '/chore/edit'
-  post '/chore/update'
+  #put '/chore/prepareEdit/:id', to: 'chore#prepareEdit'
+  #get '/chore/edit'
+  #post '/chore/update'
   #get "chore/new"
   #post "chore/create"
   resources :chore

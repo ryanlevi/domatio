@@ -1,5 +1,4 @@
 class ChoreController < ApplicationController
-  @current_chore=nil
 
   def index
     if current_user
@@ -124,26 +123,34 @@ class ChoreController < ApplicationController
   	end
   end
 
-  def prepareEdit
-    @current_chore=Chore.find(params[:id])
-    redirect_to '/chore/edit'
-  end
+#  def prepareEdit
+ #   @current_chore=Chore.find(params[:id])
+  #  redirect_to '/chore/edit'
+  #end
 
   def edit
+    @current_chore=Chore.find(params[:id])
     if @current_chore != nil
       @chore=@current_chore
+      @chores_help=ChoresHelp.new
+      @users=[]
+      User.where("groupid='#{current_user.groupid}'").each do |user|
+        if user.name
+          @users.push user
+        end
+      end
     end
   end
 
-  def update
+  def update  #CODER NOTE: vaidations not working, stems form time not showing up
+    @chore=Chore.find(params[:id].to_i)
     ChoresHelp.where("chore_id = '#{@chore.id}'").each do |choresHelper|
       choresHelper.destroy
     end
     @chore.destroy
     @updatedChore=Chore.new(params[:chore])
     @updatedChore.groupid=current_group.groupid
-    #@updatedChore.time=Time.now  # THIS IS TEMPORARY FOR TESTING  THIS STILL NEEDS TO BE WORKED ON!!!!!!!!@#!@#!#
-    if @updatedChore.save
+        if @updatedChore.save
       if (params[:chores_help] != nil)
         helper_hash = {}
         params[:chores_help].each do |user, userid|
@@ -161,7 +168,7 @@ class ChoreController < ApplicationController
           @users.push user
         end
       end
-      render "new"
+      render "edit"
     end
   end
 

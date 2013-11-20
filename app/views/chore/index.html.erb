@@ -10,7 +10,7 @@
         <% for x in 0..@chores.length-1 %>
           <p>
             Chore: <%= @chores[x].name %> Time of Chore: <%= @chores[x].time %>
-            <%= link_to 'Edit', "/chore/prepareEdit/#{@chores[x].id}", :method => :put, 'data-toggle'=>"tooltip", 'data-placement'=>"right", 'data-original-title'=>"Edit this Chore", :id =>"x_#{@chores[x].id}" %>
+            <%= link_to 'Edit', "/chore/#{@chores[x].id}/edit" %>
             <br> 
           </p>
           <% if @choresHelpers[x].length > 0 %>

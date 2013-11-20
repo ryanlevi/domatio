@@ -66,9 +66,9 @@ class UsersController < ApplicationController
     else
       notice = "#{@user.email} has been removed!"
     end
-    Bills.where(:owner => @user.id).each { |bill| bill.destroy }
+    Bill.where(:owner => @user.id).each { |bill| bill.destroy }
     BillsHelp.where(:user => @user.id).each { |bill| bill.destroy }
-    ChoreHelp.where(:user_id => @user.id).each { |chore| chore.destroy }
+    ChoresHelp.where(:user_id => @user.id).each { |chore| chore.destroy }
     Discussion.where(:user_id => @user.id).each { |discussion| discussion.destroy }
     DiscussionMessage.where(:user_id => @user.id).each { |discussion| discussion.destroy }
 

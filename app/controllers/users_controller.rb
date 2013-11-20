@@ -46,9 +46,7 @@ class UsersController < ApplicationController
     if params[:user][:password] != nil
       @user.password=params[:user][:password]
       @user.password_confirmation=params[:user][:password_confirmation]
-    end
-
-    
+    end    
     #If the updates to user are valid, then save the user 
     if @user.save
         flash[:notice]='Your account has been successfully updated!'
@@ -60,11 +58,18 @@ class UsersController < ApplicationController
   end
   
   def destroy
-  	@user = current_user
-  	cookies.delete(:auth_token)
-  	@user.destroy
-  	redirect_to root_url, :notice => "Account has been deleted."
+    @user = User.find(params[:id])
+    name = @user.name
+    if @user == current_user
+      notice = "Your account has been deleted! Sorry to see you go!"
+      cookies.delete(:auth_token)
+    else
+      notice = "#{@user.email} has been removed!"
+    end
+    @user.destroy
+    redirect_to root_url, :notice => notice
   end
+  
   def index
   end
   

@@ -46,9 +46,7 @@ class UsersController < ApplicationController
     if params[:user][:password] != nil
       @user.password=params[:user][:password]
       @user.password_confirmation=params[:user][:password_confirmation]
-    end
-
-    
+    end    
     #If the updates to user are valid, then save the user 
     if @user.save
         flash[:notice]='Your account has been successfully updated!'
@@ -57,6 +55,25 @@ class UsersController < ApplicationController
       # flash[:error]=@user.errors.full_messages
       render 'edit'
     end
+  end
+  
+  def destroy
+    @user = User.find(params[:id])
+    name = @user.name
+    if @user == current_user
+      notice = "Your account has been deleted! Sorry to see you go!"
+      cookies.delete(:auth_token)
+    else
+      notice = "#{@user.email} has been removed!"
+    end
+    Bills.where(:owner => @user.id).each { |bill| bill.destroy }
+    BillsHelp.where(:user => @user.id).each { |bill| bill.destroy }
+    ChoreHelp.where(:user_id => @user.id).each { |chore| chore.destroy }
+    Discussion.where(:user_id => @user.id).each { |discussion| discussion.destroy }
+    DiscussionMessage.where(:user_id => @user.id).each { |discussion| discussion.destroy }
+
+    @user.destroy
+    redirect_to root_url, :notice => notice
   end
   
   def index

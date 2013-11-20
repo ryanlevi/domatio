@@ -14,6 +14,7 @@
       <script type="text/javascript">
         $("<%= '#x_'+bill_id.to_s %>").tooltip();
       </script>
+      <% debugger %>
       <% info.each do |id, amount| %>
         <% if @your_paid_bill_list[bill_id].include? id %>
           <% if User.find(id) == current_user %>

@@ -32,6 +32,7 @@ Domatio::Application.routes.draw do
   # The Settings Page
   get "users/edit"
   post "users/update"
+  delete 'users/destroy/:id', to: 'users#destroy', as: 'destroy'
   resources :users
   resources :sessions
 

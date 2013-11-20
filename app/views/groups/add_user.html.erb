@@ -57,7 +57,10 @@
   <% end %></td>
             <td>
               <% if user %>
-              <a href="mailto:<%=user.email.to_s%>"><i class="icon-envelope"></i></a>
+                <a href="mailto:<%=user.email.to_s%>"><i class="icon-envelope"></i></a>
+              <% end %>
+              <% unless user.name %>
+                <%= link_to 'x', "/users/destroy/#{user.id}", :method => :delete %>
               <% end %>
           </td>
         </tr>

@@ -1,7 +1,7 @@
 <% content_for :title do "Account Settings" end %>
 <% if current_user %>
 <div class="container">
-    <div class="span5 well ">
+    <div class="span5 offset4 well ">
     <%= form_for @user do |f| %>
         <% if @user.errors.any? %>
         <h1 align="center">Whoops...</h1>

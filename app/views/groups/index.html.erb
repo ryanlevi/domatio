@@ -1,7 +1,7 @@
 <% content_for :title do current_group.groupname.to_s end %>
 <div class="container">
   <div class="row-fluid">
-    <div id="left" class="span3 well">
+    <div id="left" class="span3 well hidden-phone">
       <h1>Members</h1>
       <p><a href="/groups/add_user">Click here to add another roommate!</a></p>
           <table class="table">
@@ -73,6 +73,9 @@
           <% end %>
         </div>
       </div>
+    </div>
+    <div id="left" class="well visible-phone">
+      <p><a href="/groups/add_user">Click here to add another roommate!</a></p>
     </div>
   </div>
 </div>

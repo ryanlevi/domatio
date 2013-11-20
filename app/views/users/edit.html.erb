@@ -34,23 +34,23 @@
         <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Save Changes') %></div>
     <% end %>
 <br><br>
-    	<!-- Button to trigger modal -->
-		<a href="#myModal" role="button" class="btn btn-default" data-toggle="modal">Delete My Account</a>
-		<!-- Modal -->
-		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-header">
-		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		    <h3 id="myModalLabel">Are You Sure?</h3>
-		  </div>
-		  <div class="modal-body">
-		    <p>Deleting this account will remove you from any group you are in as well as from our site. This action can not be undone...<br><br> Don't worry! If you ever change your mind, you can always sign up with Dom&aacute;tio again!</p>
-		  </div>
-		  <div class="modal-footer">
-		    <button class="btn" data-dismiss="modal" aria-hidden="true">Nevermind! I want to keep my account.</button>
-		    <%= link_to 'I am sure, delete my account', "/users/destroy", :method => :delete, :class => 'btn btn-danger' %></div>
-		  </div>
-	  </div><!--model-->
-  </div><!--well-->
-</div><!--conatiner-->
+       
+<!-- Button to trigger modal -->
+<a href="#myModal" role="button" class="btn" data-toggle="modal">Delete Account</a>
+ 
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Are You Sure?</h3>
+  </div>
+  <div class="modal-body">
+    <p>Deleting your account will remove you from any group you are in as well as from our site forever.  This action can not be undone...<br> Don't worry! If you ever change your mind, you can always sign up with Domatio again!</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Nevermind! I want to keep my account.</button>
+    <%= link_to 'I am sure, delete my account', "/users/destroy/#{current_user.id}", :method => :delete, :class => 'btn btn-danger' %>
+  </div>
+</div>
 
 <% end %>

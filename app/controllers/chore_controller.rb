@@ -111,7 +111,7 @@ class ChoreController < ApplicationController
           @helper.save
         end
       end
-      redirect_to '/chore/new', :notice => "You've created the chore: #{@chore.name}"
+      redirect_to '/chore', :notice => "You've created the chore: #{@chore.name}"
   	else
       @users=[]
       User.where("groupid='#{current_user.groupid}'").each do |user|

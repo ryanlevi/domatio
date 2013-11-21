@@ -23,7 +23,11 @@ class DiscussionController < ApplicationController
 
   def list
     if current_user
-      @discussion = Discussion.joins(:user).where(:users => {:groupid => current_user.groupid})
+      if current_group
+        @discussion = Discussion.joins(:user).where(:users => {:groupid => current_user.groupid})
+      else
+        redirect_to root_url, :notice => "You need to be part of a group to access discussions."
+      end
     else
       redirect_to root_url, :notice => "You need to be logged in to do this."
     end

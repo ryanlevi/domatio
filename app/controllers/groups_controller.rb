@@ -85,9 +85,13 @@ class GroupsController < ApplicationController
         @upcoming_chores = []
         @recent_discussions = []
         @recent_discussions2 = []
+
         @bills = Bill.where(:groupid => current_group.groupid) # creates an array that holds all bills
         @chores = Chore.where(:groupid => current_group.groupid) # creates an array that holds all chores
-        @discussions = Discussion.where(:groupid => current_group.groupid)
+
+        @bills.each {|bill| @upcoming_bills.push bill if bill.duedate.to_date <= Date.today + 3 }
+        @chores.each {|chore| @upcoming_chores.push chore if chore.duedate.to_date <= Date.today + 3 }
+
         Discussion.all.each do |discussion|
           if User.find_by_id(discussion.user_id.to_i) and User.find_by_id(discussion.user_id.to_i).groupid
             if discussion.created_at >= Date.today - 3
@@ -102,8 +106,6 @@ class GroupsController < ApplicationController
             end
           end
         end
-        @bills.each {|bill| @upcoming_bills.push bill if bill.duedate.to_date <= Date.today + 3 }
-        @chores.each {|chore| @upcoming_chores.push chore if chore.duedate.to_date <= Date.today + 3 }
       else
         redirect_to '/groups/new', :notice => "You need a group to do that!"
       end

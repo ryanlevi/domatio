@@ -65,13 +65,20 @@ class BillsController < ApplicationController
         @their_bill_list_of_hashes = {} # for a hash that stores bills, users and amounts they each do
         Bill.where("groupid = '#{current_group.groupid}'").each do |bill|
           if bill.pending == 1
-            if bill.owner == current_user.email
+            if bill.owner.to_i == current_user.id.to_i
               # If you own the bill, the bill is added to the following array
               @your_bill_list.push(bill)
             else
               # If you don't own the bill, but someone else in your group does, it's added to this array
               @their_bill_list.push(bill)
             end
+          end
+        end
+        @their_bill_list.each do |bill|
+          instance_variable_set "@bill_#{bill.id}", Hash.new
+          BillsHelp.where("bill_id = '#{bill.id}'").each do |bill_help|
+            instance_variable_get("@bill_#{bill.id}")[bill_help.user] = bill_help.amount
+            @their_bill_list_of_hashes[bill.id] = instance_variable_get("@bill_#{bill.id}")
           end
         end
         @your_bill_list.each do |bill|
@@ -85,7 +92,18 @@ class BillsController < ApplicationController
             end
           end
         end
-        if @your_bill_list.length + @their_bill_list.length <= 0
+        @your_past_bills = []
+        @their_past_bills = []
+        Bill.where("groupid = '#{current_group.groupid}'").each do |bill|
+          if bill.pending == 0
+            if bill.owner.to_i == current_user.id.to_i
+              @your_past_bills.push bill
+            else
+              @their_past_bills.push bill
+            end
+          end
+        end
+        if @your_bill_list.length + @their_bill_list.length + @your_past_bills.length + @their_past_bills.length <= 0
           redirect_to '/bills/new', :notice => "You don't have any bills yet!"
         end
       else
@@ -103,7 +121,7 @@ class BillsController < ApplicationController
     @your_past_bill_list_of_hashes = {}
     Bill.where("groupid = '#{current_group.groupid}'").each do |bill|
       if bill.pending == 0
-        if bill.owner == current_user.email
+        if bill.owner.to_i == current_user.id.to_i
           @your_past_bills.push bill
         else
           @their_past_bills.push bill
@@ -152,7 +170,7 @@ class BillsController < ApplicationController
     # The following line finds all the rows in BillsHelp that have the same Bill ID as the one being marked paid
     # and then marks each of them paid
     BillsHelp.where("bill_id = '#{params[:id]}'").each {|bill_in_bh_table| bill_in_bh_table.pending = 0}
-    redirect_to '/bills', :notice => "You have deleted the bill #{name}."
+    redirect_to '/bills/past_bills', :notice => "You have stashed the bill #{name}."
   end
 
   def unstash
@@ -172,10 +190,10 @@ class BillsController < ApplicationController
 
   def mark_as_paid
     @bill = Bill.find(params[:id])
-    @user = User.find(params[:user])
+    @user = User.find(params[:user].to_i)
     stash_bill = true # creating a bool that is changed to FALSE only if someone hasn't paid yet
     BillsHelp.where("bill_id = '#{params[:id]}'").each do |bill_in_bh_table|
-      if bill_in_bh_table.user == @user.email
+      if bill_in_bh_table.user.to_i == @user.id.to_i
         bill_in_bh_table.pending = 0
         bill_in_bh_table.save
       end
@@ -192,10 +210,10 @@ class BillsController < ApplicationController
 
   def mark_as_unpaid
     @bill = Bill.find(params[:id])
-    @user = User.find(params[:user])
+    @user = User.find(params[:user].to_i)
     stash_bill = true # creating a bool that is changed to FALSE only if someone hasn't paid yet
     BillsHelp.where("bill_id = '#{params[:id]}'").each do |bill_in_bh_table|
-      if bill_in_bh_table.user == @user.email
+      if bill_in_bh_table.user.to_i == @user.id.to_i
         bill_in_bh_table.pending = 1
         bill_in_bh_table.save
       end
@@ -220,6 +238,79 @@ class BillsController < ApplicationController
     redirect_to '/bills/past_bills', :notice => "You have permanently deleted the bill #{name}."
   end
 
+  def edit
+    if current_user and current_group
+      if Bill.find(params[:id]).owner.to_i == current_user.id
+        @bill = Bill.find(params[:id])
+        @bills_help = BillsHelp.where("bill_id = '#{params[:id]}'")
+        users_in_bill_help = []
+        @bills_help.each do |bill|
+          users_in_bill_help.push bill.user
+        end
+        User.where(:groupid => current_group.groupid).each do |user|
+          unless users_in_bill_help.include? user.id.to_s
+            @new_bill_help = BillsHelp.new
+            @new_bill_help.bill_id = params[:id]
+            @new_bill_help.user = user
+            @new_bill_help.amount = 0
+            @new_bill_help.save
+          end
+        end
+        @bills_help = BillsHelp.where("bill_id = '#{params[:id]}'")
+        @users = []
+        User.all.each do |user|
+          if user.groupid == current_group.groupid and user.name # this will take out pending users
+            @users.push user
+          end
+        end
+      else
+        redirect_to '/bills/', :notice => "You must own a bill to be able to edit it."
+      end
+    else
+      redirect_to root_url, :notice => "You need to be logged in and part of a group to access bills."
+    end
+  end
+
+  def update
+    # add a row to the Bills table with the supplied Bill Name, Amount Due and Due Date
+    @bill = Bill.find(params[:id])
+    @bill[:name] = params[:bill][:name]
+    @bill[:price] = params[:bill][:price]
+    @bill[:duedate] = params[:bill][:duedate]
+    # marks bill as pending, or "not paid"
+    # @bill.pending = 1
+    # if the user checked recurring, store the value of the date of the month in the db
+    # if not, change to nil
+    @bill.recurring = @bill.duedate.day if params[:recurring].to_i == 1
+    @bill.recurring = nil if params[:recurring].to_i == 0
+    # add the owner and groupid to the row in the table
+    # @bill.owner = current_user.id.to_i
+    # @bill.groupid = current_user.groupid
+    if @bill.save # if no validation errors
+      # the following looks at the fields in the form that pertain to individual user amounts due
+      # it takes in the values you submitted and adds them row by row to the BillsHelp table
+      params[:bills_help].each do |user, amount|
+        @helper = BillsHelp.where("bill_id = '#{params[:id]}'")
+        @helper.each do |bh|
+          if bh.user == user
+            bh[:amount] = amount.to_d
+            bh.save
+          end
+        end
+        # helper_hash[:pending] = 1
+      end
+      redirect_to '/bills', :notice => "You've created the bill: #{@bill.name}!"
+    else
+      @users = []
+      User.all.each do |user|
+        if user.groupid == current_group.groupid and user.name # this will take out pending users
+          @users.push user
+        end
+      end
+      render "edit"
+    end
+  end
+
   def create
     # add a row to the Bills table with the supplied Bill Name, Amount Due and Due Date
     @bill = Bill.new(params[:bill])
@@ -229,7 +320,7 @@ class BillsController < ApplicationController
     # if not, leave it as nil in the db
     @bill.recurring = @bill.duedate.day if params[:recurring].to_i == 1
     # add the owner and groupid to the row in the table
-    @bill.owner = current_user.email
+    @bill.owner = current_user.id.to_i
     @bill.groupid = current_user.groupid
     if @bill.save # if no validation errors
       # the following looks at the fields in the form that pertain to individual user amounts due
@@ -237,7 +328,7 @@ class BillsController < ApplicationController
       helper_hash = {}
       params[:bills_help].each do |user, amount|
         helper_hash[:bill_id] = @bill.id
-        helper_hash[:user] = user
+        helper_hash[:user] = user.to_i
         helper_hash[:amount] = amount
         helper_hash[:pending] = 1
         @helper = BillsHelp.create(helper_hash)

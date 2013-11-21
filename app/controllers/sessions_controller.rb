@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     # The following line finds the user in our db by using their email
     user = User.find_by_email(params[:email].to_s.downcase)
     # If the password is correct...
-    if user && user.authenticate(params[:password])
+    if user && user.name && user.authenticate(params[:password])
       if params[:remember_me]
         # and they check the remember me box, save permanent cookies
         cookies.permanent[:auth_token] = user.auth_token

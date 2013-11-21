@@ -18,11 +18,11 @@
   <script type="text/javascript">
     $("<%= '#x_'+bill_id.to_s %>").tooltip();
   </script>
-      <% info.each do |email, amount| %>
-        <% if User.find_by_email(email) == current_user %>
+      <% info.each do |id, amount| %>
+        <% if User.find(id.to_i) == current_user %>
         You owe <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %>
         <% else %>
-        <%= User.find_by_email(email).name %> owes <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %>
+        <%= User.find(id.to_i).name %> owes <%= number_to_currency(amount) %> due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y") %>
         <% end %>
         <br>
       <% end %>
@@ -34,7 +34,7 @@
   <% if @their_past_bills.length > 0 %>
     <h4><b>Bills you don't own:</b></h4>
     <% @their_past_bill_list_of_hashes.each do |bill_id, info| %>
-      <%= Bill.find(bill_id).name %>: <%= number_to_currency(info[current_user.email]) %> (of <%= number_to_currency(Bill.find(bill_id).price) %>) due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y")  %><br>
+      <%= Bill.find(bill_id).name %>: <%= number_to_currency(info[current_user.id.to_i]) %> (of <%= number_to_currency(Bill.find(bill_id).price) %>) due on <%= Bill.find(bill_id).duedate.strftime("%m/%d/%Y")  %><br>
     <% end %>
   <% end %>
   </div>

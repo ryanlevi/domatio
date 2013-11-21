@@ -1,33 +1,81 @@
 <% content_for :title do current_group.groupname.to_s end %>
-
-<div class="well">
-<h1>Members in <%= current_group.groupname %></h1>
-<p><a href="/groups/add_user">Click here to add another roommate!</a></p>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th style="width: 36px;"></th>
-        </tr>
-      </thead>
-      <tbody>
-      
-       <!-- List Members --> 
-      <% @group_members.each do |user| %>
-        <tr>
-        <td>
-  <% if user.name %>
-  	<%= user.name%>
-  <% else %>
-  	<i><%= user.email%> (pending)</i>
-  <% end %></td>
-            <td>
-              <% if user %>
-              <a href="mailto:<%=user.email.to_s%>"><i class="icon-envelope"></i></a>
-              <% end %>
-          </td>
-        </tr>
-<% end %>
-      </tbody>
-    </table>
+<div class="container">
+  <div class="row-fluid">
+    <div id="left" class="span3 well hidden-phone">
+      <h1>Members</h1>
+      <p><a href="/groups/add_user">Click here to add another roommate!</a></p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th style="width: 36px;"></th>
+              </tr>
+            </thead>
+            <tbody>
+            
+             <!-- List Members --> 
+            <% @group_members.each do |user| %>
+              <tr>
+                  <td>
+                    <% if user.name %>
+                      <%= user.name%>
+                    <% else %>
+                      <i><%= user.email%> (pending)</i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if user %>
+                    <a href="mailto:<%=user.email.to_s%>"><i class="icon-envelope"></i></a>
+                    <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+      </div>
+      <div id="right" class="span9 well">
+        <h1>Welcome to <%= current_group.groupname %>!</h1>
+        <div class="span3">
+          <% if @upcoming_bills.length > 0 %>
+            The Following Bills are coming up:<br>
+            <ul>
+            <% @upcoming_bills.each do  |bill| %>
+              <li><%= bill.name %></li>
+            <% end %></ul>
+          <% else %>
+            No bills coming up!<br>
+          <% end %>
+        </div>
+        <div class="span3">
+          <% if @upcoming_chores.length > 0 %>
+            The Following Chores are coming up:<br>
+            <ul>
+            <% @upcoming_chores.each do  |chore| %>
+              <li><%= chore.name %></li>
+            <% end %></ul>
+          <% else %>
+            No chores coming up!<br>
+          <% end %>
+        </div>
+        <div class="span3">
+          <% if @recent_discussions.length > 0 %>
+            Recent discussion posts:<br>
+            <ul>
+            <% @recent_discussions.each do  |discussion| %>
+              <li><%= User.find_by_id(discussion.user_id).name %> created <%= discussion.title %></li>
+            <% end %>
+            <% @recent_discussions2.each do  |discussion| %>
+              <li><%= User.find_by_id(discussion.user_id).name %> posted on <%= Discussion.find_by_id(discussion.discussion_id).title %></li>
+            <% end %>
+            </ul>
+          <% else %>
+            No recent discussions!<br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div id="left" class="well visible-phone">
+      <p><a href="/groups/add_user">Click here to add another roommate!</a></p>
+    </div>
+  </div>
 </div>

@@ -55,6 +55,21 @@ class DiscussionMessageController < ApplicationController
     end
   end
 
+  def destroy
+    @discussion_message = DiscussionMessage.find(params[:id])
+    @discussion = @discussion_message.discussion
+    @discussion.messages_count = @discussion.messages_count - 1
+    @discussion.save
+
+    if current_user.id == @discussion_message.user.id
+      @discussion_message.destroy
+      redirect_to "/discussion/#{@discussion.id}", :notice => "Reply deleted successfully."
+    else
+      raise "user is not creator and must not delete message"
+    end
+
+  end
+
 # commented for security reasons
 # don't need this yet --> dont know how to protect yet
 #  def list

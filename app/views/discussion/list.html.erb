@@ -11,7 +11,7 @@
 
   <div class="well well-lg">
     <a href="/discussion/<%= d.id %>"><%= d.title %></a><br />
-    created by <%= d.user.name %> at <%= d.created_at %>
+    created by <%= d.user.name %> <%= d.created_at.in_time_zone("Pacific Time (US & Canada)").strftime("at %I:%M %p on %m/%d/%Y") %>
     <span style="float:right;" class="badge"><%= d.messages_count %></span>
   </div>
 

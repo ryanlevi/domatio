@@ -21,15 +21,27 @@
     
     <div class="field"> 
       <%= f.label :groupname, "Group Name:" %>
-      <%= f.text_field :groupname, placeholder: 'Groupname'%>
+      <%= f.text_field :groupname, placeholder: 'Group name'%>
 <p>
     <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Save Group Settings') %></div>
 <br>
     </div> 
-    <a href="/groups/add_user" class='btn btn-inverse btn-small'>Add another roommate</a>
-    <%= link_to 'Leave this group', "/groups/leave", :method => :post, :class => 'btn btn-danger btn-small' %>
+    <a href="/groups/add_user" class='btn btn-primary btn-small'>Add another roommate</a>
+    <a href="#myModal" role="button" class="btn btn-danger btn-small" data-toggle="modal">Leave <%= current_group.groupname %></a>
   <% end %>
-  
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Leave <%= current_group.groupname %>?</h3>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to leave <%= current_group.groupname %>? Once you leave, you must be invited back in by a current group member.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Nevermind</button>
+        <%= link_to "Leave #{current_group.groupname}", "/groups/leave", :method => :post, :class => 'btn btn-danger' %>
+      </div>
+    </div>  
   <!-- End Left Content -->
     </div>
   </div>

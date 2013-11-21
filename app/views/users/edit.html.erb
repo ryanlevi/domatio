@@ -1,8 +1,7 @@
 <% content_for :title do "Account Settings" end %>
 <% if current_user %>
 <div class="container">
-  <div class="row-fluid">
-    <div class="span4 offset4 well">
+    <div class="span5 offset4 well ">
     <%= form_for @user do |f| %>
         <% if @user.errors.any? %>
         <h1 align="center">Whoops...</h1>
@@ -14,28 +13,44 @@
           </ul>
           </div>
           <% else %>
-        <h1 align="center">Edit Information</h1>
+        <h3>Account Settings</h3>
         <% end %>
-        <br>
         <div class="field"> 
           <%= f.label :email %>
-          <%= f.text_field :email, placeholder: :email, class: 'input-block-level'%> 
+          <%= f.text_field :email, placeholder: :email %> 
         </div>
         <div class="field"> 
           <%= f.label :name %>
-          <%= f.text_field :name, placeholder: :name, class: 'input-block-level' %>
+          <%= f.text_field :name, placeholder: :name %>
         </div>
         <div class="field"> 
           <%= f.label :password %>
-          <%= f.password_field :password, placeholder: 'New Password', class: 'input-block-level'%>
+          <%= f.password_field :password, placeholder: 'New Password' %>
         </div>
         <div class="field"> 
           <%= f.label :password_confirmation %>
-          <%= f.password_field :password_confirmation, placeholder: 'Retype New Password', class: 'input-block-level'%>
-        </div>
-        <div class="actions"><%= f.submit(:class => 'btn btn-info btn-block', :value => 'Save Changes') %></div>
+          <%= f.password_field :password_confirmation, placeholder: 'Retype New Password'%>
+        </div><br>
+        <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Save Changes') %></div>
     <% end %>
+<br><br>
+       
+<!-- Button to trigger modal -->
+<a href="#myModal" role="button" class="btn" data-toggle="modal">Delete Account</a>
+ 
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Are You Sure?</h3>
+  </div>
+  <div class="modal-body">
+    <p>Deleting your account will remove you from any group you are in as well as from our site forever.  This action can not be undone...<br> Don't worry! If you ever change your mind, you can always sign up with Domatio again!</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Nevermind! I want to keep my account.</button>
+    <%= link_to 'I am sure, delete my account', "/users/destroy/#{current_user.id}", :method => :delete, :class => 'btn btn-danger' %>
   </div>
 </div>
-</div>
+
 <% end %>

@@ -1,16 +1,16 @@
 <% content_for :title do "Contact Us" end %> 
-<div class="hero-unit" style="font-size: 120%; padding:20px">
-  <h1 style="font-size: 36px">Contact Us</h1>
-  <p>
+<div class="span4 offset4 well" style="font-size: 120%; padding:20px">
+  <h1 align="center" style="font-size: 36px">Contact Us</h1>
+  <p><br>
     <form action="/home/contact_post" method="post">
     <div class="field">
-      <input id="email" name="email" placeholder="Your Email" type="text" value="<%= current_user.email if current_user %>" />
+      <input id="email" class="span12" name="email" placeholder="Your Email" type="text" value="<%= current_user.email if current_user %>" />
     </div>
     <div class="field">
-      <input id="subject" name="subject" placeholder="Subject" type="text" value="" />
+      <input id="subject" class="span12" name="subject" placeholder="Subject" type="text" value="" />
     </div>
     <div class="field">
-      <textarea id="message" name="message" placeholder="Message" ></textarea>
+      <textarea id="message" class="span12" style="height: 140px" name="message" placeholder="Message" ></textarea>
     </div>
         <div class="actions"><input class="btn btn-primary" name="commit" type="submit" value="Send" /></div>
     </form>

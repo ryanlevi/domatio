@@ -84,7 +84,6 @@ class ChoreController < ApplicationController
   			@chore=Chore.new
         @chores_help=ChoresHelp.new
         @users=[]
-        @checkedArray=[] unless @checkedArray
         User.where("groupid='#{current_user.groupid}'").each do |user|
           if user.name
             @users.push user
@@ -119,10 +118,6 @@ class ChoreController < ApplicationController
         if user.name
           @users.push user
         end
-      end
-      @checkedArray=[];
-      params[:chores_help].each do |user, userid|
-        @checkedArray.push userid.to_i
       end
   		render "new"
   	end

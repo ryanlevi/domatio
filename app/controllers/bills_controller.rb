@@ -307,6 +307,7 @@ class BillsController < ApplicationController
           @users.push user
         end
       end
+      @bills_help = BillsHelp.where("bill_id = '#{params[:id]}'")
       render "edit"
     end
   end

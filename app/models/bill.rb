@@ -13,6 +13,8 @@ class Bill < ActiveRecord::Base
     HUMANIZED_ATTRIBUTES[attr.to_sym] || super
   end
 
+  validates_presence_of :name
+
   validates :price, :presence => true,
             :numericality => {:greater_than => 0.0, :less_than => 10000, :message => "must be between $0.00 and $10,000."},
             :format => { :with => /^\d{1,4}(\.\d{0,2})?$/ }

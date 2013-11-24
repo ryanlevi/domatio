@@ -1,7 +1,7 @@
 <% content_for :title do "Account Settings" end %>
 <% if current_user %>
 <div class="container">
-    <div class="span5 offset4 well ">
+    <div class="span4 offset4 well ">
     <%= form_for @user do |f| %>
         <% if @user.errors.any? %>
         <h1 align="center">Whoops...</h1>
@@ -13,30 +13,31 @@
           </ul>
           </div>
           <% else %>
-        <h3>Account Settings</h3>
+        <h1 align="center" style="font-size: 36px">Account Settings</h1>
         <% end %>
         <div class="field"> 
           <%= f.label :email %>
-          <%= f.text_field :email, placeholder: :email %> 
+          <%= f.text_field :email, :class => 'span12' %> 
         </div>
         <div class="field"> 
           <%= f.label :name %>
-          <%= f.text_field :name, placeholder: :name %>
+          <%= f.text_field :name, :class => 'span12' %>
         </div>
         <div class="field"> 
           <%= f.label :password %>
-          <%= f.password_field :password, placeholder: 'New Password' %>
+          <%= f.password_field :password, placeholder: 'New Password', :class => 'span12' %>
         </div>
         <div class="field"> 
           <%= f.label :password_confirmation %>
-          <%= f.password_field :password_confirmation, placeholder: 'Retype New Password'%>
+          <%= f.password_field :password_confirmation, placeholder: 'Retype New Password', :class => 'span12' %>
         </div><br>
-        <div class="actions"><%= f.submit(:class => 'btn btn-primary', :value => 'Save Changes') %></div>
+        <div class="actions" align="center"><%= f.submit(:class => 'btn btn-primary', :value => 'Save Changes') %>
+           
+        <a href="#myModal" role="button" class="btn btn-danger" data-toggle="modal">Delete Account</a>
+</div>
     <% end %>
-<br><br>
        
 <!-- Button to trigger modal -->
-<a href="#myModal" role="button" class="btn" data-toggle="modal">Delete Account</a>
  
 <!-- Modal -->
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

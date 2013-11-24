@@ -93,14 +93,14 @@ class GroupsController < ApplicationController
         @chores.each {|chore| @upcoming_chores.push chore if chore.time.to_date <= Date.today + 3 }
 
         Discussion.all.each do |discussion|
-          if User.find_by_id(discussion.user_id.to_i) and User.find_by_id(discussion.user_id.to_i).groupid
+          if User.find_by_id(discussion.user_id.to_i) and User.find_by_id(discussion.user_id.to_i).groupid == current_group.groupid
             if discussion.created_at >= Date.today - 3
               @recent_discussions.push discussion
             end
           end
         end
         DiscussionMessage.all.each do |discussion|
-          if User.find_by_id(discussion.user_id.to_i) and User.find_by_id(discussion.user_id.to_i).groupid
+          if User.find_by_id(discussion.user_id.to_i) and User.find_by_id(discussion.user_id.to_i).groupid == current_group.groupid
             if discussion.created_at >= Date.today - 3
               @recent_discussions2.push discussion
             end

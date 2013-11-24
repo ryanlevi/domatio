@@ -248,7 +248,7 @@ class BillsController < ApplicationController
           users_in_bill_help.push bill.user
         end
         User.where(:groupid => current_group.groupid).each do |user|
-          unless users_in_bill_help.include? user.id.to_s
+          unless users_in_bill_help.include? user.id
             @new_bill_help = BillsHelp.new
             @new_bill_help.bill_id = params[:id]
             @new_bill_help.user = user

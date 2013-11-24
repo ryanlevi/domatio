@@ -32,8 +32,8 @@
             <% end %>
 
         <div class="field">
-          <%= f.label :time, "Chore Time", :placeholder => :time %>
-          <%= f.text_field :time, :id => "datepicker", :readonly=> "0" %>
+          <%= f.label :time, "Chore Time" %>
+          <%= f.text_field :time, :id => "datepicker", :readonly=> "0", :placeholder => "#{@chore.time.ToString("yy-mm-dd")}" %>
         <div> 
         <br>
 

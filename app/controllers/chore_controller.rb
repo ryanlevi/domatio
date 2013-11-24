@@ -121,8 +121,10 @@ class ChoreController < ApplicationController
         end
       end
       @checkedArray=[];
-      params[:chores_help].each do |user, userid|
-        @checkedArray.push userid.to_i
+      if params[:chores_help] != nil
+        params[:chores_help].each do |user, userid|
+          @checkedArray.push userid.to_i
+        end  
       end
   		render "new"
   	end

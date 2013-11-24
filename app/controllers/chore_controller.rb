@@ -142,15 +142,20 @@ class ChoreController < ApplicationController
     end
   end
 
-  def update  #CODER NOTE: vaidations not working, stems form time not showing up
+  def update  #CODER NOTE: validations not working, stems from time not showing up
+    debugger
     @chore=Chore.find(params[:id].to_i)
-    ChoresHelp.where("chore_id = '#{@chore.id}'").each do |choresHelper|
-      choresHelper.destroy
-    end
-    @chore.destroy
+    tempTime=@chore.time
     @updatedChore=Chore.new(params[:chore])
     @updatedChore.groupid=current_group.groupid
-        if @updatedChore.save
+    if params[:chore][:time]==""
+      @updatedChore.time=tempTime
+    end
+    if @updatedChore.save
+      ChoresHelp.where("chore_id = '#{@chore.id}'").each do |choresHelper|
+        choresHelper.destroy
+      end
+      @chore.destroy
       if (params[:chores_help] != nil)
         helper_hash = {}
         params[:chores_help].each do |user, userid|
@@ -168,6 +173,7 @@ class ChoreController < ApplicationController
           @users.push user
         end
       end
+      @chore=@updatedChore
       render "edit"
     end
   end

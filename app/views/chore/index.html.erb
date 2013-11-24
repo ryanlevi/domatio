@@ -10,7 +10,7 @@
         <% for x in 0..@chores.length-1 %>
           <p>
            
-            Chore: <%= @chores[x].name %> Time of Chore: <%= @chores[x].time.in_time_zone("Pacific Time (US & Canada)").strftime("at %I:%M %p on %m/%d/%Y") %>
+            Chore: <%= @chores[x].name %> Time of Chore: <%= @chores[x].time.strftime("%m/%d/%Y") %>
             <%= link_to 'Edit', "/chore/#{@chores[x].id}/edit" %>
             <br> 
           </p>

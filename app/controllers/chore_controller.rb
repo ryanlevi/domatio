@@ -103,6 +103,7 @@ class ChoreController < ApplicationController
     #@chore.time=Time.now  # THIS IS TEMPORARY FOR TESTING  THIS STILL NEEDS TO BE WORKED ON!!!!!!!!@#!@#!#
   	if @chore.save
       if (params[:chores_help] != nil)
+        debugger
   		  helper_hash = {}
         params[:chores_help].each do |user, userid|
           helper_hash[:chore_id] = @chore.id

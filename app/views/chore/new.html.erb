@@ -25,10 +25,17 @@
             <%= f.select :recurrence, options_for_select([["Weekly",1],["Monthly",2],["Bimonthly",3],["Only Once",4]]) %>
           </div>
             <% @users.each do |user| %>
-              <div class="field"> 
-               <%= check_box_tag :chores_help, user.id, params[:chores_help], :name=>"chores_help[#{user.name}]"%>
-               <%= label_tag :chores_help, "Assign to #{user.name}?", :class => "checkbox inline" %>
-              </div>
+              <% if @checkedArray.include? user.id.to_i %>
+                <div class="field"> 
+                <%= check_box_tag "user_#{user.id}", user.id, params[:chores_help], :name=>"chores_help[#{user.name}]", :checked=> false %>
+                <%= label_tag "user_#{user.id}", "Assign to #{user.name}?", :class => "checkbox inline" %>
+                </div>
+              <% else %>
+                <div class="field"> 
+                <%= check_box_tag "user_#{user.id}", user.id, params[:chores_help], :name=>"chores_help[#{user.name}]", :checked=> false %>
+                <%= label_tag "user_#{user.id}", "Assign to #{user.name}?", :class => "checkbox inline" %>
+                </div>
+              <% end %>
             <% end %>
 
         <div class="field">

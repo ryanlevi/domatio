@@ -83,6 +83,7 @@ class ChoreController < ApplicationController
   		if current_group
   			@chore=Chore.new
         @chores_help=ChoresHelp.new
+        @chore.recurrence=1
         @users=[]
         User.where("groupid='#{current_user.groupid}'").each do |user|
           if user.name
@@ -143,29 +144,32 @@ class ChoreController < ApplicationController
   end
 
   def update  #CODER NOTE: validations not working, stems from time not showing up
-    debugger
+    #debugger
     @chore=Chore.find(params[:id].to_i)
     tempTime=@chore.time
-    @updatedChore=Chore.new(params[:chore])
-    @updatedChore.groupid=current_group.groupid
+    @chore.name=params[:chore][:name]
+    @chore.recurrence=params[:chore][:recurrence]
+    ChoresHelp.where("chore_id = '#{@chore.id}'").each do |choresHelper|
+      choresHelper.destroy
+    end      
+
+
     if params[:chore][:time]==""
-      @updatedChore.time=tempTime
+      @chore.time=tempTime
+    else
+      @chore.time=params[:chore][:time]
     end
-    if @updatedChore.save
-      ChoresHelp.where("chore_id = '#{@chore.id}'").each do |choresHelper|
-        choresHelper.destroy
-      end
-      @chore.destroy
+    if @chore.save
       if (params[:chores_help] != nil)
         helper_hash = {}
         params[:chores_help].each do |user, userid|
-          helper_hash[:chore_id] = @updatedChore.id
+          helper_hash[:chore_id] = @chore.id
           helper_hash[:user_id] = userid.to_i
           @helper = ChoresHelp.create(helper_hash)
           @helper.save
         end
       end
-      redirect_to '/chore/', :notice => "You've updated the chore: #{@updatedChore.name}"
+      redirect_to '/chore/', :notice => "You've updated the chore: #{@chore.name}"
     else
       @users=[]
       User.where("groupid='#{current_user.groupid}'").each do |user|
@@ -173,9 +177,19 @@ class ChoreController < ApplicationController
           @users.push user
         end
       end
-      @chore=@updatedChore
       render "edit"
     end
+  end
+
+
+  def destroy
+    @chore = Chore.find(params[:id])
+    name = @chore.name
+    ChoresHelp.where("chore_id = '#{@chore.id}'").each do |choresHelper|
+      choresHelper.destroy
+    end   
+    @chore.destroy
+    redirect_to '/chore/', :notice => "You have permanently deleted the chore #{name}."
   end
 
 

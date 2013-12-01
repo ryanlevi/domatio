@@ -11,7 +11,8 @@
           <p>
            
             Chore: <%= @chores[x].name %> Time of Chore: <%= @chores[x].time.strftime("%m/%d/%Y") %>
-            <%= link_to 'Edit', "/chore/#{@chores[x].id}/edit" %>
+            <%= link_to 'Edit ', "/chore/#{@chores[x].id}/edit" %>
+            <%= link_to 'x', "/chore/#{@chores[x].id}", :method => :delete, 'data-toggle'=>"tooltip", 'data-placement'=>"right", 'data-original-title'=>"Permanently Remove From History", :id =>"x_#{@chores[x].id}" %>
             <br> 
           </p>
           <% if @choresHelpers[x].length > 0 %>

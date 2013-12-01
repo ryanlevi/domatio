@@ -22,14 +22,17 @@
             <%= f.text_field :name, :placeholder => :name%>
           </div>
           <div class="field"> 
-            <%= f.select :recurrence, options_for_select([["Weekly",1],["Monthly",2],["Bimonthly",3],["Only Once",4]]) %>
+            <%= f.select :recurrence, options_for_select([["Weekly",1],["Monthly",2],["Bimonthly",3],["Only Once",4]], @chore.recurrence) %>
           </div>
             <% @users.each do |user| %>
-              <div class="field"> 
+              <div class="field">
               <% if params[:chores_help] %>
-                <%= check_box_tag "user_#{user.id}", user.id, params[:chores_help][user.name], :name=>"chores_help[#{user.name}]" %>
-              <% else %>
-                <%= check_box_tag "user_#{user.id}", user.id, false, :name=>"chores_help[#{user.name}]" %>
+                <%= check_box_tag "user_#{user.id}", user.id, params[:chores_help][user.name], :name=>"chores_help[#{user.name}]" %> 
+                <% else if ChoresHelp.where(:chore_id => @chore.id, :user_id => user.id) != [] %>
+                  <%= check_box_tag "user_#{user.id}", user.id, user.name, :name=>"chores_help[#{user.name}]" %>
+                <% else %>
+                  <%= check_box_tag "user_#{user.id}", user.id, false, :name=>"chores_help[#{user.name}]" %>
+                <% end %>
               <% end %>
                 <%= label_tag "user_#{user.id}", "Assign to #{user.name}?", :class => "checkbox inline" %>
               </div>
@@ -43,7 +46,7 @@
 
     
           <div class="actions"> 
-            <%= f.submit(:class => 'btn btn-info', :value => 'Create Chore') %>
+            <%= f.submit(:class => 'btn btn-info', :value => 'Update Chore') %>
           </div>
     
     

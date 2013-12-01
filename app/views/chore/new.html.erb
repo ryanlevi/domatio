@@ -22,7 +22,7 @@
             <%= f.text_field :name, :placeholder => 'Chore Name'%>
           </div>
           <div class="field"> 
-            <%= f.select :recurrence, options_for_select([["Weekly",1],["Monthly",2],["Bimonthly",3],["Only Once",4]]) %>
+            <%= f.select :recurrence, options_for_select([["Weekly",1],["Monthly",2],["Bimonthly",3],["Only Once",4]], @chore.recurrence) %>
           </div>
             <% @users.each do |user| %>
               <div class="field"> 

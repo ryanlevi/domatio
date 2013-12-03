@@ -110,7 +110,7 @@
 <script>
   $(document).ready(function() {
     $(function() {
-      $( "#datepicker" ).datepicker( { minDate: <%= Date.today - @bill.created_at.in_time_zone("Pacific Time (US & Canada)").to_date %>, maxDate: "+1M" });
+      $( "#datepicker" ).datepicker( { minDate: <%= Date.today + 1 - @bill.created_at.in_time_zone("Pacific Time (US & Canada)").to_date %>, maxDate: "+1M" });
       $( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
       $( "#datepicker" ).val("<%=@bill.duedate.to_date.to_s%>");
     });

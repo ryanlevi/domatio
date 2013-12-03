@@ -176,7 +176,7 @@ class BillsController < ApplicationController
   def unstash
     @bill = Bill.find(params[:id])
     name = @bill.name
-    if @bill.duedate.to_date <= Date.today # if duedate passed, reload page
+    if @bill.duedate.to_date < Date.today # if duedate passed, reload page
       redirect_to '/bills/past_bills', :notice => "Due date passed. Can't undo #{name}."
     else
       @bill.pending = 1

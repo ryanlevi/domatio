@@ -292,7 +292,7 @@ class BillsController < ApplicationController
       params[:bills_help].each do |user, amount|
         @helper = BillsHelp.where("bill_id = '#{params[:id]}'")
         @helper.each do |bh|
-          if bh.user == user
+          if bh.user == user.to_i
             bh[:amount] = amount.to_d
             bh.save
           end

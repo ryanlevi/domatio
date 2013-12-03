@@ -104,7 +104,7 @@ class BillsController < ApplicationController
           end
         end
         if @your_bill_list.length + @their_bill_list.length + @your_past_bills.length + @their_past_bills.length <= 0
-          redirect_to '/bills/new', :notice => "You don't have any bills yet!"
+          # redirect_to '/bills/new', :notice => "You don't have any bills yet!"
         end
       else
         redirect_to root_url, :notice => "You need to be part of a group to access bills."

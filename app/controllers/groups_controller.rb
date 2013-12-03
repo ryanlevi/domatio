@@ -79,7 +79,7 @@ class GroupsController < ApplicationController
           end
         end
         if @group_members.length <= 1
-          redirect_to '/groups/add_user'
+          # redirect_to '/groups/add_user'
         end
         @upcoming_bills = []
         @upcoming_chores = []

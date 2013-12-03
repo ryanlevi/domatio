@@ -1,7 +1,4 @@
 Domatio::Application.routes.draw do
-
-  
-
   # The Home Page
   get "home/index"
   # root :to => 'home#index'
@@ -15,6 +12,10 @@ Domatio::Application.routes.draw do
   # The About Page
   get "home/about"
   match '/about' => 'home#about'
+
+  # The FAQ Page
+  get "home/faq"
+  match '/faq' => 'home#faq'
 
   # Error pages
   get "errors/e404"

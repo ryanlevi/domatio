@@ -240,18 +240,18 @@ class BillsController < ApplicationController
 
   def edit
     if current_user and current_group
-      if Bill.find(params[:id]).owner.to_i == current_user.id
+      if Bill.find(params[:id]).owner.to_i == current_user.id.to_i
         @bill = Bill.find(params[:id])
         @bills_help = BillsHelp.where("bill_id = '#{params[:id]}'")
         users_in_bill_help = []
         @bills_help.each do |bill|
-          users_in_bill_help.push bill.user
+          users_in_bill_help.push bill.user.to_i
         end
         User.where(:groupid => current_group.groupid).each do |user|
-          unless users_in_bill_help.include? user.id
+          unless users_in_bill_help.include? user.id.to_i
             @new_bill_help = BillsHelp.new
             @new_bill_help.bill_id = params[:id]
-            @new_bill_help.user = user
+            @new_bill_help.user = user.id.to_i
             @new_bill_help.amount = 0
             @new_bill_help.save
           end

@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-
+#create a new instance of a group and sets it to the accessible variable @group
   def new
     if current_user
       @group = Groups.new
@@ -26,6 +26,7 @@ class GroupsController < ApplicationController
     if current_user
       @friend = User.new
       if current_group
+        #create an array to fill with current group members, including pending members
         @group_members = []
         User.all.each do |user|
           if user.groupid == current_group.groupid
@@ -56,6 +57,9 @@ class GroupsController < ApplicationController
         redirect_to "/groups/add_user", :notice => "#{roommate.name} was added to your group!"
       end
     else
+      # gets the new user's email and stores it in the database, without a name and password
+      # if the user does not already exist in our db
+      # the following line, first validates the email address
       if email =~ /\b[A-Z0-9._%a-z\-]+@(?:[A-Z0-9a-z\-]+\.)+[A-Za-z]{2,4}\z/
         new_user=User.new()
         new_user.groupid=current_group.groupid
@@ -73,14 +77,13 @@ class GroupsController < ApplicationController
     if current_user
       if current_group
         @group_members = []
+        # creates an array with all group members
         User.all.each do |user|
           if user.groupid == current_group.groupid
             @group_members.push(user)
           end
         end
-        if @group_members.length <= 1
-          # redirect_to '/groups/add_user'
-        end
+        # create an array for news feed items
         @upcoming_bills = []
         @upcoming_chores = []
         @recent_discussions = []
@@ -89,9 +92,11 @@ class GroupsController < ApplicationController
         @bills = Bill.where(:groupid => current_group.groupid) # creates an array that holds all bills
         @chores = Chore.where(:groupid => current_group.groupid) # creates an array that holds all chores
 
+        # adds bills and chores to news feed if they are due in 3 days
         @bills.each {|bill| @upcoming_bills.push bill if bill.duedate.to_date <= Date.today + 3 }
         @chores.each {|chore| @upcoming_chores.push chore if chore.time.to_date <= Date.today + 3 }
 
+        # adds discussions and discussion posts to news feed if they have been created in the past 3 days
         Discussion.all.each do |discussion|
           if User.find_by_id(discussion.user_id.to_i) and User.find_by_id(discussion.user_id.to_i).groupid == current_group.groupid
             if discussion.created_at >= Date.today - 3
@@ -115,6 +120,7 @@ class GroupsController < ApplicationController
   end
 
   def leave
+    # remove users from group, if user is the last user, delete the group permanently
     if current_user
       if current_group
         tempGroup = current_group
@@ -142,6 +148,7 @@ class GroupsController < ApplicationController
   end
 
   def update
+    # changes group name
     @group = Groups.find(params[:id])
     oldname = @group.groupname
     @group.groupname = params[:groups][:groupname]

@@ -61,17 +61,22 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     name = @user.name
     if @user == current_user
+      # this is if you delete yourself
       notice = "Your account has been deleted! Sorry to see you go!"
+      #first destroys cookies (similar to logging the user out)
       cookies.delete(:auth_token)
     else
+      # this is if you erase a pending user
       notice = "#{@user.email} has been removed!"
     end
+    # deletes any instance of the user in bills, billshelp, choreshelp, discussion, and discussionmessage
     Bill.where(:owner => @user.id).each { |bill| bill.destroy }
     BillsHelp.where(:user => @user.id).each { |bill| bill.destroy }
     ChoresHelp.where(:user_id => @user.id).each { |chore| chore.destroy }
     Discussion.where(:user_id => @user.id).each { |discussion| discussion.destroy }
     DiscussionMessage.where(:user_id => @user.id).each { |discussion| discussion.destroy }
 
+    # destroys the user and supplies a notice, as created above
     @user.destroy
     redirect_to root_url, :notice => notice
   end

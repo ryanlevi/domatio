@@ -14,13 +14,11 @@ class DiscussionMessageController < ApplicationController
   end
 
   def create
-    # Creates a new user with the params from the form
     @discussion_message = DiscussionMessage.new(params[:discussion_message])
-    # The following if statement checks for form validations (like passwords matching and valid email)
+    # The following if statement checks for form validations 
     if @discussion_message.save
-
+      # associate datafields and save 
       @discussion_message.user = current_user
-
       @discussion_id = params[:discussion_id]
       @discussion = Discussion.find(@discussion_id)
       @discussion.increment(:messages_count, by = 1)
@@ -36,13 +34,12 @@ class DiscussionMessageController < ApplicationController
   end
 
   def create_inline
-    # Creates a new user with the params from the form
+    # Creates a new discussion with the params from the inline form 
     @discussion_message = DiscussionMessage.new(params[:discussion_message])
     @discussion_id = params[:discussion_id]
     @discussion = Discussion.find(@discussion_id)
     # The following if statement checks for form validations (like passwords matching and valid email)
     if @discussion_message.save
-
       @discussion_message.user = current_user
       @discussion.increment(:messages_count, by = 1)
       @discussion_message.discussion = @discussion
@@ -56,6 +53,7 @@ class DiscussionMessageController < ApplicationController
   end
 
   def destroy
+    # simply distroy the reply 
     @discussion_message = DiscussionMessage.find(params[:id])
     @discussion = @discussion_message.discussion
     @discussion.messages_count = @discussion.messages_count - 1
@@ -69,15 +67,5 @@ class DiscussionMessageController < ApplicationController
     end
 
   end
-
-# commented for security reasons
-# don't need this yet --> dont know how to protect yet
-#  def list
-#    if current_user
-#      @discussion_message = DiscussionMessage.all
-#    else
-#      redirect_to root_url, :notice => "You need to be logged in to do this."
-#    end
-#  end
 
 end

@@ -8,9 +8,8 @@ class DiscussionController < ApplicationController
   end
 
   def create
-    # Creates a new user with the params from the form
     @discussion = Discussion.new(params[:discussion])
-    # The following if statement checks for form validations (like passwords matching and valid email)
+    # The following if statement checks for form validations 
     if @discussion.save
       @discussion.user = current_user
       @discussion.save!
@@ -24,6 +23,7 @@ class DiscussionController < ApplicationController
   def list
     if current_user
       if current_group
+        # find all discussion associated to the user
         @discussion = Discussion.joins(:user).where(:users => {:groupid => current_user.groupid})
       else
         redirect_to root_url, :notice => "You need to be part of a group to access discussions."
@@ -49,6 +49,7 @@ class DiscussionController < ApplicationController
   def destroy
     @discussion = Discussion.find(params[:id])
     if current_user.id == @discussion.user_id
+      # destroy discussion as well as all associated replies
       @discussion.destroy
       DiscussionMessage.where("discussion_id = '#{params[:id]}'").destroy_all
       redirect_to '/discussion', :notice => "Discussion succesfully deleted."

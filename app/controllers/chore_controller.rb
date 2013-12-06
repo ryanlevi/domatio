@@ -65,11 +65,6 @@ class ChoreController < ApplicationController
           end
           @choresHelpers.push specificHelper
         end
-
-        #end
-
-
-        #end
       else
         redirect_to root_url, :notice => "You need to be part of a group to do this."
       end
@@ -101,7 +96,6 @@ class ChoreController < ApplicationController
   def create
   	@chore=Chore.new(params[:chore])
     @chore.groupid=current_group.groupid
-    #@chore.time=Time.now  # THIS IS TEMPORARY FOR TESTING  THIS STILL NEEDS TO BE WORKED ON!!!!!!!!@#!@#!#
   	if @chore.save
       if (params[:chores_help] != nil)
   		  helper_hash = {}
@@ -124,14 +118,9 @@ class ChoreController < ApplicationController
   	end
   end
 
-#  def prepareEdit
- #   @current_chore=Chore.find(params[:id])
-  #  redirect_to '/chore/edit'
-  #end
-
   def edit
     @current_chore=Chore.find(params[:id])
-    if @current_chore != nil
+    if @current_chore != nil # you can edit a chore if it exists
       @chore=@current_chore
       @chores_help=ChoresHelp.new
       @users=[]
@@ -143,18 +132,16 @@ class ChoreController < ApplicationController
     end
   end
 
-  def update  #CODER NOTE: validations not working, stems from time not showing up
-    #debugger
+  def update
     @chore=Chore.find(params[:id].to_i)
     tempTime=@chore.time
     @chore.name=params[:chore][:name]
     @chore.recurrence=params[:chore][:recurrence]
+    # we destroy all the associated ChoreHelp
     ChoresHelp.where("chore_id = '#{@chore.id}'").each do |choresHelper|
       choresHelper.destroy
-    end      
-
-
-    if params[:chore][:time]==""
+    end
+    if params[:chore][:time]=="" # if the time was not altered by the user.
       @chore.time=tempTime
     else
       @chore.time=params[:chore][:time]
@@ -162,6 +149,7 @@ class ChoreController < ApplicationController
     if @chore.save
       if (params[:chores_help] != nil)
         helper_hash = {}
+        # we create the new associated ChoreHelps
         params[:chores_help].each do |user, userid|
           helper_hash[:chore_id] = @chore.id
           helper_hash[:user_id] = userid.to_i
@@ -181,7 +169,6 @@ class ChoreController < ApplicationController
     end
   end
 
-
   def destroy
     @chore = Chore.find(params[:id])
     name = @chore.name
@@ -191,7 +178,5 @@ class ChoreController < ApplicationController
     @chore.destroy
     redirect_to '/chore/', :notice => "You have permanently deleted the chore #{name}."
   end
-
-
-
+  
 end

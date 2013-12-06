@@ -74,6 +74,7 @@ class BillsController < ApplicationController
             end
           end
         end
+        # creates hashes to store bills, user and amounts they each owe -- This is for users that are NOT the user logged in
         @their_bill_list.each do |bill|
           instance_variable_set "@bill_#{bill.id}", Hash.new
           BillsHelp.where("bill_id = '#{bill.id}'").each do |bill_help|
@@ -81,6 +82,7 @@ class BillsController < ApplicationController
             @their_bill_list_of_hashes[bill.id] = instance_variable_get("@bill_#{bill.id}")
           end
         end
+        # creates hashes to store bills, user and amounts they each owe -- This is for users that ARE the user logged in
         @your_bill_list.each do |bill|
           @your_paid_bill_list[bill.id] = []
           instance_variable_set "@bill_#{bill.id}", Hash.new
@@ -92,6 +94,7 @@ class BillsController < ApplicationController
             end
           end
         end
+        # this creates lists that store the past bills. One list for bills you own, one for bills you don't own.
         @your_past_bills = []
         @their_past_bills = []
         Bill.where("groupid = '#{current_group.groupid}'").each do |bill|
@@ -119,6 +122,7 @@ class BillsController < ApplicationController
     @their_past_bills = []
     @their_past_bill_list_of_hashes = {}
     @your_past_bill_list_of_hashes = {}
+    # Creating 2 arrays -- one that hold past bills that the current user owns, one that holds past bills that they don't own
     Bill.where("groupid = '#{current_group.groupid}'").each do |bill|
       if bill.pending == 0
         if bill.owner.to_i == current_user.id.to_i
@@ -128,6 +132,7 @@ class BillsController < ApplicationController
         end
       end
     end
+    # Creating hashes from those arrays that store the user id's and their respective amounts
     @their_past_bills.each do |bill|
       instance_variable_set "@bill_#{bill.id}", Hash.new
       BillsHelp.where("bill_id = '#{bill.id}'").each do |bill_help|
@@ -241,12 +246,14 @@ class BillsController < ApplicationController
   def edit
     if current_user and current_group
       if Bill.find(params[:id]).owner.to_i == current_user.id.to_i
+        # if you own the bill, you can edit it.
         @bill = Bill.find(params[:id])
         @bills_help = BillsHelp.where("bill_id = '#{params[:id]}'")
         users_in_bill_help = []
         @bills_help.each do |bill|
           users_in_bill_help.push bill.user.to_i
         end
+        # this edits BillsHelp with new values for individual users
         User.where(:groupid => current_group.groupid).each do |user|
           unless users_in_bill_help.include? user.id.to_i
             @new_bill_help = BillsHelp.new

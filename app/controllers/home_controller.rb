@@ -6,6 +6,8 @@ class HomeController < ApplicationController
     end
   end
 
+  # The following methods are empty because they associated pages are virtually static.
+
   def about
   end
 

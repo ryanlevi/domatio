@@ -14,5 +14,6 @@ class ApplicationController < ActionController::Base
       @current_group ||= Groups.find_by_groupid!(current_user.groupid) if current_user.groupid
     end
 
+  # the following line makes the above methods available to every controller that inherits from this class
   helper_method :current_user, :current_group
 end

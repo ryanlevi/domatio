@@ -5,6 +5,7 @@ class PasswordResetsController < ApplicationController
   def create
     user = User.find_by_email(params[:email].downcase)
     if user
+      # Sends emails to users when they reset their password
       user.send_password_reset
       redirect_to root_url, :notice => "Email sent with password reset instructions."
     else
@@ -13,6 +14,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def edit
+    # finds the user by verifying the reset token from the email
     @user = User.find_by_password_reset_token!(params[:id])
   end
 
